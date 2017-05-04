@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="RegimenPrestacional" table="REGIMEN_PRESTACIONAL">
+    <field name="rgprCodigo" type="integer" column="RGPR_CODIGO" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Llave primaria de la fuente de datos</option>
+      </options>
+    </field>
+    <field name="rgprDescripcion" type="string" column="RGPR_DESCRIPCION" length="100" nullable="false">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Descripción del régimen prestacional</option>
+      </options>
+    </field>
+    <field name="rgprDiasVacaciones" type="integer" column="RGPR_DIAS_VACACIONES" nullable="true">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Número de días de vacaciones según el régimen</option>
+      </options>
+    </field>
+    <field name="rgprFechaExpiracion" type="date" column="RGPR_FECHA_EXPIRACION" nullable="true">
+      <options>
+        <option name="comment">Fecha de expiración de la vigencia del régimen prestacional</option>
+      </options>
+    </field>
+    <field name="rgprFechaRegimen" type="date" column="RGPR_FECHA_REGIMEN" nullable="true">
+      <options>
+        <option name="comment">Fecha a partir de la cual rige el régimen</option>
+      </options>
+    </field>
+    <field name="rgprFechaVigencia" type="date" column="RGPR_FECHA_VIGENCIA" nullable="true">
+      <options>
+        <option name="comment">Fecha de inicio de vigencia del régimen prestacional</option>
+      </options>
+    </field>
+    <field name="rgprId" type="integer" column="RGPR_ID" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Surrogate key para la jerarquía</option>
+      </options>
+    </field>
+    <field name="rgprNombreTipoRegimen" type="string" column="RGPR_NOMBRE_TIPO_REGIMEN" length="30" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Nombre del tipo de régimen</option>
+      </options>
+    </field>
+    <field name="rgprNumeroRegimen" type="string" column="RGPR_NUMERO_REGIMEN" length="30" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Número del régimen prestacional</option>
+      </options>
+    </field>
+    <field name="rgprPk" type="integer" column="RGPR_PK" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Llave primaria de la dimensión</option>
+      </options>
+    </field>
+    <field name="rgprTipoRegimen" type="string" column="RGPR_TIPO_REGIMEN" length="4" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Codigo del tipo de régimen</option>
+      </options>
+    </field>
+  </entity>
+</doctrine-mapping>

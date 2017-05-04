@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="ClaseNovedad" table="CLASE_NOVEDAD">
+    <field name="clnvAbreviatura" type="string" column="CLNV_ABREVIATURA" length="30" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Abreviatura de la clase de la novedad</option>
+      </options>
+    </field>
+    <field name="clnvCodigo" type="integer" column="CLNV_CODIGO" nullable="true">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Llave primaria de la fuente de datos</option>
+      </options>
+    </field>
+    <field name="clnvCodigoNomina" type="integer" column="CLNV_CODIGO_NOMINA" nullable="true">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Indica el codigo de nomina en la clase de novedad</option>
+      </options>
+    </field>
+    <field name="clnvDescripcion" type="string" column="CLNV_DESCRIPCION" length="110" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Descripcion de la clase de la novedad</option>
+      </options>
+    </field>
+    <field name="clnvFactorPrestacional" type="string" column="CLNV_FACTOR_PRESTACIONAL" length="5" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Determina el factor prestacional de la clase de la novedad</option>
+      </options>
+    </field>
+    <field name="clnvId" type="integer" column="CLNV_ID" nullable="true">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Surrogate key para la jerarquia</option>
+      </options>
+    </field>
+    <field name="clnvPrioridad" type="integer" column="CLNV_PRIORIDAD" nullable="true">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Determina la prioridad de la clase de la novedad</option>
+      </options>
+    </field>
+    <field name="clnvPuntos" type="integer" column="CLNV_PUNTOS" nullable="true">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Indica los puntos de la clase de la novedad</option>
+      </options>
+    </field>
+    <field name="clnvTipoPrestacion" type="string" column="CLNV_TIPO_PRESTACION" length="5" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Determina el tipo de prestacion en el tipo de la novedad</option>
+      </options>
+    </field>
+    <field name="clnvTpprDescripcion" type="string" column="CLNV_TPPR_DESCRIPCION" length="250" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Describe el tipo de prestacion en el tipo de la novedad</option>
+      </options>
+    </field>
+    <field name="pkClnv" type="integer" column="PK_CLNV" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Llave primaria para la Dimensión</option>
+      </options>
+    </field>
+    <field name="tpnvAbreviatura" type="string" column="TPNV_ABREVIATURA" length="30" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Abreviatura del tipo de la novedad</option>
+      </options>
+    </field>
+    <field name="tpnvCodigo" type="integer" column="TPNV_CODIGO" nullable="true">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Llave primaria de la fuente de datos</option>
+      </options>
+    </field>
+    <field name="tpnvDescripcion" type="string" column="TPNV_DESCRIPCION" length="110" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Descripcion del tipo de la novedad</option>
+      </options>
+    </field>
+    <field name="tpnvId" type="integer" column="TPNV_ID" nullable="true">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Surrogate key para la jerarquia</option>
+      </options>
+    </field>
+  </entity>
+</doctrine-mapping>

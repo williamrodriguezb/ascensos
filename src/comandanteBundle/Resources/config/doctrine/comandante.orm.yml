@@ -1,0 +1,11 @@
+comandanteBundle\Entity\comandante:
+    type: entity
+    table: null
+    repositoryClass: comandanteBundle\Repository\comandanteRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    lifecycleCallbacks: {  }

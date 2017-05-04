@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="CausaRetiro" table="CAUSA_RETIRO">
+    <field name="crstPk" type="integer" column="CRST_PK" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Llave primaria de la Dimensión</option>
+      </options>
+    </field>
+    <field name="csrtCodigo" type="integer" column="CSRT_CODIGO" nullable="true">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Llave primaria de la fuente de datos</option>
+      </options>
+    </field>
+    <field name="csrtDescripcion" type="string" column="CSRT_DESCRIPCION" length="150" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Descripción de la causa_retiro</option>
+      </options>
+    </field>
+    <field name="csrtFrrtAbreviatura" type="string" column="CSRT_FRRT_ABREVIATURA" length="100" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Descripcion Abreviada del Tipo Retiro</option>
+      </options>
+    </field>
+    <field name="csrtFrrtCodigo" type="string" column="CSRT_FRRT_CODIGO" length="7" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Identifica el Tipo de Retiro</option>
+      </options>
+    </field>
+    <field name="csrtFrrtDescripcion" type="string" column="CSRT_FRRT_DESCRIPCION" length="100" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Descripcion del Tipo Retiro</option>
+      </options>
+    </field>
+    <field name="csrtFuerza" type="integer" column="CSRT_FUERZA" nullable="true">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Fuerza en el retiro</option>
+      </options>
+    </field>
+    <field name="csrtId" type="integer" column="CSRT_ID" nullable="true">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Surrogate key para la jerarquia</option>
+      </options>
+    </field>
+    <field name="csrtTpcsAbreviatura" type="string" column="CSRT_TPCS_ABREVIATURA" length="100" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Describe Abreviadamente el Tipo causal del retiro</option>
+      </options>
+    </field>
+    <field name="csrtTpcsCodigo" type="string" column="CSRT_TPCS_CODIGO" length="7" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Indentifica el Tipo causal del retiro</option>
+      </options>
+    </field>
+    <field name="csrtTpcsDescripcion" type="string" column="CSRT_TPCS_DESCRIPCION" length="100" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Describe el Tipo causal del retiro</option>
+      </options>
+    </field>
+    <field name="csrtVigente" type="string" column="CSRT_VIGENTE" length="7" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Vigencia de la Causal de Retiro</option>
+      </options>
+    </field>
+  </entity>
+</doctrine-mapping>

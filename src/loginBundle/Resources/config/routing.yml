@@ -1,0 +1,19 @@
+login:
+    path:     /
+    defaults: { _controller: loginBundle:Default:login }
+    
+login_ldap:
+    path:     /ldap
+    methods:  ['POST']
+logout:
+    path:     /logout
+perfil:
+    path:     /perfil
+    defaults: {_controller: loginBundle:Default:perfil}
+
+prueba:
+    path:     /prueba
+    defaults: {_controller: loginBundle:Default:prueba}
+
+    
+

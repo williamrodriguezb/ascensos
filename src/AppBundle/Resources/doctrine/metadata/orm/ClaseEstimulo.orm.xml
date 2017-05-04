@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="ClaseEstimulo" table="CLASE_ESTIMULO">
+    <field name="agesCodigo" type="string" column="AGES_CODIGO" length="7" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Llave Primaria del agrupamiento</option>
+      </options>
+    </field>
+    <field name="agesDescripcion" type="string" column="AGES_DESCRIPCION" length="240" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Descripcion del Agrupamiento</option>
+      </options>
+    </field>
+    <field name="agesId" type="integer" column="AGES_ID" nullable="true">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Surrogate key para la jerarquia</option>
+      </options>
+    </field>
+    <field name="clesCodigo" type="integer" column="CLES_CODIGO" nullable="true">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Llave Primaria de Clase Estimulo</option>
+      </options>
+    </field>
+    <field name="clesDescripcion" type="string" column="CLES_DESCRIPCION" length="150" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Descripcion de Clase Estimulo</option>
+      </options>
+    </field>
+    <field name="clesFactorSalarial" type="string" column="CLES_FACTOR_SALARIAL" length="4" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Indica si posee  factor salarial</option>
+      </options>
+    </field>
+    <field name="clesFuerza" type="integer" column="CLES_FUERZA" nullable="true">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Llave Primaria de Clase Estimulo</option>
+      </options>
+    </field>
+    <field name="clesId" type="integer" column="CLES_ID" nullable="true">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Surrogate key para la jerarquia</option>
+      </options>
+    </field>
+    <field name="clesPuntaje" type="integer" column="CLES_PUNTAJE" nullable="true">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">indica que puntaje posee</option>
+      </options>
+    </field>
+    <field name="clesVigente" type="string" column="CLES_VIGENTE" length="4" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Indica si esta Vigente</option>
+      </options>
+    </field>
+    <field name="pkCles" type="integer" column="PK_CLES" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Llave primaria para la Dimensión</option>
+      </options>
+    </field>
+    <field name="tpesCodigo" type="string" column="TPES_CODIGO" length="7" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Llave Primaria de Tipo_Estimulo</option>
+      </options>
+    </field>
+    <field name="tpesDescripcion" type="string" column="TPES_DESCRIPCION" length="240" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Descripcion de Tipo_Estimulo</option>
+      </options>
+    </field>
+    <field name="tpesId" type="integer" column="TPES_ID" nullable="true">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Surrogate key para la jerarquia</option>
+      </options>
+    </field>
+  </entity>
+</doctrine-mapping>

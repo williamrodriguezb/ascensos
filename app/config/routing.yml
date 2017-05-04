@@ -1,0 +1,32 @@
+ldap:
+    resource: "@loginBundle/Resources/config/routing.yml"
+    prefix:   /login
+
+admin:
+    resource: "@adminBundle/Resources/config/routing.yml"
+    prefix:   /admin
+
+
+matrices:
+    resource: "@matricesBundle/Resources/config/routing.yml"
+    prefix:   /matrices
+
+comandante:
+    resource: "@comandanteBundle/Resources/config/routing.yml"
+    prefix:   /comandante
+
+calificacion:
+    resource: "@calificacionBundle/Resources/config/routing.yml"
+    prefix:   /calificacion
+
+jpm:
+    resource: "@jpmBundle/Resources/config/routing.yml"
+    prefix:   /jpm
+
+disan:
+    resource: "@disanBundle/Resources/config/routing.yml"
+    prefix:   /disan
+
+app:
+    resource: "@AppBundle/Controller/"
+    type:     annotation

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="MvHistTrasladosEmplCargo" table="MV_HIST_TRASLADOS_EMPL_CARGO">
+    <field name="cargFuerza" type="integer" column="CARG_FUERZA" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="cargoActual" type="integer" column="CARGO_ACTUAL" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="cargoAnterior" type="integer" column="CARGO_ANTERIOR" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="emplConsecutivo" type="integer" column="EMPL_CONSECUTIVO" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="emplUndeConsecutivo" type="integer" column="EMPL_UNDE_CONSECUTIVO" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="emplUndeFuerza" type="integer" column="EMPL_UNDE_FUERZA" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="idFechfiscUnidTrasl" type="date" column="ID_FECHFISC_UNID_TRASL" nullable="false"/>
+    <field name="idUnidadTraslado" type="integer" column="ID_UNIDAD_TRASLADO" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+  </entity>
+</doctrine-mapping>

@@ -1,0 +1,11 @@
+jpmBundle\Entity\jpm:
+    type: entity
+    table: null
+    repositoryClass: jpmBundle\Repository\jpmRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    lifecycleCallbacks: {  }

@@ -1,0 +1,32 @@
+<div class="container">
+	<div class="row">
+		<table class="table table-responsive table-md">
+	<tr>
+		<thead class="table-inverse ">
+			<th>N</th>
+			<th>DESCRIPCION</th>
+			<th>NUMERO DE DISPOSICION</th>
+			<th>FECHA DISPO</th>
+			<th>F_FISC_ASCENSO</th>
+			<th>TIPO ASCENSO</th>
+			<th>UBICACION_ESCALAFON</th>
+		</thead>
+	</tr>
+	{% set var = 1 %}
+	{% for h in historial_ascensos %}
+		<tr>
+			<td>{{var}}</td>
+			<td>{{h.DESCRIPCION}}</td>
+			<td>{{h.NUMERO_DISPOSICION}}</td>
+			<td>{{h.FECHA_DISPOSICION}}</td>
+			<td>{{h.ID_FECHFISC_ASCENSO}}</td>
+			<td>{{h.RV_MEANING}}</td>
+			<td>{{h.UBICACION_ESCALAFON}}</td>
+		</tr>
+		{% set var = var + 1 %}
+	{% endfor %}
+	
+</table>
+		
+	</div>
+</div>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="CategoriaEstimuloPostumo" table="CATEGORIA_ESTIMULO_POSTUMO">
+    <field name="ctespoCodigo" type="integer" column="CTESPO_CODIGO" nullable="true">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Llave primaria de la fuente de datos</option>
+      </options>
+    </field>
+    <field name="ctespoDescripcion" type="string" column="CTESPO_DESCRIPCION" length="110" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Descripcion de la Categoria_estimulo</option>
+      </options>
+    </field>
+    <field name="ctespoFuerza" type="integer" column="CTESPO_FUERZA" nullable="true">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Llave primaria de la fuente de datos</option>
+      </options>
+    </field>
+    <field name="ctespoId" type="integer" column="CTESPO_ID" nullable="true">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Surrogate key para la jerarquia</option>
+      </options>
+    </field>
+    <field name="ctespoPostumo" type="string" column="CTESPO_POSTUMO" length="7" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Llave primaria del Postumo del empleado en la condecoracion</option>
+      </options>
+    </field>
+    <field name="pkCtespo" type="integer" column="PK_CTESPO" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Llave primaria de la Dimensión</option>
+      </options>
+    </field>
+  </entity>
+</doctrine-mapping>

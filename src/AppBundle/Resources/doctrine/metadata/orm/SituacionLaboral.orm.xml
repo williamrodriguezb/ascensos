@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="SituacionLaboral" table="SITUACION_LABORAL">
+    <field name="stlbCodigo" type="integer" column="STLB_CODIGO" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Llave primaria de la fuente de datos</option>
+      </options>
+    </field>
+    <field name="stlbDescripcion" type="string" column="STLB_DESCRIPCION" length="80" nullable="false">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Descripción de la situación laboral</option>
+      </options>
+    </field>
+    <field name="stlbFechaExpiracion" type="date" column="STLB_FECHA_EXPIRACION" nullable="true">
+      <options>
+        <option name="comment">Fecha de expiración de la vigencia de la situación laboral</option>
+      </options>
+    </field>
+    <field name="stlbFechaVigencia" type="date" column="STLB_FECHA_VIGENCIA" nullable="true">
+      <options>
+        <option name="comment">Fecha de inicio de vigencia de la situación laboral</option>
+      </options>
+    </field>
+    <field name="stlbId" type="integer" column="STLB_ID" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Surrogate key para la jerarquia</option>
+      </options>
+    </field>
+    <field name="stlbPk" type="integer" column="STLB_PK" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Llave primaria de la dimensión</option>
+      </options>
+    </field>
+  </entity>
+</doctrine-mapping>

@@ -1,0 +1,102 @@
+{% extends 'default/base.html.twig' %}
+{% block main %}
+	<main class="container">
+	<div class="container">
+			<div class="row text-center">
+				<div class="col hp">
+					<img class='foto_persona' src="{{persona.RUTA}}" alt="Foto de {{persona.APELLIDOS}} {{persona.NOMBRES}}">
+				</div>
+			</div>
+
+			<div class="row ">
+				<div class="col-md-12 header header-persona">
+					<ul>
+						<li>{{persona.GRADO}}.{{persona.APELLIDOS}} {{persona.NOMBRES}}</li>
+						<li>{{persona.IDENTIFICACION}}</li>
+					</ul>
+				</div>
+			<div class="row">
+			<div class="col-lg-4">
+				<table class="table table-responsive" style="font-size: 14px;">
+					<tr>	
+    					<th>ARMA CUERPO:</th>
+    					<td>{{persona.ARMA_CUERPO}}</td>
+					</tr>
+					<tr>
+    					<th>ESPECIALIDAD:</th>
+    					<td>{{persona.ESPECIALIDAD}}</td>
+    				</tr>
+    				<tr>
+    					<th>ULTIMO ASCENSO:</th>
+    					<td>{{persona.UASCENSO}}</td>
+    				</tr>
+				</table>
+			</div>
+			<div class="col-lg-4">
+				<table class="table table-responsive" style="font-size: 14px;" >
+					<tr>
+    					<th>GUARNICION:</th>
+    					<td>{{persona.GUARNICION}}</td>
+    				</tr>
+    				<tr>
+    					<th>UNIDAD</th>
+    					<td>{{persona.UNIDAD}}</td>
+    				</tr>
+					
+				</table>
+			</div>
+			<div class="col-lg-4">
+				<table class="table table-responsive" style="font-size: 14px;" >
+    				<tr>
+    					<th>SIGLA:</th>
+    					<td>{{persona.SIGLA}}</td>
+					</tr>	
+    					<th>ARMA CUERPO:</th>
+    					<td>{{persona.ARMA_CUERPO}}</td>
+					</tr>
+				</table>
+			</div>
+      </div>	
+	<form action="{{url('insertar_concepto')}}" method="POST">
+		<fieldset>
+			<input type="hidden" name="id" value="{{id}}">
+			<input type="hidden" name="f_prox_a" value="{{persona.FECHA_PROX_ASCENSO}}">
+			
+			<table class="table table-responsive" >
+				<thead>
+					<tr>
+						<th>CONDICIONES PROFESIONALES</th>
+						<th>N/A</th>
+						<th>DEFICIENE</th>
+						<th>REGULAR</th>
+						<th>BUENO</th>
+						<th>MUY BUENO</th>
+						<th>EXCELENTE</th>
+					</tr>
+				</thead>
+				{% for i in indicadores %}
+					<tr>
+						<td>{{i.descripcion}}</td>
+					
+			   		<td class="text-center"><input type="radio"  name="{{i.id_indicador}}" value="0" required ="true"></td>
+					<td class="text-center"><input type="radio"  name="{{i.id_indicador}}" value="1" required ></td>
+					<td class="text-center"><input type="radio"  name="{{i.id_indicador}}" value="2" required ></td>
+					<td class="text-center"><input type="radio"  name="{{i.id_indicador}}" value="3" required ></td>
+					<td class="text-center"><input type="radio"  name="{{i.id_indicador}}" value="4" required ></td>
+					<td class="text-center"><input type="radio"  name="{{i.id_indicador}}" value="5" required ></td> 
+					</tr>
+				{% endfor %} 	
+				<tr>
+					<th>calificacion Final</tH>
+					<td colspan="6">
+					</td>
+				</tr>
+			</table>
+			<fieldset>
+				<label for="observaciones">OBSERVACIONES</label>
+				<textarea name="observaciones" id="observaciones" cols="90" rows="8" class="form-control"></textarea>
+			</fieldset>			
+			<input type="submit" class="btn btn-success">
+		</fieldset>
+	</form>
+{% endblock %}

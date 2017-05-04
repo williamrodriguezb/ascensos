@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+  {% block head %}
+			  <!-- Required meta tags -->
+	    <meta charset="utf-8">
+	    <title>ascensos</title>
+	    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		{#  Estilo #}
+	    <!-- Bootstrap CSS -->
+	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+		<link rel="stylesheet" href="{{ absolute_url(asset('css/font-awesome.min.css') )}}">
+  	 
+  		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<link rel="stylesheet" href="{{  absolute_url(asset('css/estilo.css')) }}">
+	{% endblock %}
+  </head>
+  <body>
+		{% block nav %}
+			<nav class="navbar fixed-top navbar navbar-toggleable-md navbar-inverse bg-inverse">
+			  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+			    <span class="navbar-toggler-icon"></span>
+			  </button>
+			  <a class="navbar-brand" href="{{url('inicio')}}"> <i id="logo" class="fa fa-paper-plane-o" aria-hidden="true" style="color:white; font-size: 1.5rem"></i>Ascensos en linea</a>
+			  <div class="container">
+			  	 <div class=" collapse navbar-collapse" id="navbarTogglerDemo02">
+			    <ul class="navbar-nav mr-auto mt-2 mt-md-0">
+			    	{% block barra_navegacion%}
+			      <li class="nav-item active">
+			        <a class="nav-link" href="{{url('inicio')}}">Inicio <span class="sr-only">(current)</span></a>
+			      </li>
+			      <li class="nav-item">
+			        <a class="nav-link" href="{{url('calificacion')}}">Calificacion</a>
+			      </li>
+			       <li class="nav-item">
+			        <a class="nav-link" href="{{url('disan_inicio')}}">Disan</a>
+			      </li>
+	       		 <li class="nav-item">
+			        <a class="nav-link" href="{{url('jpm')}}">Disciplinarias</a>
+			      </li>
+			      <li class="nav-item">
+			        <a class="nav-link" href="{{url('comandante')}}">Comandante</a>
+			      </li>
+			      <li class="nav-item">
+			        <a class="nav-link" href="{{url('admin')}}">Administrador</a>
+			      </li>
+			      	{% endblock %}
+			    </ul>
+			    <ul id="nav-notificacion" class="navbar-nav">
+			    	<li class="nav-item">
+			    		<i class="fa fa-bell-o" aria-hidden="true" style="font-size: 20px;color: white;"></i>
+			    			
+		    		</li>
+			    	<li class="nav-item">
+			    		<span class="num_notific text-center">1</span>
+			    	</li>
+					
+
+			    	{% if app.user == null %}
+						<li>
+							<a href="{{url('login')}}" id="btn-login" class="nav-item btn btn-primary">
+								Iniciar Sesion
+							</a>
+						</li>
+
+					{% else %}
+						    	
+			    	 	<li class="dropdown">
+					          <i class="fa fa-user-circle fa-2x" style="color:white" aria-hidden="true"></i>
+					        <a class="dropdown-toggle" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: white">
+					         {{app.user.username}}
+							<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+					          <a class="dropdown-item" href="{{url('perfil')}}"><i class="fa fa-id-badge " aria-hidden="true"></i>Perfil</a>
+					          <a class="dropdown-item" href="{{url('logout')}}"><i class="fa fa-sign-out " aria-hidden="true"></i>Cerrar Sesion</a>
+					        </div>    		
+					        </a>
+				      	</li>
+			    	{% endif %}
+			    </ul>
+			  </div>
+			  </div>
+			</nav>
+	{% endblock %}
+	{% block header %}
+		{# <header id="encabezado">
+				<h1  id="logo">
+					{# <a href="/hovid/web/app_dev.php/inicio/">
+						JUCLA
+					</a> #}
+				{# </h1>
+				<div id='min-panel-user'>
+					<ul>
+						<li>Perfil: 
+							<span class="min-panel-user-item">{{ 	perfil|upper }}
+							</span>
+						</li></li>
+					</ul>
+					<ul>
+						<li>Usuario : 
+							<span class="min-panel-user-item">{{ 	usuario|upper }}
+							</span>
+						</li>
+					</ul>
+				</div>
+			</header> #}
+	{% endblock %}
+			
+
+			{% block main %}
+	<main class="container">
+
+
+
+					<section>
+						{% block main_section %}
+								<header>
+									<h2 class="gris main-enc-h2">{% block main_section_h2 %}{% endblock %}</h2>
+								</header>
+								<article>
+									{% block main_section_article %}
+
+									{% endblock %}
+								</article>
+						{% endblock %}
+					</section>
+			{% endblock %}
+		</main>
+		{% block footer %}
+			<footer class="footer">
+				<div class="container">
+					<p class="text-muted text-center" style="padding: 0 ;margin: 0">ARMADA NACIONAL-2017<i class="fa fa-copyright" aria-hidden="true"></i></p>
+				</div>
+			</footer>
+		{% endblock %}	
+ 	{% block scripts %}
+		<!-- jQuery first, then Tether, then Bootstrap JS. -->
+	    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous">
+	    </script>
+	    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous">
+	    </script>
+	    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous">
+	    </script>
+    {% endblock %}
+  </body>
+</html>

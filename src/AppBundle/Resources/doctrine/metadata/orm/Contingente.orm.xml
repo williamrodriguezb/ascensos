@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Contingente" table="CONTINGENTE">
+    <field name="contigenteId" type="integer" column="CONTIGENTE_ID" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Surrogate key de la jerarquia</option>
+      </options>
+    </field>
+    <field name="contingenteCodigo" type="integer" column="CONTINGENTE_CODIGO" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Llave primaria de la fuente de datos</option>
+      </options>
+    </field>
+    <field name="contingenteDescripcion" type="string" column="CONTINGENTE_DESCRIPCION" length="20" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Descripción del contingente</option>
+      </options>
+    </field>
+    <field name="contingentePk" type="integer" column="CONTINGENTE_PK" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Surrogate key de la dimensión</option>
+      </options>
+    </field>
+  </entity>
+</doctrine-mapping>

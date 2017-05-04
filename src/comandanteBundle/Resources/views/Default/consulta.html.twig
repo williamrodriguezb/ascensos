@@ -1,0 +1,77 @@
+{% extends 'default/base.html.twig' %}
+{% block main %}
+	<main class="container-fluid">
+
+{% if persona == null %}
+
+	<div class="row">
+		<div class="col-md-3 mx-auto">
+			<h2 class="gris main-enc-h2">
+			Consulta Concepto
+			</h2>	
+			<form  action="{{ url('coman_consulta') }}" method="POST" >
+			
+			<input class="form-control btn-group" name="documento" id='documento'type="text" placeholder="Cedula">
+			<input class="form-control btn-group" name="apellidos" id='apellidos'type="text" placeholder="Apellidos">
+			<input class="form-control btn-group" name="nombres" id='nombres'type="text" placeholder="nombres">	
+		
+			<select class="form-control btn-group" name="categoria" id='categoria'  placeholder='CATEGORIA'>
+				<option value="" selected data-default>Categoria</option>
+				<option value="OFIC">OFICIAL</option>
+				<option value="SUBOFIC">SUBOFICIAL</option>
+			</select>
+			<div class="container">
+				<div class="row">
+					<div class="col-md-6 text-center">
+						<input type="submit" value='CONSULTA' class="btn btn-success ">
+					</div>
+					<div class="col-md-6 text-center">
+						<a class="btn btn-outline-primary" style="" href="{{url('coman_consulta')}}">LIMPIAR</a>
+					</div>
+				</div>
+
+				
+				
+			</div>
+			
+			{% if listado != null %}
+				<table class="table">
+				<tr>
+					<th>Num</th>
+					<th>Grado</th>
+					<th>Apellidos</th>
+					<th>Nombres</th>
+					<th>Identificacion</th>
+					<th>Unidad</th>
+					<th>Sigla</th>
+					<th></th>
+				</tr>
+				{% set var = 1 %}
+				{% for l in listado %}
+				    <tr>
+					<td class="text-center">{{var}}</td>
+					<td class="text-center">{{ l.GRADO_COMPLETO }}</td>
+					<td>{{ l.APELLIDOS }}</td>
+					<td>{{ l.NOMBRES }}</td>
+					<td>{{ l.IDENTIFICACION }}</td>
+					<td>{{ l.UNIDAD }}</td>
+					<td class="text-center">{{ l.SIGLA }}</td>
+						{{render(controller(
+						'comandanteBundle:Default:btn_concepto',
+						{'identificacion':l.IDENTIFICACION}))}}
+				</tr>
+					{% set var = var + 1 %}
+				{% endfor %}
+			</table>
+			{% endif %}
+			{# listado de los que tienen conceptos #}
+		</form>
+		</div>
+	</div>
+
+	
+	
+		
+
+{% endif %}
+{% endblock %} 

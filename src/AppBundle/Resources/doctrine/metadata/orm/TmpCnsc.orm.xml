@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="TmpCnsc" table="TMP_CNSC">
+    <field name="emplConsecutivo" type="integer" column="EMPL_CONSECUTIVO" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="fechaDesde" type="date" column="FECHA_DESDE" nullable="true"/>
+    <field name="fechaHasta" type="date" column="FECHA_HASTA" nullable="true"/>
+    <field name="idAscenso" type="integer" column="ID_ASCENSO" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="idTmpcnsc" type="integer" column="ID_TMPCNSC" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+  </entity>
+</doctrine-mapping>

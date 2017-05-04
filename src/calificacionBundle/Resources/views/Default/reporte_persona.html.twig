@@ -1,0 +1,273 @@
+<section class="card">
+	<header class="card-header">
+		<div class="container">
+			<div class="col-md-4 mx-auto text-center">
+<label class="radio-inline">
+	<input type="radio" name="acto-{{persona.IDENTIFICACION}}" value="Asciende" >Asciende
+</label>
+<label class="radio-inline">
+	<input type="radio" name="acto-{{persona.IDENTIFICACION}}" value="Retardo" >Retardo
+</label>
+<label class="radio-inline">
+	<input type="radio" name="acto-{{persona.IDENTIFICACION}}" value="Retiro" >Retiro
+</label>
+				<canvas id="radio{{num}}" class="table-responsive"></canvas>
+				<script type="text/javascript">
+				</script>
+			</div>
+		</div>
+	</header>
+	<header class="card-header">{{persona.GRADO}}.{{persona.NOMBRES}} {{persona.APELLIDOS}} {{persona.IDENTIFICACION}}</header>
+  {# <img class="card-img-top" src="..." alt="Card image cap"> #}
+  
+  <div class="card-block">
+		<div class="container_fluid">
+			<div class="row">
+				<div class="col-md-4 text-center">
+					<i class="fa fa-address-card-o fa-5x" aria-hidden="true"></i>
+					<div class="table-responsive">
+						<table class="table table-sm table-bordered">
+							<tr>
+								<th class="thead-inverse">Fecha</th>
+								<td>{{persona.F_NACIMIENTO}}</td>
+							</tr>
+							<tr>
+								<th>Lugar</th>
+								<td>xxx</td>
+							</tr>
+							<tr>
+								<th>Edad</th>
+								<td>{{persona.EDAD}}</td>
+							</tr>
+							<tr>
+								<th>T. Servicio</th>
+								<td>{{persona.T_SERVICIO}}</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+				<div class="col-md-8">
+					<div class="container">
+						<div class="row">
+							<div class="col-md-6 table-responsive">
+								<table class="table table-sm">
+									<tr>
+										<th>Especialidad</th>
+										<td>{{persona.ESPECIALIDAD}}</td>
+									</tr>
+									<tr>
+										<th>Unidad Actual</th>
+										<td>{{persona.UNIDAD}}</td>
+									</tr>
+									<tr>
+										<th>Retardos</th>
+										<td></td>
+									</tr>
+									<tr>
+										<th>Reintegros</th>
+										<td></td>
+									</tr>
+								</table>
+								
+							</div>
+							<div class="col-md-6 table-responsive">
+								<table class="table table-sm">
+									<tr>
+										<th>Ultimo Ascenso</th>
+										<td>{{persona.FECHA_PROX_ASCENSO}}</td>
+									</tr>
+									<tr>
+										<th class="thead-inverse">Guarnición</th>
+										<td>{{persona.GUARNICION}}</td>
+									</tr>
+									<tr>
+										<th>Fecha Retiro</th>
+										<td></td>
+									</tr>
+									<tr>
+										<th>Fecha Reinte</th>
+										<td></td>
+									</tr>
+								</table>
+								
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12 table-responsive">
+								<table class="table table-bordered table-sm" style="font-size: .8em">
+									<tr>
+										<thead class="thead-default">
+											<th colspan="4">Evaluaciones</th>
+										
+										</thead>
+									</tr>
+									<tr>
+										<th>Lapso</th>
+										<th>Lista</th>
+										<th>Unidad</th>
+										<th>Cargo</th>
+									</tr>
+										{% for f in folios %}
+											<tr>
+												<td>
+													{{f.LAPSO_INICIAL}}
+													{{f.LAPSO_FINAL}}
+												</td>
+												<td>
+													{{f.LISTA}}
+												</td>
+												<td>
+													{{f.UNIDAD}}
+													
+												</td>
+												<td>{{f.CARGO}}</td>
+											</tr>
+										{% endfor %}
+								</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12 card table-responsive">
+					<table class="table table-bordered table-sm">
+						<thead class="thead-inverse">
+							<tr>
+								<th  colspan="4">REQUISITOS</th>
+							</tr>
+							
+						</thead>
+						
+						<thead class="thead-default">
+							<tr>
+								<th>ITEM</th>
+								<th>CUMPLE</th>
+								<th>OBSERVACIONES</th>
+								<th>SANCIONES</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>LISTA 4</td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>APTITUD PSICOFÍSICA</td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>SUSPENSIONE</td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>PENAL ORDINARIA</td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>JPM:</td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>DISCIPLINARIA</td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>DERECHOS HUMANOS</td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>T. MANDO-EMBARQUE-VUELO:</td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>CURSOS DE LEY:</td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>CONCEPTO COMANDANTE:</td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+</section>
+<script>
+	var ctx = document.getElementById("radio{{num}}").getContext("2d");
+	
+
+	var myChart = new Chart(ctx, {
+	    type: 'radar',
+	    data: {
+	        labels: ["Operativo", "Logistico", "Vuelo", "Embarque", "Administrativo"],
+	        datasets: [{
+	            label: 'Perfil del Tripulante',
+	            data: [8, 10, 3, 5, 2, 3],
+	            backgroundColor: [
+	                'rgba(139, 195, 74,0.2)',
+	                'rgba(54, 162, 235, 0.2)',
+	                'rgba(255, 206, 86, 0.2)',
+	                'rgba(75, 192, 192, 0.2)',
+	                'rgba(153, 102, 255, 0.2)',
+	                'rgba(255, 159, 64, 0.2)'
+	            ],
+	            borderColor: [
+	                'rgb(139, 195, 74)',
+	                'rgba(54, 162, 235, 1)',
+	                'rgba(255, 206, 86, 1)',
+	                'rgba(75, 192, 192, 1)',
+	                'rgba(153, 102, 255, 1)',
+	                'rgba(255, 159, 64, 1)'
+	            ],
+	            borderWidth: 2
+	        }]
+	    },
+	    options: {
+	    	responsive: false,
+    	 	title: {
+            display: true,
+            text: 'Perfil del Tripulante'
+        		},
+
+
+	        scales: {
+	        	scaleLabel : {FontSize:40},
+	        	pointLabels: {
+    			fontSize: 20
+          		},
+
+	            // yAxes: [{
+	            //     ticks: {
+	            //         beginAtZero:false
+	            //     }
+	            // }]
+	        }
+	    }
+	});
+</script>
+
+	
+

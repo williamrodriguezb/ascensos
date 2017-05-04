@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="LogCausaRetiro" table="LOG_CAUSA_RETIRO">
+    <field name="crstPk" type="string" column="CRST_PK" length="4000" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="csrtCodigo" type="string" column="CSRT_CODIGO" length="4000" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="csrtDescripcion" type="string" column="CSRT_DESCRIPCION" length="4000" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="csrtFrrtAbreviatura" type="string" column="CSRT_FRRT_ABREVIATURA" length="4000" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="csrtFrrtCodigo" type="string" column="CSRT_FRRT_CODIGO" length="4000" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="csrtFrrtDescripcion" type="string" column="CSRT_FRRT_DESCRIPCION" length="4000" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="csrtFuerza" type="string" column="CSRT_FUERZA" length="4000" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="csrtId" type="string" column="CSRT_ID" length="4000" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="csrtTpcsAbreviatura" type="string" column="CSRT_TPCS_ABREVIATURA" length="4000" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="csrtTpcsCodigo" type="string" column="CSRT_TPCS_CODIGO" length="4000" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="csrtTpcsDescripcion" type="string" column="CSRT_TPCS_DESCRIPCION" length="4000" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="csrtVigente" type="string" column="CSRT_VIGENTE" length="4000" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="oraErrMesg$" type="string" column="ORA_ERR_MESG$" length="2000" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="oraErrNumber$" type="integer" column="ORA_ERR_NUMBER$" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="oraErrOptyp$" type="string" column="ORA_ERR_OPTYP$" length="2" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="oraErrRowid$" type="string" column="ORA_ERR_ROWID$" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="oraErrTag$" type="string" column="ORA_ERR_TAG$" length="2000" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+  </entity>
+</doctrine-mapping>

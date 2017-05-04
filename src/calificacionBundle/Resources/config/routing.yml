@@ -1,0 +1,27 @@
+calificacion:
+    path:     /
+    defaults: { _controller: calificacionBundle:Default:index }
+cal_listado:
+    path:     /listado/
+    defaults: { _controller: calificacionBundle:Default:listado }
+    methods: ['POST','GET']
+persona:
+    path:     /consulta_persona/
+    defaults: { _controller: calificacionBundle:Default:persona }
+    
+persona_datos:
+    path:     /consulta_persona/
+    defaults: { _controller: calificacionBundle:Default:persona }
+    methods:    [ GET , POST ]
+calif_reporte:
+    path:     /reporte
+    defaults: { _controller: calificacionBundle:Default:reporte }
+calif_estadisticas:
+    path:     /estadisticas
+    defaults: { _controller: calificacionBundle:Default:estadisticas }
+acto_admin:
+    path:     /acto_admin
+    defaults: {  _controller: calificacionBundle:Default:acto_admin}
+# calif_historial_ascensos:
+#     path:     /
+#     defaults: { _controller: calificacionBundle:Default:estadisticas }

@@ -1,0 +1,11 @@
+calificacionBundle\Entity\calificacion:
+    type: entity
+    table: null
+    repositoryClass: calificacionBundle\Repository\calificacionRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    lifecycleCallbacks: {  }

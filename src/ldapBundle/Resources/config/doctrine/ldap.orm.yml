@@ -1,0 +1,11 @@
+ldapBundle\Entity\ldap:
+    type: entity
+    table: null
+    repositoryClass: ldapBundle\Repository\ldapRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    lifecycleCallbacks: {  }

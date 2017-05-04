@@ -1,0 +1,9 @@
+jpm:
+    path:     /
+    defaults: { _controller: jpmBundle:Default:index }
+
+jpm_datos:
+    path:     /
+    defaults: { _controller: jpmBundle:Default:index }
+    methods:  [ GET ]
+

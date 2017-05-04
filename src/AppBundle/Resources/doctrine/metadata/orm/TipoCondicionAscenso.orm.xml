@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="TipoCondicionAscenso" table="TIPO_CONDICION_ASCENSO">
+    <field name="tpcaCodigoCondicionAscenso" type="string" column="TPCA_CODIGO_CONDICION_ASCENSO" length="50" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Identificador de la condición de ascenso, corresponde a la llave de la fuente de datos</option>
+      </options>
+    </field>
+    <field name="tpcaCodigoTipoAscenso" type="string" column="TPCA_CODIGO_TIPO_ASCENSO" length="50" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Identificador del tipo de ascenso, corresponde a la llave de la fuente de datos</option>
+      </options>
+    </field>
+    <field name="tpcaCondicionAscenso" type="string" column="TPCA_CONDICION_ASCENSO" length="100" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Descriptor de la condición de ascenso</option>
+      </options>
+    </field>
+    <field name="tpcaId" type="integer" column="TPCA_ID" nullable="true">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Número que identifica la única combinación del tipo y condición de un ascenso</option>
+      </options>
+    </field>
+    <field name="tpcaPk" type="integer" column="TPCA_PK" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Surrogate key de la dimensión</option>
+      </options>
+    </field>
+    <field name="tpcaTipoAscenso" type="string" column="TPCA_TIPO_ASCENSO" length="100" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Descriptor del tipo de ascenso</option>
+      </options>
+    </field>
+  </entity>
+</doctrine-mapping>

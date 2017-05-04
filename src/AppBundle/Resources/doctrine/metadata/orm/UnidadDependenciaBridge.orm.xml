@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="UnidadDependenciaBridge" table="UNIDAD_DEPENDENCIA_BRIDGE">
+    <indexes>
+      <index name="idx_unidependencia_bridge" columns="UNIDAD_DEPENDENCIA_PADRE_PK,UNIDAD_DEPENDENCIA_HIJA_PK"/>
+      <index name="IDX_F86F8BDECA00D4E5" columns="UNIDAD_DEPENDENCIA_HIJA_PK"/>
+      <index name="IDX_F86F8BDEFF93B231" columns="UNIDAD_DEPENDENCIA_PADRE_PK"/>
+    </indexes>
+    <field name="esNodoHoja" type="string" column="ES_NODO_HOJA" length="2" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="esNodoPadre" type="string" column="ES_NODO_PADRE" length="2" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="nivelesDesdeElPadre" type="integer" column="NIVELES_DESDE_EL_PADRE" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="unidadDependenciaHija" type="string" column="UNIDAD_DEPENDENCIA_HIJA" length="100" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="unidadDependenciaPadre" type="string" column="UNIDAD_DEPENDENCIA_PADRE" length="100" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <many-to-one field="unidadDependenciaHijaPk" target-entity="UnidadDependencia" fetch="LAZY">
+      <join-columns>
+        <join-column name="UNIDAD_DEPENDENCIA_HIJA_PK" referenced-column-name="UNIDAD_DEPENDENCIA_PK"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="unidadDependenciaPadrePk" target-entity="UnidadDependencia" fetch="LAZY">
+      <join-columns>
+        <join-column name="UNIDAD_DEPENDENCIA_PADRE_PK" referenced-column-name="UNIDAD_DEPENDENCIA_PK"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

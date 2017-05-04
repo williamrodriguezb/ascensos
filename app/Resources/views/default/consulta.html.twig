@@ -1,0 +1,202 @@
+{% extends 'default/base.html.twig' %}
+{% block main %}
+
+	<main class="container_fluid">
+		{% if persona == null %}
+		<div class="container">
+			<div class="row text-center">
+				<div class="col-sm-12 py-3">
+					{% block consulta_header %}
+					{% endblock %}
+				</div>
+			</div>
+			<form {% block consulta_action %}{% endblock %}  method="POST" >
+				<div class="row">
+					<div class="col-md-8 mx-auto">
+						<div class="row">
+							<div class="col-md-6">
+								<input class="form-control btn-group" name="documento" id='documento'type="text" placeholder="Cedula">
+								<input class="form-control btn-group" name="apellidos" id='apellidos'type="text" placeholder="Apellidos">
+							</div>
+							<div class="col-md-6">
+								<input class="form-control btn-group" name="nombres" id='nombres'type="text" placeholder="nombres">	
+								<select class="form-control btn-group" name="categoria" id='categoria'  placeholder='CATEGORIA'>
+									<option value="" selected data-default>Categoria</option>
+									<option value="OFIC">OFICIAL</option>
+									<option value="SUBOFIC">SUBOFICIAL</option>
+								</select>
+							</div>
+								
+						</div>
+						<div class="row">
+							<div class="col-md-6 text-center mt-3">
+								<input type="submit" value='CONSULTA' class="btn btn-primary btn-md form-control" >
+							</div>
+							<div class="col-md-6 text-center mt-3" >
+								<a class="btn btn-primary form-control text-center" href="">
+									LIMPIAR
+								</a>
+							</div>
+							
+						</div>
+					</div>
+					
+				</div>
+			</form>
+			</div>
+			{% if listado != null %}
+				<div class="table-responsive">
+					
+					<table class="table">
+
+						<thead class="thead-default">
+							<tr>
+								{% block head_listado %}
+									<th>Num</th>
+									<th>Grado</th>
+									<th>Apellidos</th>
+									<th>Nombres</th>
+									<th>Identificacion</th>
+									<th>Unidad</th>
+									<th>Sigla</th>
+									<th></th>
+								{% endblock %}
+							</tr>
+						</thead>
+						{% set var = 1 %}
+						{% for l in listado %}
+						    <tr>
+							{% block body_listado %}
+								<td class="text-center">{{var}}</td>
+								<td class="text-center">{{ l.GRADO_COMPLETO }}</td>
+								<td>{{ l.APELLIDOS }}</td>
+								<td>{{ l.NOMBRES }}</td>
+								<td>{{ l.IDENTIFICACION }}</td>
+								<td>{{ l.UNIDAD }}</td>
+								<td class="text-center">{{ l.SIGLA }}</td>
+								<td>
+									<a class="btn btn-info" 
+							{% block listado_target %}?id={{l.IDENTIFICACION}}"{% endblock %} >
+										Detalles
+									</a>
+								</td>
+							{% endblock %}
+						</tr>
+							{% set var = var + 1 %}
+						{% endfor %}
+					</table>
+				</div>
+			{% endif %}
+		{% endif %}
+		
+		    
+		
+
+
+		{% block datos %}
+			{% if sanciones != null %}
+				<div class="container">
+					<table class="table table-bordered table-hover table-responsive ">
+						<caption>SANCIONES</caption>
+						<thead>
+						<tr>
+							<th>Fecha Sancion</th>
+							<th>Tipo Novedad</th>
+							<th>Clase Novedad</th>
+							<th>Motivo de Hechos</th>
+							<th>Num Dispo</th>
+							<th>Disposicion</th>
+							<th>Grado en la novedad</th>
+						</tr>
+						</thead>
+						<tbody>
+						{% for sancion in sanciones%}
+							<tr>
+								<td>{{  sancion.FECHA_SANCION  }}</td>
+								<td>{{  sancion.TIPO_NOVEDAD  }}</td>
+								<td>{{  sancion.NUM_EXPED  }}</td>
+								<td>{{  sancion.MOTIVO_HECHOS  }}</td>
+								<td>{{  sancion.NUM_DISPO  }}</td>
+								<td>{{  sancion.DISPOSICION  }}</td>
+								<td>{{  sancion.GRADO_NOVEDAD  }}</td>
+							</tr>
+						{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			{% endif %}
+				{% if suspenciones == null and persona != null %}
+					
+						<p class="text-muted text-center">Suspenciones: 0</p>
+					
+				{% endif %}
+				{% if sanciones == null and persona != null %}
+					
+						<p class="text-muted text-center">Sanciones:0</p>
+					
+				{% endif %}
+				{% if investigaciones == null and persona != null %}
+					
+						<p class="text-muted text-center">Investigaciones:0</p>
+					
+				{% endif %}
+			{% if investigaciones != null %}
+				
+						<h4 class="text-center">INVESTIGACIONES</h4>
+					<table class="table table-bordered table-hover table-responsive">
+						<thead>
+						<tr>
+							<th>Fecha Sancion</th>
+							<th>Tipo Novedad</th>
+							<th>Clase Novedad</th>
+							<th>Motivo de Hechos</th>
+							<th>Num Dispo</th>
+						</tr>
+						</thead>
+						<tbody>
+						{% for investigacion in investigaciones%}
+							<tr>
+								<td>{{investigacion.FECHA_INICIO  }}</td>
+								<td>{{investigacion.FECHA_HECHOS  }}</td>
+								<td>{{investigacion.NUMERO_PROCESO  }}</td>
+								<td>{{investigacion.OBSERVACION  }}</td>
+								<td>{{investigacion.TIPO_INVES }}</td>
+							</tr>
+						{% endfor %}
+						</tbody>
+					</table>
+				{% if suspenciones != null %}
+						<h4>SUSPENCIONES</h4>
+					<table class="table table-bordered table-hover table-responsive">
+						<thead>
+						<tr>
+							<th>N° Disposicion</th>
+							<th>DIPOSICION</th>
+							<th>FECHA DISPOSICION</th>
+							<th>NUMERO EXPEDIENTE</th>
+							<th>FECHA SUSPENCION</th>
+						</tr>
+						</thead>
+						<tbody>
+						{% for suspencion in suspenciones %}
+							<tr>
+								<td>{{  suspencion.NUM_DISPOSICION  }}</td>
+								<td>{{  suspencion.DISPOSICION  }}</td>
+								<td>{{  suspencion.FECHA_DISPOSICION  }}</td>
+								<td>{{  suspencion.NUMERO_EXPEDIENTE  }}</td>
+								<td>{{  suspencion.FECHA_SUSPENCION }}</td>
+							</tr>
+						{% endfor %}
+						</tbody>
+					</table>
+				</fieldset>
+				{% endif %}
+				
+			{% endif %}
+				    
+		{% endblock %}
+
+		
+</div>
+    
+{% endblock %}

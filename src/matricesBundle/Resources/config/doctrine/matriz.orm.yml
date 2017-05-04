@@ -1,0 +1,11 @@
+matricesBundle\Entity\matriz:
+    type: entity
+    table: null
+    repositoryClass: matricesBundle\Repository\matrizRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    lifecycleCallbacks: {  }

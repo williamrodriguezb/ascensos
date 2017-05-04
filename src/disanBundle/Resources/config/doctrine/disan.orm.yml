@@ -1,0 +1,11 @@
+disanBundle\Entity\disan:
+    type: entity
+    table: null
+    repositoryClass: disanBundle\Repository\disanRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    lifecycleCallbacks: {  }

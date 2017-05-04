@@ -1,0 +1,66 @@
+{% extends '/default/base.html.twig' %}
+{% block head %}
+	{{ parent() }}
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.bundle.js'>
+    </script>
+{% endblock %}
+{% block main %}
+	<main class="container_fluid">
+	{% if listado %}
+	<h2 class="text-center">
+		
+	 ACTO ADMINISTRATIVO
+	</h2>
+		<form class="container_fluid" action="{{url('acto_admin')}}" method="post">
+		<div class="col-md-3 mx-auto">
+			<label for="categoria" class="">Tipo</label>
+			<select name="categoria" id="categoria" class="form-control input-group">
+				<option value="OFIC">Ascenso</option>
+				<option value="SUBOFIC">Retiro</option>
+			</select>
+			<label for="turno" class="input-group">TURNO</label>
+			<select name="turno" id="turno" class="form-control input-group">
+				<option value="1">1</option>
+				<option value="2">2</option>
+			</select>
+			<input type="submit" value="GENERAR" class="btn btn-primary form-control my-1">
+			<a class="btn btn-info form-control my-1" href="{{ url('calif_reporte') }}">LIMPIAR</a>
+			
+		</div>
+	
+	
+	{% else %}
+	    
+		<form class="container" action="">
+			<div class="col-md-3 mx-auto">
+				<label for="categoria" class="">CATEGORIA</label>
+				<select name="categoria" id="categoria" class="form-control input-group">
+					<option value="OFIC">OFICIALES</option>
+					<option value="SUBOFIC">SUBOFICIALES</option>
+				</select>
+				<label for="turno" class="input-group">TURNO</label>
+				<select name="turno" id="turno" class="form-control input-group">
+					<option value="1">1</option>
+					<option value="2">2</option>
+				</select>
+				<input type="submit" value="GENERAR" class="btn btn-primary form-control my-1">
+				<a class="btn btn-info form-control my-1" href="{{ url('calif_reporte') }}">LIMPIAR</a>
+				
+			</div>
+		
+		</form>
+
+	{% endif %}		
+	
+	{% set var = 1 %}
+
+		<div class="container" style="width: 90vw">
+{% for p in listado %}
+			{{var}}
+		{% set var = var + 1 %}
+			{{ render(controller
+				('calificacionBundle:Default:reporte_persona', {  'id':p.IDENTIFICACION, 'num':var })) }}  
+{% endfor %}
+</form>
+</div>
+{% endblock %}

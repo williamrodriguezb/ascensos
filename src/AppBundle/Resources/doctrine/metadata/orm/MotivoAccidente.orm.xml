@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="MotivoAccidente" table="MOTIVO_ACCIDENTE">
+    <field name="causaAccidenteMtacId" type="integer" column="CAUSA_ACCIDENTE_MTAC_ID" nullable="true">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Surrogate key para la jerarquia</option>
+      </options>
+    </field>
+    <field name="csacCodigo" type="integer" column="CSAC_CODIGO" nullable="true">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Llave primaria de la fuente de datos</option>
+      </options>
+    </field>
+    <field name="csacDescripcion" type="string" column="CSAC_DESCRIPCION" length="70" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Descripción de causa_accidente</option>
+      </options>
+    </field>
+    <field name="csacFuerza" type="integer" column="CSAC_FUERZA" nullable="true">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Llave primaria de la fuente de datos</option>
+      </options>
+    </field>
+    <field name="motivoAccidenteMtacId" type="integer" column="MOTIVO_ACCIDENTE_MTAC_ID" nullable="true">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Surrogate key para la jerarquia</option>
+      </options>
+    </field>
+    <field name="mtacCodigo" type="integer" column="MTAC_CODIGO" nullable="true">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Llave primaria de la fuente de datos</option>
+      </options>
+    </field>
+    <field name="mtacDescripcion" type="string" column="MTAC_DESCRIPCION" length="80" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Descripción del motivo_accidente</option>
+      </options>
+    </field>
+    <field name="mtacFuerza" type="integer" column="MTAC_FUERZA" nullable="true">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Identifica la fuerza del motivo_accidente</option>
+      </options>
+    </field>
+    <field name="mtacPk" type="integer" column="MTAC_PK" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Llave primaria de la Dimensión</option>
+      </options>
+    </field>
+  </entity>
+</doctrine-mapping>

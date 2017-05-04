@@ -1,0 +1,123 @@
+{% extends 'default/base.html.twig' %}
+
+
+
+{% block main %}
+	<main class="container">	
+<script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.bundle.js'>
+</script>
+
+<div class="container">
+	<div class="row">
+		<div class="col-lg-6 col-sm-12">
+  			<canvas id="radio"></canvas>
+		</div>
+		<div class="col-lg-6 col-sm-12">	
+    		<canvas id="bar"></canvas>	
+		</div>
+
+	</div>
+</div>
+
+<script>
+	var ctx = document.getElementById("radio").getContext("2d");
+	var ctx_bar = document.getElementById("bar").getContext("2d");	
+	var datos = {
+	
+    labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio"],
+    datasets: [
+        {
+            label: "Datos Diligenciados",
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1,
+            data: [65, 59, 80, 81, 56, 55, 40],
+        }
+    ]
+};
+	var chart_bar = new Chart(ctx_bar,{
+		type:'bar',
+		data:datos,
+		options: {
+	    	responsive:true,
+		}
+	});
+
+	var myChart = new Chart(ctx, {
+	    type: 'radar',
+	    data: {
+	        labels: ["Operativo", "Logistico", "Administrativo", "Vuelo"],
+	        datasets: [{
+	            label: 'Perfil del Tripulante',
+	            data: [8, 10, 3, 5],
+	            backgroundColor: [
+	                'rgba(255, 99, 132, 0.2)',
+	                'rgba(54, 162, 235, 0.2)',
+	                'rgba(255, 206, 86, 0.2)',
+	                'rgba(75, 192, 192, 0.2)',
+	                'rgba(153, 102, 255, 0.2)',
+	                'rgba(255, 159, 64, 0.2)'
+	            ],
+	            borderColor: [
+	                'rgba(255,99,132,1)',
+	                'rgba(54, 162, 235, 1)',
+	                'rgba(255, 206, 86, 1)',
+	                'rgba(75, 192, 192, 1)',
+	                'rgba(153, 102, 255, 1)',
+	                'rgba(255, 159, 64, 1)'
+	            ],
+	            borderWidth: 2
+	        }]
+	    },
+	    options: {
+	    	responsive:true,
+	    	
+        backgroundColor: 'rgba(251, 85, 85, 0.4)',
+    
+    	 	title: {
+            display: true,
+            text: 'Perfil del Tripulante'
+        		},
+
+
+	        scales: {
+	        	scaleLabel : {FontSize:40},
+	        	pointLabels: {
+    			fontSize: 20
+          		},
+
+	            // yAxes: [{
+	            //     ticks: {
+	            //         beginAtZero:false
+	            //     }
+	            // }]
+	        }
+	    }
+	});
+</script>
+
+    
+
+	    
+{% endblock %}
+
+{% block scripts %}
+
+
+
+
+{% endblock %}

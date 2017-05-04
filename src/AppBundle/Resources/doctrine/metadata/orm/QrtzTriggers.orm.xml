@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="QrtzTriggers" table="QRTZ_TRIGGERS">
+    <indexes>
+      <index name="idx_qrtz_t_state" columns="TRIGGER_STATE"/>
+      <index name="idx_qrtz_t_nft_st" columns="NEXT_FIRE_TIME,TRIGGER_STATE"/>
+      <index name="idx_qrtz_t_next_fire_time" columns="NEXT_FIRE_TIME"/>
+      <index name="idx_qrtz_t_volatile" columns="IS_VOLATILE"/>
+      <index name="IDX_6D4D900DDE1DBB0F2FF2E26C" columns="JOB_NAME,JOB_GROUP"/>
+    </indexes>
+    <field name="calendarName" type="string" column="CALENDAR_NAME" length="80" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="description" type="string" column="DESCRIPTION" length="120" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="endTime" type="integer" column="END_TIME" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="isVolatile" type="string" column="IS_VOLATILE" length="1" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="jobData" type="blob" column="JOB_DATA" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="misfireInstr" type="integer" column="MISFIRE_INSTR" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="nextFireTime" type="integer" column="NEXT_FIRE_TIME" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="prevFireTime" type="integer" column="PREV_FIRE_TIME" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="startTime" type="integer" column="START_TIME" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="triggerGroup" type="string" column="TRIGGER_GROUP" length="80" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="triggerName" type="string" column="TRIGGER_NAME" length="80" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="triggerState" type="string" column="TRIGGER_STATE" length="16" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="triggerType" type="string" column="TRIGGER_TYPE" length="8" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <many-to-one field="jobName" target-entity="QrtzJobDetails" fetch="LAZY">
+      <join-columns>
+        <join-column name="JOB_NAME" referenced-column-name="JOB_NAME"/>
+        <join-column name="JOB_GROUP" referenced-column-name="JOB_GROUP"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

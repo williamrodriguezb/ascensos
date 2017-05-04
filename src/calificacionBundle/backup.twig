@@ -1,0 +1,41 @@
+{% for p in persona %}
+			<div class="hoja_presentacion">
+				<div class="hp_foto">
+					<img src="" alt="foto">
+				</div>
+				<div class="hp_dat">
+					{{p.IDENTIFICACION}}
+					<br>
+					{{p.GRADO}}.{{p.NOMBRES}}
+				</div>
+				<div class="hp_dat_basicos">
+					<ul>
+						<li>ESPECIALIDAD: {{p.ESPECIALIDAD}}</li>
+						<li>UNIDAD: {{p.UNIDAD}}</li>
+						<li>GUARNICION: {{p.GUARNICION}}</li>
+						<li>FECHA ULTIMO ASCENSO:{{p.UASCENSO}}</li>
+						<li>TIEMPO DE SERVICIO:{{p.T_SERVICIO}}</li>
+						<li>FECHA DE NACIMIENTO:{{p.F_NACIMIENTO}}</li>
+					</ul>
+				</div>
+				<div>
+					{% if p[1] == null %}
+						
+					{% else %}
+
+						{% for d in p %}
+							{{ d.IDENTIFICACION}}
+						{% endfor %}
+					{% endif %}
+					
+				</div>
+			</div>
+		{% endfor %}
+
+		{# 
+		{{ render(controller
+	('disanBundle:Default:Aptitud', { 'persona':p.IDENTIFICACION })) }} 	 #}
+ 
+	{# {{ render(controller
+	('disanBundle:Default:Aptitud', { 'id':18881201,'persona':18881201  })) }} #}
+	    

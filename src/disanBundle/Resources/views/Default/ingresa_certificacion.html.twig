@@ -1,0 +1,140 @@
+{% extends '/default/base.html.twig' %}
+{% block main %}
+	<section>
+		<article>
+			{% if persona == null %}
+			<form  action="{{ url('ingresa_aptitud') }}" method="POST" >
+				<fieldset class="items_consulta_persona" id='form-calificacion'>
+					<legend>
+						<h2>Ingreso de Certificacion Fisica</h2>
+					</legend>
+							<input class="form-control btn-group" name="documento" id='documento'type="text" placeholder="Cedula">
+							<input class="form-control btn-group" name="apellidos" id='apellidos'type="text" placeholder="Apellidos">
+							<input class="form-control btn-group" name="nombres" id='nombres'type="text" placeholder="nombres">	
+						
+							<select class="form-control btn-group" name="categoria" id='categoria'  placeholder='CATEGORIA'>
+								<option value="" selected data-default>Categoria</option>
+								<option value="OFIC">OFICIAL</option>
+								<option value="SUBOFIC">SUBOFICIAL</option>
+							</select>
+						<div class="container">
+							<div class="row">
+								<div class="col text-right">
+									<input type="submit" value='CONSULTA' class="btn btn-primary btn-md" style="width:170px;">
+								</div>
+								<div class="col text-left" ><a class="btn btn-primary btn-group mt-2" style="width:170px;" href="">LIMPIAR</a></div>
+							</div>
+						</div>
+				</fieldset>
+				{% if listado != null %}
+					<table class="table">
+					<tr>
+						<th>Num</th>
+						<th>Grado</th>
+						<th>Apellidos</th>
+						<th>Nombres</th>
+						<th>Identificacion</th>
+						<th>Unidad</th>
+						<th>Sigla</th>
+						<th></th>
+					</tr>
+					{% set var = 1 %}
+					{% for l in listado %}
+					    <tr>
+						<td class="text-center">{{var}}</td>
+						<td class="text-center">{{ l.GRADO_COMPLETO }}</td>
+						<td>{{ l.APELLIDOS }}</td>
+						<td>{{ l.NOMBRES }}</td>
+						<td>{{ l.IDENTIFICACION }}</td>
+						<td>{{ l.UNIDAD }}</td>
+						<td class="text-center">{{ l.SIGLA }}</td>
+						<td>
+							<a class="btn btn-info" href="{{ url('ingresa_aptitud') }}/{{ l.IDENTIFICACION }}">
+								Ver Detalles
+							</a>
+						</td>
+					</tr>
+						{% set var = var + 1 %}
+					{% endfor %}
+				</table>
+				{% endif %}
+			{% endif %}
+		</form>
+	</article>
+</section>
+{% if persona != null %}
+	<form id="form-disan"  action="{{ url('crear_certificacion_fisica', { 'id': id }) }}" method="POST">
+			<fieldset class="text-center">
+			<label for="aptitud" class="btn-group">Aptitud</label>
+			<select name="aptitud" id="aptitud" class="campo btn-group" {# required #}>
+				<option value="" selected></option>
+				<option value="Apto">Apto</option>
+				<option value="No Apto">No Apto</option>
+				<option value="Aplazado">Aplazado</option>
+			</select>
+			<label for="retardo" >Retardo por Sanidad</label>
+			<select id='retardo' name="retardo" {# required #} class="campo btn-group"> 
+				<option value="" selected></option>
+				<option value="si">SI</option>
+				<option value="no">NO</option>
+			</select>
+			<label for="f_retardo">fecha de retardo</label>
+			<input id="f_retardo" name="f_retardo" type="date" {# required #} class="campo btn-group">
+		</fieldset>
+		<div class="campos-disan">
+		<fieldset>
+			<label for="junta" >Junta medica Laboral</label>
+			<select id='junta' name="junta" {# required #} class="form-control btn-group"> 
+				<option value="" selected></option>
+				<option value="si">SI</option>
+				<option value="no">NO</option>
+			</select>
+			<label for="f_junta">Fecha de Junta</label>
+			<input id="f_junta" name="f_junta" type="date" {# required #} class="form-control btn-group">
+			<label for="j_decision">Decision</label>
+			<select name="j_decision" id="" {# required #}="" class="form-control btn-group">
+				<option value=""></option>
+				<option value=""></option>
+				<option value=""></option>
+			</select>
+		</fieldset>
+		<fieldset>
+			<label for="comite" >Comite laboral y Salud Ocupacional</label>
+			<select id='comite' name="comite" {# required #} class="form-control btn-group"> 
+				<option value="" selected></option>
+				<option value="si">SI</option>
+				<option value="no">NO</option>
+			</select>
+			<label for="f_comite" class="from">Fecha de comite</label>
+			<input id="f_comite" name="f_comite" type="date" {# required #} class="form-control btn-group">
+			<label for="c_decision">Decision</label>
+			<select name="c_decision" id="" {# required #}="" class="form-control btn-group">
+				<option value=""></option>
+				<option value=""></option>
+				<option value=""></option>
+			</select>
+		</fieldset>
+		<fieldset>
+			<label for="tribunal">Tribunal Medico Laboral</label>
+			<select id='tribunal' name="tribunal" {# required #} class="form-control btn-group" > 
+				<option value="" selected></option>
+				<option value="si">SI</option>
+				<option value="no">NO</option>
+			</select>
+			<label for="f_tribunal">Fecha Tribunal</label>
+			<input id="f_tribunal" name="f_tribunal" type="date" {# required #} class="form-control btn-group">
+			<label for="t_decision">Decision</label>
+			<select name="t_decision" id="t_decision" {# required #}="" class="form-control btn-group">
+				<option value=""></option>
+				<option value=""></option>
+				<option value=""></option>
+			</select>
+		</fieldset>
+		</div>
+		<textarea name="observaciones" id="" class="form-control" cols="30" rows="5" placeholder="Observaciones"></textarea>
+		<input type="submit" class="btn btn-default">
+		<a href="" class="btn btn-default">limpiar</a>
+	</form>
+{% endif %}
+{% endblock %}
+

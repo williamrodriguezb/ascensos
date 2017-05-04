@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Disposicion" table="DISPOSICION">
+    <field name="disposicionAbrev" type="string" column="DISPOSICION_ABREV" length="20" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Abreviatura de la disposicion</option>
+      </options>
+    </field>
+    <field name="disposicionCodigo" type="integer" column="DISPOSICION_CODIGO" nullable="true">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Llave primaria del cargo en la fuente de datos</option>
+      </options>
+    </field>
+    <field name="disposicionDescripc" type="string" column="DISPOSICION_DESCRIPC" length="50" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Descripcion de la disposicion</option>
+      </options>
+    </field>
+    <field name="disposicionId" type="integer" column="DISPOSICION_ID" nullable="true">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Surrogate key para la jerarquia</option>
+      </options>
+    </field>
+    <field name="disposicionPk" type="integer" column="DISPOSICION_PK" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Surrogate key de la dimensión</option>
+      </options>
+    </field>
+  </entity>
+</doctrine-mapping>

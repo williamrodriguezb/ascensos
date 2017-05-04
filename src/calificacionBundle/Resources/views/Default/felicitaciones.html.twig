@@ -1,0 +1,461 @@
+{# felicitaciones #}
+{% set n_fel = 0 %}
+{# condecoraciones #}
+{% set n_con = 0 %}
+{# anotaciones de merito #}
+{% set n_mer = 0 %}
+	{# conceptos positivos #}
+{% set n_pos = 0 %}
+	{# sanciones #}
+{% set n_san = 0 %}
+	{# anotacion de demerito #}
+{% set n_demerito = 0 %}
+{# concepto negativo #}
+{% set n_negativo = 0 %}
+{% for f in felicitaciones %}
+	{% set n_fel = n_fel + 1 %}		
+{% endfor %}
+{% for c in condecoraciones %}
+	{% set n_con = n_con + 1 %}		
+{% endfor %}
+{% for m in merito %}
+	{% set n_mer = n_mer + 1 %}		
+{% endfor %}
+{% for p in positivo %}
+	{% set n_pos = n_pos + 1 %}		
+{% endfor %}
+{% for s in sanciones %}
+	{% set n_san = n_san + 1 %}		
+{% endfor %}
+{% for d in demerito %}
+	{% set n_demerito = n_demerito + 1 %}		
+{% endfor %}
+{% for d in negativo %}
+	{% set n_negativo = n_negativo + 1 %}		
+{% endfor %}
+
+<style>
+	.btn-outline-primary {
+    color: #545c61;
+    background-image: none;
+    background-color: transparent;
+    border-color: rgba(111, 130, 154, 0.22);
+	}
+	.btn-outline-primary:hover {
+    color: #5c5f61;
+    background-color: #f5f5f5;
+    border-color: #d0d4d8;
+	}
+</style>
+<div class="container mx-auto">
+	<div class="row">
+		
+		<div class="col-md-6">
+			<table class="table table-responsive table-sm table-bordered table-sm">
+				<thead >
+					<tr class="table-inverse">
+						<th colspan="2">Positiva</th>
+						<th colspan="2">Negativas</th>
+					</tr>
+					<tr>
+						<th>Felicitaciones</th>
+						<td>
+							<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModalLong1">
+								{{n_fel}}
+							</button>
+						</td>
+						<th>Sanciones</th>
+						<td>
+							<button type="button" class="btn btn-outline-primary text-center" data-toggle="modal" data-target="#modalSanciones">
+						
+							{{n_san}}
+							</button>
+						</td>
+					</tr>
+					<tr>
+						<th>Medallas</th>
+						<td>
+							<button type="button" class="btn btn-outline-primary text-center" data-toggle="modal" data-target="#exampleModalLong2">
+						
+							{{n_con}}
+							</button>
+						</td>
+					</tr>
+					<tr>
+						<th>A. Merito</th>
+						<td><button type="button" class="btn btn-outline-primary text-center" data-toggle="modal" data-target="#modalMerito">
+							{{n_mer}}
+							</button>
+						</td>
+						<th>A. de Demerito</th>
+						<td>
+							<button type="button" class="btn btn-outline-primary text-center" data-toggle="modal" data-target="#modalDemerito">
+								{{n_demerito}}
+							</button>
+						</td>
+					</tr>
+					<tr>
+						<th>Conc. Positivo</th>
+						<td><button type="button" class="btn btn-outline-primary text-center" data-toggle="modal" data-target="#modalPositivo">
+							{{n_pos}}
+							</button>
+						</td>
+						<th>Conc. Negativo</th>
+						<td><button type="button" class="btn btn-outline-primary text-center" data-toggle="modal" data-target="#modalNegativo">
+							{{n_negativo}}
+							</button>
+						</td>
+					
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="col-md-6">
+			<table class="table table-responsive table-bordered">
+		<thead>
+			<tr>
+				<th colspan="5">Conteo de listas</th>
+			</tr>
+		</thead>
+		<tbody>
+			
+				{% for l in listas %}
+					<tr>
+					<th>LISTA {{l.LISTA}} </td>
+					<th>{{l.N_LISTA}}</td>
+					</tr>
+				{% endfor %}
+			
+		</tbody>
+	</table>
+		</div>
+		<div class="col-md-4">
+			
+		</div>
+	</div>
+	
+	
+<!-- Button trigger modal -->
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalLong1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+	<div  class="modal-dialog modal-grande" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLongTitle">Felicitacion</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	       
+	       		
+				<table class="table table-responsive table-sm table-bordered">
+		<thead class="table-inverse" style="font-size: 16px">
+			<tr>
+				<th>Disposicion</th>
+				<th>NUM</th>
+				<th>FECHA</th>
+				<th>DESCRIPCION</th>
+				<th>OBSERVACIONES</th>
+				<th>MOTIVO</th>
+				<th>GRADO</th>
+				<th>CARGO</th>
+				<th>INDICADOR</th>
+				<th>SUBINDICADOR</th>
+			</tr>
+		</thead>
+		<tbody style="font-size:0.7em;">
+			{% for f in felicitaciones %}
+				<tr>
+					<td>{{f.DISPOCISION}}</td>
+					<td>{{f.NUMERO_DISPOSICION}}</td>
+					<td>{{f.FECHA_DISPOSICION}}</td>
+					<td>{{f.DESCRIPCION}}</td>
+					<td>{{f.OBSERVACIONES}}</td>
+					<td>{{f.MOTIVO_FELICITACION}}</td>
+					<td>{{f.GRAD_ALFABETICO}}</td>
+					<td>{{f.CARGO}}</td>
+					<td>{{f.INDICADOR}}</td>
+					<td>{{f.SUBINDICADOR}}</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+		</table>
+	</div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+       
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="exampleModalLong2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+	<div  class="modal-dialog modal-grande" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLongTitle">Condecoraciones</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+				<table class="table table-responsive table-sm table-bordered">
+		<thead class="table-inverse" style="font-size: 16px">
+			<tr>
+				<th>TIPO</th>
+				<th>ESTIMULO</th>
+				<th>DISPOSICION</th>
+				<th>N DISPO</th>
+				<th>F DISPO</th>
+				<th>POSTUMO</th>
+				<th>CLASE</th>
+			</tr>
+		</thead>
+		<tbody style="font-size:0.7em;">
+			{% for c in condecoraciones %}
+				<tr>
+					<td>{{c.DESCRIPCION}}</td>
+					<td>{{c.ESTIMULO}}</td>
+					<td>{{c.DISPOSICION}}</td>
+					<td>{{c.NUMERO_DISPOSICION}}</td>
+					<td>{{c.FECHA_DISPOSICION}}</td>
+					<td>{{c.POSTUMO}}</td>
+					<td>{{c.CLASE_ESTIMULO}}</td>
+					
+				</tr>
+	    		
+			{% endfor %}
+			
+		</tbody>
+		</table>
+	</div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+       
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalMerito" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+	<div  class="modal-dialog modal-grande" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLongTitle">Anotaciones De Merito</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+
+				<table class="table table-responsive table-sm table-bordered">
+		<thead class="table-inverse" style="font-size: 16px">
+			<tr>
+				<th>COMPLEMENTO</th>
+				<th>CONTENIDO</th>
+				<th>FECHA</th>
+				<th>GRAD</th>
+				
+			</tr>
+		</thead>
+		<tbody style="font-size:0.7em;">
+			{% for m in merito %}
+				<tr>
+					<td>{{m.COMPLEMENTO}}</td>
+					<td>{{m.CONTENIDO}}</td>
+					<td>{{m.ID_FECHA_COMPLEM}}</td>
+					<td>{{m.GRAD_ALFABETICO}}</td>
+				</tr>
+			{% endfor %}
+			
+		</tbody>
+		</table>
+	</div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+       
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalPositivo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+	<div  class="modal-dialog modal-grande" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLongTitle">Conceptos Positivos</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+
+				<table class="table table-responsive table-sm table-bordered">
+		<thead class="table-inverse" style="font-size: 16px">
+			<tr>
+				<th>COMPLEMENTO</th>
+				<th>CONTENIDO</th>
+				<th>FECHA</th>
+				<th>GRADO</th>
+				
+			</tr>
+		</thead>
+		<tbody style="font-size:0.7em;">
+			{% for p in positivo %}
+				<tr>
+					<td>{{p.COMPLEMENTO}}</td>
+					<td>{{p.CONTENIDO}}</td>
+					<td>{{p.ID_FECHA_COMPLEM}}</td>
+					<td>{{p.GRAD_ALFABETICO}}</td>
+				</tr>
+			{% endfor %}
+			
+		</tbody>
+		</table>
+	</div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+       
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal fade" id="modalSanciones" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+	<div  class="modal-dialog modal-grande" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLongTitle">Sanciones</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+				<table class="table table-responsive table-sm table-bordered">
+		<thead class="table-inverse" style="font-size: 16px">
+			<tr>
+				<th>F. SANCION</th>
+				<th>TIPO</th>
+				<th>NOVEDAD</th>
+				<th>EXPEDIENTE</th>
+				<th>MOTIVO</th>
+				<th>N DISP.</th>
+				<th>GRADO</th>
+			</tr>
+		</thead>
+		<tbody style="font-size:0.7em;">
+
+			{% if sanciones %}
+
+			{% endif %}
+			{% for s in sanciones %}
+				<tr>
+					<td>{{s.FECHA_SANCION}}</td>
+					<td>{{s.TIPO_NOVEDAD}}</td>
+					<td>{{s.CLASE_NOVEDAD}}</td>
+					<td>{{s.NUM_EXPED}}</td>
+					<td>{{s.MOTIVO_HECHOS}}</td>
+					<td>{{s.NUM_DISPO}}</td>
+					<td>{{s.DISPOSICION}}</td>
+					<td>{{s.GRADO_NOVEDAD}}</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+		</table>
+	</div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+        	Cerrar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="modalNegativo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+	<div  class="modal-dialog modal-grande" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLongTitle">Conceptos Negativos</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	<table class="table table-responsive table-sm table-bordered">
+		<thead class="table-inverse" style="font-size: 16px">
+			<tr>
+				<th>COMPLEMENTO</th>
+				<th>CONTENIDO</th>
+				<th>FECHA</th>
+				<th>GRADO</th>
+			</tr>
+		</thead>
+		<tbody style="font-size:0.7em;">
+			{% for n in negativo %}
+				<tr>
+					<td>{{n.COMPLEMENTO}}</td>
+					<td>{{n.CONTENIDO}}</td>
+					<td>{{n.ID_FECHA_COMPLEM}}</td>
+					<td>{{n.GRAD_ALFABETICO}}</td>
+				</tr>
+			{% endfor %}
+			
+		</tbody>
+		</table>
+	</div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+       
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="modalDemerito" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+	<div  class="modal-dialog modal-grande" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLongTitle">Anotaciones de Demerito</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+		
+		<table class="table table-responsive table-sm table-bordered">
+		<thead class="table-inverse" style="font-size: 16px">
+			<tr>
+				<th>COMPLEMENTO</th>
+				<th>CONTENIDO</th>
+				<th>FECHA</th>
+				<th>GRADO</th>
+				
+			</tr>
+		</thead>
+		<tbody style="font-size:0.7em;">
+			{% for d in demerito %}
+				<tr>
+					<td>{{d.COMPLEMENTO}}</td>
+					<td>{{d.CONTENIDO}}</td>
+					<td>{{d.ID_FECHA_COMPLEM}}</td>
+					<td>{{d.GRAD_ALFABETICO}}</td>
+				</tr>
+			{% endfor %}
+			
+		</tbody>
+		</table>
+	</div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+       
+      </div>
+    </div>
+  </div>
+</div>

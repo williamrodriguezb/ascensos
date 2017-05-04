@@ -1,0 +1,38 @@
+# disan_homepage:
+#     path:     /
+#     defaults: { _controller: disanBundle:Default:index }
+
+disan_inicio:
+    path:     /
+    defaults: { _controller: disanBundle:Default:disan }
+juntas_medicas:
+    path:     /juntas_medicas
+    defaults: { _controller: disanBundle:Default:juntas_medicas }
+    methods:  [ GET,POST ]
+
+estado_salud:
+    path:     /estado_salud
+    defaults: { _controller: disanBundle:Default:estado_salud }
+    methods:  [ GET,POST ]
+
+ingresa_certificacion:
+    path:     /certificacion/ingresa_certificacion
+    defaults: { _controller: disanBundle:Default:aptitud }
+ingresa_aptitud:
+    path:     /aptitud/ingresa
+    defaults: { _controller: disanBundle:Default:ingresa_aptitud }
+    methods:  [ GET,POST ]
+
+ingresa_aptitud2:
+    path:     /aptitud/ingresa/{id}
+    defaults: { _controller: disanBundle:Default:ingresa_aptitud }
+    methods:  [ GET ]
+
+crear_certificacion_fisica:
+    path:     /aptitud/ingresa/{id}/crear_certificacion
+    defaults: { _controller: disanBundle:Default:create_certificacion_fisica }
+    methods:  [ POST ]
+
+ver_certificacion:
+    path:   /certificacion/ver/{id}
+    defaults: { _controller: disanBundle:Default:ver_certificacion, id: 0  }

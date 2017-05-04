@@ -1,0 +1,117 @@
+{% extends plantilla ? "/default/base.html.twig" : 'disanBundle:default:vacia.html.twig' %}
+{% block main %}
+<main class="container_fluid">
+{% if  certificaciones == null %}
+<section>
+		<article>
+			<form  action="{{ url('ver_certificacion') }}" method="POST" >
+				<fieldset class="items_consulta_persona" id='form-calificacion'>
+					<legend>
+						<h2>Ingreso de Certificacion Fisica</h2>
+					</legend>
+							<input class="form-control btn-group" name="documento" id='documento'type="text" placeholder="Cedula">
+							<input class="form-control btn-group" name="apellidos" id='apellidos'type="text" placeholder="Apellidos">
+							<input class="form-control btn-group" name="nombres" id='nombres'type="text" placeholder="nombres">	
+						
+							<select class="form-control btn-group" name="categoria" id='categoria'  placeholder='CATEGORIA'>
+								<option value="" selected data-default>Categoria</option>
+								<option value="OFIC">OFICIAL</option>
+								<option value="SUBOFIC">SUBOFICIAL</option>
+							</select>
+						<div class="container">
+							<div class="row">
+								<div class="col text-right">
+									<input type="submit" value='CONSULTA' class="btn btn-primary btn-md" style="width:170px;">
+								</div>
+								<div class="col text-left" ><a class="btn btn-primary btn-group mt-2" style="width:170px;" href="">LIMPIAR</a></div>
+							</div>
+						</div>
+				</fieldset>
+			{% endif %}
+				{% if listado != null %}
+					<table class="table">
+					<tr>
+						<th>Num</th>
+						<th>Grado</th>
+						<th>Apellidos</th>
+						<th>Nombres</th>
+						<th>Identificacion</th>
+						<th>Unidad</th>
+						<th>Sigla</th>
+						<th></th>
+					</tr>
+					{% set var = 1 %}
+					{% for l in listado %}
+					    <tr>
+						<td class="text-center">{{var}}</td>
+						<td class="text-center">{{ l.GRADO_COMPLETO }}</td>
+						<td>{{ l.APELLIDOS }}</td>
+						<td>{{ l.NOMBRES }}</td>
+						<td>{{ l.IDENTIFICACION }}</td>
+						<td>{{ l.UNIDAD }}</td>
+						<td class="text-center">{{ l.SIGLA }}</td>
+						<td>
+
+							<a class="btn btn-info" href="{{ url('ver_certificacion') }}/{{ l.IDENTIFICACION }}">
+								Ver Detalles
+							</a>
+						</td>
+					</tr>
+						{% set var = var + 1 %}
+					{% endfor %}
+				</table>
+				{% endif %}
+		</form>
+{% if certificaciones != null %}
+	<table class="table table-responsive table-bordered" style="">
+		<thead>
+		<tr>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th colspan="3">Junta Medica Laboral</th>
+			<th colspan="3">Comite</th>
+			<th colspan="3">Tribunal</th>
+			<th></th>
+		</tr>
+		<tr>
+			<th>Identificacion</th>
+			<th>Aptitud</th>
+			<th>Retardo</th>
+			<th>Fecha Retardo</th>
+			<th>Junta</th>
+			<th>Fecha</th>
+			<th>Decision</th>
+			<th>Comite</th>
+			<th>fecha</th>
+			<th>Decision</th>
+			<th>Tribunal</th>
+			<th>Fecha</th>
+			<th>Decision</th>
+			<th>Observaciones</th>
+		</tr>
+		</thead>
+{% for c in certificaciones %}
+		<tbody>
+		<tr>
+			<td>{{c.identificacion}}</td>
+			<td>{{c.aptitud}}</td>
+			<td>{{c.retardo}}</td>
+			<td>{{c.f_retardo}}</td>
+			<td>{{c.junta_medica_laboral}}</td>
+			<td>{{c.f_junta}}</td>
+			<td>{{c.decision_junta}}</td>
+			<td>{{c.comite_laboral}}</td>
+			<td>{{c.f_comite}}</td>
+			<td>{{c.decision_comite}}</td>
+			<td>{{c.tribunal_medico}}</td>
+			<td>{{c.f_tribunal}}</td>
+			<td>{{c.decision_tribunal}}</td>
+			<td>{{c.observaciones}}</td>
+		</tr>
+		</tbody>
+{% endfor %}
+	</table>
+{% endif %}	
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'default/base.html.twig' %}
+
+{% block main %}
+
+<main class="container">
+<div class="card">
+
+<p>
+	<figure>
+		<i class="fa fa-user-circle fa-4x" aria-hidden="true"></i></figure>
+</p>
+<p>apellidos: {{usuario.APELLIDOS}}</p>
+<p>nombres: {{usuario.NOMBRES}}</p>
+<p>Dependencia: {{usuario.DEPENDENCIA}}</p>
+<p>Identificacion: {{usuario.TIPO_IDENTIFICACION}}. {{usuario.IDENTIFICACION}}</p>
+<p>perfil: {{app.user.roles[0]}}</p>
+
+</div>
+
+{% endblock %}

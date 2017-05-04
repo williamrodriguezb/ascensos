@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="AptitudServicio" table="APTITUD_SERVICIO">
+    <field name="apsrAbreviatura" type="string" column="APSR_ABREVIATURA" length="100" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Descripción corta de la aptitud servicio</option>
+      </options>
+    </field>
+    <field name="apsrCodigo" type="string" column="APSR_CODIGO" length="40" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Llave primaria de la fuente de datos</option>
+      </options>
+    </field>
+    <field name="apsrDescripcion" type="string" column="APSR_DESCRIPCION" length="100" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Descripción de la aptitud servicio</option>
+      </options>
+    </field>
+    <field name="apsrId" type="integer" column="APSR_ID" nullable="true">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Surrogate key para la jerarquía</option>
+      </options>
+    </field>
+    <field name="apsrPk" type="integer" column="APSR_PK" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Llave primaria de la dimensión</option>
+      </options>
+    </field>
+  </entity>
+</doctrine-mapping>

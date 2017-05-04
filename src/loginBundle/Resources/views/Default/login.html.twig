@@ -1,0 +1,35 @@
+{% extends 'default/base.html.twig' %}
+
+{% block header%}{% endblock %}
+{% block nav %}{% endblock %}
+
+{% block main %}
+	<main class="container">
+	<div class="row text-center">
+		<div class="col-md-4 mx-auto">
+			<i class="fa fa-paper-plane fa-5x" style="color: #31b0d5" aria-hidden="true"></i>	
+			<h1 class="text-center h1">INGRESO</h1>
+				    
+		<form id='login' action="{{url('login_ldap')}}" method='POST' >
+			
+			<div class="input-group">
+
+		      <input type="text" class="form-control" id="username" name="_username" placeholder="Usuario" aria-describedby="basic-addon1" value='{{last_username}}'>
+		      <span class="input-group-addon" id="basic-addon1">@armada.mil.co</span>
+    		</div>
+			<input class='form-control' id="password" name="_password" type="password" placeholder="Contraseña">
+			<input class="btn btn-primary form-control" type="submit" value="Iniciar Sesion">
+			<input type="hidden" name='_target_path' value="{{url('inicio')}}">
+		</form>
+
+		{% if error %}
+				<div class="alert alert-danger my-5" role="alert">
+  				<strong>Error de Autenticacion</strong> Usuario y contraseña incorrecto.
+				</div>
+
+			{% endif %}
+
+		</div>
+	</div>
+{% endblock %}
+

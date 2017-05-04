@@ -1,0 +1,106 @@
+{% extends plantilla ? "/default/base.html.twig" : 'disanBundle:default:vacia.html.twig' %}
+{% block main %}
+	<main class="container_fluid">	
+	
+{% if persona == null %}
+
+<section class="container">
+	<header>
+		<h2 class="gris main-enc-h2">
+			Consulta Estado de Salud
+		</h2>	
+	</header>
+	<article>
+		<form  action="{{ url('estado_salud') }}" method="POST" >
+			<fieldset class="items_consulta_persona" id='form-calificacion'>
+						<input class="form-control btn-group" name="documento" id='documento'type="text" placeholder="Cedula">
+						<input class="form-control btn-group" name="apellidos" id='apellidos'type="text" placeholder="Apellidos">
+						<input class="form-control btn-group" name="nombres" id='nombres'type="text" placeholder="nombres">	
+					
+						<select class="form-control btn-group" name="categoria" id='categoria'  placeholder='CATEGORIA'>
+							<option value="" selected data-default>Categoria</option>
+							<option value="OFIC">OFICIAL</option>
+							<option value="SUBOFIC">SUBOFICIAL</option>
+						</select>
+					<div class="marg_arriba">
+						<input type="submit" value='CONSULTA' class="btn btn-success">
+						<a class="btn btn-outline-primary btn-block mx-auto" style="width: 220px" href="{{url('estado_salud')}}">LIMPIAR</a>
+					</div>
+			</fieldset>
+		</form>
+	</article>
+</section>
+			{% if listado != null %}
+				<table class="table">
+				<tr>
+					<th>Num</th>
+					<th>Grado</th>
+					<th>Apellidos</th>
+					<th>Nombres</th>
+					<th>Identificacion</th>
+					<th>Unidad</th>
+					<th>Sigla</th>
+					<th></th>
+				</tr>
+				{% set var = 1 %}
+				{% for l in listado %}
+				    <tr>
+					<td class="text-center">{{var}}</td>
+					<td class="text-center">{{ l.GRADO_COMPLETO }}</td>
+					<td>{{ l.APELLIDOS }}</td>
+					<td>{{ l.NOMBRES }}</td>
+					<td>{{ l.IDENTIFICACION }}</td>
+					<td>{{ l.UNIDAD }}</td>
+					<td class="text-center">{{ l.SIGLA }}</td>
+					<td><a href="{{url('estado_salud')}}?id={{ l.IDENTIFICACION }}" class="btn btn-outline-danger">Ver</a></td>
+						
+				</tr>
+					{% set var = var + 1 %}
+				{% endfor %}
+			</table>
+			{% endif %}
+		{# listado de los que tienen conceptos #}
+	</form>
+
+{% endif %}
+			{% if estado_salud == null %}
+				{% if persona != null %}
+					<div class="container"><p class="text-muted text-center">No hay Estado de Salud		</div>
+					</p>
+				{% endif %}
+			{% endif %}
+			{% if estado_salud != null %}
+			<table class="table table-hover table-bordered table-responsive">
+				<thead>
+					<tr>
+						<th>Num</th>
+						<th>Tipo de Estado</th>
+						<th>Descripcion</th>
+						<th>Num Dispo</th>
+						<th>Fecha Dispo</th>
+						<th>Inicio</th>
+						
+					</tr>
+				</thead>	
+				<tbody>
+					{{dump(estado_salud)}}
+					<tr>
+						{% set var = 1 %}
+						{% for e in estado_salud %}
+							<td>{{var}}</td>
+							<td>{{e.ESTADO}}</td>
+					    	<td style="overflow-y: scroll;  display :block;height: 80px ">{{e.DESCRIPCION}}</td>
+					    	<td>{{e.NUMERO_DISPOSICION}}</td>
+					    	<td>{{e.FECHA_DISPOSICION}}</td>
+					    	<td>{{e.FECHA_INICIO}}</td>
+					    	{% set var = var + 1 %}
+						{% endfor %}
+					</tr>
+					
+				</tbody>		
+				</table>
+				{% endif %}
+			</fieldset>
+		</article>
+	</section>
+{% endblock %}

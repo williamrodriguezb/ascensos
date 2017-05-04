@@ -1,0 +1,48 @@
+# To get started with security, check out the documentation:
+# http://symfony.com/doc/current/security.html
+security:
+    # http://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
+    providers:
+        # in_memory:
+        #     memory: ~
+        my_ldap:
+            ldap:
+                service: ldap
+                base_dn: ou=people,dc=armada,dc=mil,dc=co
+                search_dn: uid=zimbra,cn=admins,cn=zimbra
+                search_password: D1djLBYB
+                default_roles: ROLE_USER
+                uid_key: uid
+    # encoders:
+    #     harsh:
+    #         algorithm: bcrypt
+    #         cost: 15
+    firewalls:
+        # disables authentication for assets and the profiler, adapt it according to your needs
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        main:
+            anonymous: ~
+            # activate different ways to authenticate
+            form_login_ldap:
+                login_path: login
+                check_path: login_ldap
+                service: ldap
+                dn_string: uid={username},ou=people,dc=armada,dc=mil,dc=co
+            logout: 
+                path: logout
+                # ...
+            # http://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
+
+            # form_login: ~
+            # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
+    access_control:
+        # - { path: ^/ , roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        # - { path: ^/comandante, roles: [IS_AUTHENTICATED_FULLY] }
+        - { path: ^/calificacion, roles: [ROLE_USER ,ROLE_ADMIN] }
+        - { path: ^/comandante, roles: [ROLE_USER ,ROLE_ADMIN]}
+        - { path: ^/disan, roles: [ROLE_USER ,ROLE_ADMIN] }
+        - { path: ^/jpm, roles: [ROLE_USER ,ROLE_ADMIN] }
+        - { path: ^/admin, roles: ROLE_ADMIN }

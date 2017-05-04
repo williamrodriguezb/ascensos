@@ -1,0 +1,4 @@
+services:
+#    calificacion.example:
+#        class: calificacionBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]

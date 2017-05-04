@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="TipoReintegro" table="TIPO_REINTEGRO">
+    <field name="tprnCodigo" type="string" column="TPRN_CODIGO" length="40" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Llave primaria de la fuente de datos</option>
+      </options>
+    </field>
+    <field name="tprnDescripcion" type="string" column="TPRN_DESCRIPCION" length="100" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Descripción del tipo de reintegro</option>
+      </options>
+    </field>
+    <field name="tprnId" type="integer" column="TPRN_ID" nullable="true">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Surrogate key para la jerarquia</option>
+      </options>
+    </field>
+    <field name="tprnPk" type="integer" column="TPRN_PK" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Llave primaria de la dimensión</option>
+      </options>
+    </field>
+  </entity>
+</doctrine-mapping>

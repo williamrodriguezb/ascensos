@@ -1,0 +1,23 @@
+{% extends 'default/base.html.twig' %}
+{% block main %}
+	<main class="container">
+		<div class="row text-center">
+			<div class="col-md-6">
+				  <div class="card">
+				  	<a href="{{url('coman_consulta')}}">
+			  	<i class="fa fa-check-square-o text-center card-img-top" aria-hidden="true" style="font-size:100px; color:#005f8e;"></i>
+			  		</a>
+		 	 <h3 class="card-header text-center">Generar Concepto</h3>
+			</div>
+			</div>
+			<div class="col-md-6">
+				<div class="card">
+					<a href="{{url('coman_consulta')}}">
+					<i class="fa fa-search" aria-hidden="true" style="font-size:100px; color:#033c58;"></i>
+					</a>
+					<h3 class="card-header text-center">Consulta Concepto</h3>
+				</div>
+			</div>
+		</div>
+	</main>
+{% endblock %}

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="LogRegimenPrestacional" table="LOG_REGIMEN_PRESTACIONAL">
+    <field name="oraErrMesg$" type="string" column="ORA_ERR_MESG$" length="2000" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="oraErrNumber$" type="integer" column="ORA_ERR_NUMBER$" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="oraErrOptyp$" type="string" column="ORA_ERR_OPTYP$" length="2" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="oraErrRowid$" type="string" column="ORA_ERR_ROWID$" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="oraErrTag$" type="string" column="ORA_ERR_TAG$" length="2000" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="rgprCodigo" type="string" column="RGPR_CODIGO" length="4000" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="rgprDescripcion" type="string" column="RGPR_DESCRIPCION" length="4000" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="rgprDiasVacaciones" type="string" column="RGPR_DIAS_VACACIONES" length="4000" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="rgprFechaExpiracion" type="string" column="RGPR_FECHA_EXPIRACION" length="4000" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="rgprFechaRegimen" type="string" column="RGPR_FECHA_REGIMEN" length="4000" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="rgprFechaVigencia" type="string" column="RGPR_FECHA_VIGENCIA" length="4000" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="rgprId" type="string" column="RGPR_ID" length="4000" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="rgprNombreTipoRegimen" type="string" column="RGPR_NOMBRE_TIPO_REGIMEN" length="4000" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="rgprNumeroRegimen" type="string" column="RGPR_NUMERO_REGIMEN" length="4000" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="rgprPk" type="string" column="RGPR_PK" length="4000" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="rgprTipoRegimen" type="string" column="RGPR_TIPO_REGIMEN" length="4000" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+  </entity>
+</doctrine-mapping>

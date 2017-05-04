@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="MotivoFelicitacion" table="MOTIVO_FELICITACION">
+    <field name="indicadorCategoria" type="string" column="INDICADOR_CATEGORIA" length="4" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Sigla que define la categoria de a quien se le otorga la condecoracion</option>
+      </options>
+    </field>
+    <field name="indicadorCategoriaDescrip" type="string" column="INDICADOR_CATEGORIA_DESCRIP" length="250" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">descripcion de la cateoria de a quien se le otorga la condecoracion</option>
+      </options>
+    </field>
+    <field name="indicadorCodigo" type="integer" column="INDICADOR_CODIGO" nullable="true">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Llave primaria de la fuente de datos</option>
+      </options>
+    </field>
+    <field name="indicadorDefinicion" type="string" column="INDICADOR_DEFINICION" length="810" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Contiene la definicion del indicador</option>
+      </options>
+    </field>
+    <field name="indicadorDescripcion" type="string" column="INDICADOR_DESCRIPCION" length="250" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Descripcion del indicador</option>
+      </options>
+    </field>
+    <field name="indicadorFuerza" type="integer" column="INDICADOR_FUERZA" nullable="true">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Llave primaria de la fuente de datos</option>
+      </options>
+    </field>
+    <field name="indicadorId" type="integer" column="INDICADOR_ID" nullable="true">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Surrogate key para la jerarquia</option>
+      </options>
+    </field>
+    <field name="indicadorVigente" type="string" column="INDICADOR_VIGENTE" length="4" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Describe si el indicador es vigente</option>
+      </options>
+    </field>
+    <field name="mtflCodigo" type="integer" column="MTFL_CODIGO" nullable="true">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Llave primaria de la fuente de datos</option>
+      </options>
+    </field>
+    <field name="mtflDescripcion" type="string" column="MTFL_DESCRIPCION" length="210" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Describe el Motivo de la Felicitacion</option>
+      </options>
+    </field>
+    <field name="mtflId" type="integer" column="MTFL_ID" nullable="true">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Surrogate key para la jerarquia</option>
+      </options>
+    </field>
+    <field name="mtflVigente" type="string" column="MTFL_VIGENTE" length="4" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Describe si el Motivo de felicitacion es  vigente</option>
+      </options>
+    </field>
+    <field name="pkMtfl" type="integer" column="PK_MTFL" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Llave primaria de la Dimensión</option>
+      </options>
+    </field>
+  </entity>
+</doctrine-mapping>

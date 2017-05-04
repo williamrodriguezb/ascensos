@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="SolRetirosWeb" table="SOL_RETIROS_WEB">
+    <field name="aprobodia" type="integer" column="APROBODIA" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="aproboje" type="integer" column="APROBOJE" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="cedudiape" type="integer" column="CEDUDIAPE" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="cedujefe" type="integer" column="CEDUJEFE" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="cedulare" type="integer" column="CEDULARE" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="ciuSoli" type="string" column="CIU_SOLI" length="50" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="comunicado" type="integer" column="COMUNICADO" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="contenido" type="string" column="CONTENIDO" length="1000" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="fechaapdi" type="date" column="FECHAAPDI" nullable="true"/>
+    <field name="fechaapje" type="date" column="FECHAAPJE" nullable="true"/>
+    <field name="fecharet" type="date" column="FECHARET" nullable="true"/>
+    <field name="fechasol" type="date" column="FECHASOL" nullable="false"/>
+    <field name="idsolire" type="integer" column="IDSOLIRE" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="undeFuerza" type="integer" column="UNDE_FUERZA" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="vigente" type="integer" column="VIGENTE" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">1</option>
+      </options>
+    </field>
+  </entity>
+</doctrine-mapping>

@@ -1,0 +1,27 @@
+comandante:
+    path:     /
+    defaults: { _controller: comandanteBundle:Default:index  }
+ver_concepto:
+    path:     /concepto
+    defaults: { _controller: comandanteBundle:Default:ver_concepto  }
+coman_consulta:
+    path:     /consulta
+    defaults: { _controller: comandanteBundle:Default:consulta  }
+    methods:  [ GET , POST ]
+crear_concepto:
+    path:     /crear_concepto
+    defaults: { _controller: comandanteBundle:Default:crear_concepto  }
+    methods:  [ GET , POST ]    
+insertar_concepto:
+    path:     /insertar_concepto
+    defaults: { _controller: comandanteBundle:Default:insertar_concepto  }
+    methods:  [ GET , POST ]
+prueba_ldap:
+    path:     /prueba_ldap
+    defaults: { _controller: comandanteBundle:Default:prueba_ldap  }
+concepto:
+    path:     /concepto/{id}/{concepto}
+    defaults: { _controller: comandanteBundle:Default:concepto, id: 0, concepto: 0 }
+pdfconcepto:
+    path:     /pdfconcepto/{id}/{concepto}
+    defaults: { _controller: comandanteBundle:Default:pdf_concepto ,id: 0, concepto: 0}

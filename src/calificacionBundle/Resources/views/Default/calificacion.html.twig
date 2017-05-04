@@ -1,0 +1,64 @@
+{% extends 'default/base.html.twig' %}
+{% block main_fluid %}
+{% endblock %}
+{% block main %}
+	<main class="container">
+	<section class="container">
+		<section class="container">
+			<div class="row">
+				<div class="col-md-4">
+					<div class="card">
+						<a class='text-center' href="{{url('matriz_jucla')}}">
+
+					  	 <i class="fa fa-cog  card-img-top" aria-hidden="true" style="font-size:100px; color:#005f8e;"></i>
+						</a>
+				 	 <h3 class="card-header text-center">Matriz de validacion</h3>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="card">
+						<a class='text-center' href="{{url('cal_listado')}}">
+
+					  	 <i class="fa fa-list  card-img-top" aria-hidden="true" style="font-size:100px; color:#005f8e;"></i>
+						</a>
+				 	 <h3 class="card-header text-center">Personal a Ascender</h3>
+					</div>
+				</div>
+			<div class="col-md-4">
+			<div class="card">
+				<a class='text-center' href="{{url('persona')}}">
+			  	<i class="fa fa-user-circle text-center card-img-top" aria-hidden="true" style="font-size:100px; color:#005f8e;"></i>
+			  </a>
+		 	 <h3 class="card-header text-center">Ver Persona</h3>
+			</div>
+		</div>
+		
+		<div class="col-md-4">
+			<div class="card">
+				<a class='text-center' href="{{url('calif_reporte')}}">
+			  	<i class="fa fa-file-text text-center card-img-top" aria-hidden="true" style="font-size:100px; color:#58401e;"></i>
+			  	</a>
+		 	 <h3 class="card-header text-center">Generar Reporte</h3>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="card">
+			  	<i class="fa fa-hand-paper-o text-center card-img-top" aria-hidden="true" style="font-size:100px; color:#58401e;"></i>
+		 	 <h3 class="card-header text-center">Acto Administrativo</h3>
+			  	
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="card">
+			<a class="text-center" href="{{url('calif_estadisticas')}}">
+			  	<i class="fa fa-line-chart text-center card-img-top" aria-hidden="true" style="font-size:100px; color:#58401e;"></i>
+		 	 </a>
+		 	 <h3 class="card-header text-center">Estadisticas</h3>
+			  	
+			</div>
+		</div>
+		  </div>
+	</section>	
+	</section>
+{% endblock %}
+

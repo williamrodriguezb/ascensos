@@ -1,0 +1,96 @@
+{% extends plantilla ? "/default/consulta.html.twig" : 'disanBundle:default:vacia.html.twig' %}
+
+
+{% block consulta_header %}
+
+	<i class="fa fa-user-md  card-img-top" aria-hidden="true" style="font-size:100px; color:#005f8e;"></i>
+    
+{% endblock %}
+
+{% block consulta_action %}
+    action="{{url('juntas_medicas')}}"
+{% endblock %}
+
+
+{% block listado_target %}href="{{url('juntas_medicas')}}{{parent()}}{% endblock %}
+
+{% block datos %}
+	
+	
+{% if persona == null %}
+		{# listado de los que tienen conceptos #}
+	</form>
+{% endif %}
+			{% if aptitud == null %}
+				{% if persona != null %}
+
+
+				no hay nada	
+					
+
+				{% if persona_confirm.CATEGORIA != 'OFICIAL'  and persona_confirm.CATEGORIA != 'SUBOFICIAL' %}
+					la persona identificada con documento {{ persona }}  es :{{ persona_confirm.CATEGORIA }}
+				{% endif %}
+					</p>
+				{% endif %}
+			{% endif %}
+			{% if aptitud != null %}
+			<table class="table table-hover table-bordered table-responsive">
+				<caption>Junta Medica</caption>
+				<thead>
+					<tr>
+						<th>Num</th>
+						<th>Numero de acta</th>
+						<th>Fecha de acta</th>
+						<th>Grado</th>
+						<th>Discapacidad</th>
+						<th>Aptitud</th>
+						<th>Disminu.  Actual</th>
+						<th>Disminu. Laboral</th>
+					</tr>
+				</thead>	
+				<tbody>
+					{%  for a in aptitud %}
+					<tr>
+						<td></td>
+						<td>{{ a.N_ACTA }}</td>
+						<td>{{ a.F_ACTA }}</td>
+						<td>{{ a.GRADO }}</td>
+						<td>{{ a.DISCAPACIDAD }}</td>
+						<td>{{ a.APTITUD }}</td>
+						<td>{{ a.D_ACTUAL }}</td>
+						<td>{{ a.D_LABORAL }}</td>
+					</tr>
+					{% endfor %}	
+				</tbody>		
+				</table>
+				<table class="table table-hover table-bordered table-responsive">
+					<thead>
+						<tr>
+							<th>N°</th>
+							<th>Antecedentes</th>
+							<th>Circustancia</th>
+							<th>Unidad</th>
+							<th>Sigla</th>
+							<th>Categoria</th>
+						</tr>
+					 </thead>
+					<tbody>
+						{%  for a in aptitud %}
+						<tr>
+							<td></td>
+							<td>{{ a.ANTECEDENTES }}</td>
+							<td>{{ a.I_CIRCUSTANCIA }}</td>
+							<td>{{ a.UNIDAD }}</td>
+							<td>{{ a.SIGLA }}</td>
+							<td>{{ a.CATEGORIA }}</td>
+
+						</tr>
+						{% endfor %}	
+					</tbody>
+				</table>
+				{% endif %}
+			</fieldset>
+		</article>
+	</section>
+{% endblock %}

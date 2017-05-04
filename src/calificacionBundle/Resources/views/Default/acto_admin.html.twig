@@ -1,0 +1,119 @@
+{% extends 'default/base.html.twig' %}
+{% block main %}
+	<main class="container">
+		<div class="row card">
+			<div class="card-header">Acto Administrativos</div>
+			<div class="col-md-10 mx-auto card-block">
+				<form action="">
+					<div class="form-inline">
+					<label for="dispo">Disposicion</label>
+					<input type="text" name="dispo" id="dispo" class="form-control mb-2 mr-sm-2 mb-sm-0">
+					<label for="dispo">N°</label>
+					<input type="text" name="num" id="dispo" class="form-control mb-2 mr-sm-2 mb-sm-0">
+					<label for="fecha">Fecha</label>
+					<input type="date" name="dispo" id="fecha" class="form-control mb-2 mr-sm-2 mb-sm-0">
+					<input type="submit" value="Generar" class="btn btn-default">
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="row">
+			<div class="table-responsive col-md-4">
+			<div id="accordion" role="tablist" aria-multiselectable="true">
+				<table class="table table-sm table-bordered">
+					<thead class="bg-success">
+						<tr>
+							<th colspan="2">{{ascendidos|length}}</th>
+						</tr>
+						<tr>
+						      	<th colspan="2" >
+						        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+						          Asciende
+						        </a>
+						        </th>
+						</tr>
+					</thead>
+					<thead class="thead-default">
+						<tr>
+							<th>Documento</th>
+							<th>acto</th>
+						</tr>
+					</thead>
+					 <tbody id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne">
+				       {% for a in ascendidos %}
+							<tr>
+								<td>{{a.documento}}</td>
+								<td>{{a.acto}}</td>
+							</tr>
+						{% endfor %}
+				    </tbody>
+						
+				</table>
+			</div>
+			</div>
+			<div class="table-responsive col-md-4">
+				<table class="table table-sm table-bordered">
+					<thead class="bg-warning">
+						<tr>
+							<th colspan="2">{{retardos|length}}</th>
+						</tr>
+						<tr>
+							<th colspan="2">
+
+								 <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+						          Retardos
+						        </a>
+							</th>
+						</tr>
+					</thead>
+					<thead class="thead-default">
+						
+						<tr>
+							<th>Documento</th>
+							<th>acto</th>
+						</tr>
+					</thead>
+					<tbody id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
+						
+						{% for r in retardos %}
+							<tr>
+								<td>{{r.documento}}</td>
+								<td>{{r.acto}}</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+			<div class="table-responsive col-md-4">
+				<table class="table table-sm table-bordered">
+					<thead class="bg-danger">
+						<tr>
+							<tr>
+							<th colspan="2">{{retirados|length}}</th>
+						</tr>
+							<th colspan="2">
+								 <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+						          Retiros
+						        </a>
+							</th>
+						</tr>
+					</thead>
+					<thead class="thead-default">
+						
+						<tr>
+							<th>Documento</th>
+							<th>acto</th>
+						</tr>
+					</thead>
+					 <tbody id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree">
+						{% for ret in retirados %}
+							<tr>
+								<td>{{ret.documento}}</td>
+								<td>{{ret.acto}}</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+{% endblock %}

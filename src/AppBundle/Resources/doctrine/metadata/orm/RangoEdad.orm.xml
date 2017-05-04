@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="RangoEdad" table="RANGO_EDAD">
+    <field name="rnedCodigo" type="integer" column="RNED_CODIGO" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Llave primaria de la fuente de datos</option>
+      </options>
+    </field>
+    <field name="rnedDescripcion" type="string" column="RNED_DESCRIPCION" length="50" nullable="false">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Descripción del rango de edades</option>
+      </options>
+    </field>
+    <field name="rnedFechaExpiracion" type="date" column="RNED_FECHA_EXPIRACION" nullable="true">
+      <options>
+        <option name="comment">Fecha de expiración de la vigencia del rango de edad</option>
+      </options>
+    </field>
+    <field name="rnedFechaVigencia" type="date" column="RNED_FECHA_VIGENCIA" nullable="true">
+      <options>
+        <option name="comment">Fecha de inicio de vigencia del rango de edad</option>
+      </options>
+    </field>
+    <field name="rnedId" type="integer" column="RNED_ID" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Surrogate key para la jerarquía</option>
+      </options>
+    </field>
+    <field name="rnedLimiteInferior" type="smallint" column="RNED_LIMITE_INFERIOR" nullable="true">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Limite inferior del rango de edades</option>
+      </options>
+    </field>
+    <field name="rnedLimiteSuperior" type="smallint" column="RNED_LIMITE_SUPERIOR" nullable="true">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Limite superior del rango de edades</option>
+      </options>
+    </field>
+    <field name="rnedOrden" type="integer" column="RNED_ORDEN" nullable="true">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Orden de presentación del rango de edades</option>
+      </options>
+    </field>
+    <field name="rnedPk" type="integer" column="RNED_PK" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Llave primaria de la dimensión</option>
+      </options>
+    </field>
+  </entity>
+</doctrine-mapping>

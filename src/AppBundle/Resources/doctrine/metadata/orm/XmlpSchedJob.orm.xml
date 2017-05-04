@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="XmlpSchedJob" table="XMLP_SCHED_JOB">
+    <field name="bursting" type="string" column="BURSTING" length="1" nullable="true">
+      <options>
+        <option name="fixed">1</option>
+      </options>
+    </field>
+    <field name="burstingParameters" type="blob" column="BURSTING_PARAMETERS" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="created" type="datetime" column="CREATED" nullable="true"/>
+    <field name="deliveryDescription" type="string" column="DELIVERY_DESCRIPTION" length="4000" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="deliveryParameters" type="blob" column="DELIVERY_PARAMETERS" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="endDate" type="datetime" column="END_DATE" nullable="true"/>
+    <field name="issuer" type="string" column="ISSUER" length="100" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="jobGroup" type="string" column="JOB_GROUP" length="1000" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="jobId" type="integer" column="JOB_ID" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="lastUpdated" type="datetime" column="LAST_UPDATED" nullable="true"/>
+    <field name="locale" type="string" column="LOCALE" length="5" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="owner" type="string" column="OWNER" length="100" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="reportParameters" type="blob" column="REPORT_PARAMETERS" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="reportUrl" type="string" column="REPORT_URL" length="1000" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="runType" type="string" column="RUN_TYPE" length="1" nullable="true">
+      <options>
+        <option name="fixed">1</option>
+      </options>
+    </field>
+    <field name="scheduleDescription" type="string" column="SCHEDULE_DESCRIPTION" length="100" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="scheduleParameters" type="blob" column="SCHEDULE_PARAMETERS" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="sharedOption" type="string" column="SHARED_OPTION" length="1" nullable="true">
+      <options>
+        <option name="fixed">1</option>
+      </options>
+    </field>
+    <field name="startDate" type="datetime" column="START_DATE" nullable="true"/>
+    <field name="userDescription" type="string" column="USER_DESCRIPTION" length="4000" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="userJobName" type="string" column="USER_JOB_NAME" length="1000" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="xschurl" type="string" column="XSCHURL" length="4000" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+  </entity>
+</doctrine-mapping>

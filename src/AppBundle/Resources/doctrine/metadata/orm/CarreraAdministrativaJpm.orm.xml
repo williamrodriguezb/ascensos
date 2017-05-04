@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="CarreraAdministrativaJpm" table="CARRERA_ADMINISTRATIVA_JPM">
+    <field name="cajpCarreraAdministrativa" type="string" column="CAJP_CARRERA_ADMINISTRATIVA" length="100" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Descriptor de la carrera administrativa</option>
+      </options>
+    </field>
+    <field name="cajpCodigoCraAdministrativa" type="string" column="CAJP_CODIGO_CRA_ADMINISTRATIVA" length="50" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Identificador de la carrera administrativa, corresponde a la llave de la fuente de datos</option>
+      </options>
+    </field>
+    <field name="cajpCodigoJusticiaPenal" type="string" column="CAJP_CODIGO_JUSTICIA_PENAL" length="50" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Identificador de justicia penal,  corresponde a la llave de la fuente de datos</option>
+      </options>
+    </field>
+    <field name="cajpId" type="integer" column="CAJP_ID" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Número que identifica la única combinación de las características de una novedad</option>
+      </options>
+    </field>
+    <field name="cajpJusticiaPenal" type="string" column="CAJP_JUSTICIA_PENAL" length="100" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Descriptor de justicia penal</option>
+      </options>
+    </field>
+    <field name="cajpPk" type="integer" column="CAJP_PK" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Surrogate key de la dimensión</option>
+      </options>
+    </field>
+  </entity>
+</doctrine-mapping>

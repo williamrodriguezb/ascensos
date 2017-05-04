@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Tipomotivo3mesesalta" table="TIPOMOTIVO_3MESESALTA">
+    <field name="tm3maCodigoTipomotivo" type="string" column="TM3MA_CODIGO_TIPOMOTIVO" length="50" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Identificador del Tipo motivo, corresponde a la llave de la fuente de datos</option>
+      </options>
+    </field>
+    <field name="tm3maCodigo3ma" type="string" column="TM3MA_CODIGO_3MA" length="7" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Identificador de Tres Meses Alta, corresponde a la llave de la fuente de datos</option>
+      </options>
+    </field>
+    <field name="tm3maId" type="integer" column="TM3MA_ID" nullable="true">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Número que identifica la única combinación</option>
+      </options>
+    </field>
+    <field name="tm3maPk" type="integer" column="TM3MA_PK" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Llave primaria de la Dimension</option>
+      </options>
+    </field>
+    <field name="tm3maTipomotivo" type="string" column="TM3MA_TIPOMOTIVO" length="50" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Descriptor del Tipo motivo</option>
+      </options>
+    </field>
+    <field name="tm3ma3mesesalta" type="string" column="TM3MA_3MESESALTA" length="50" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Descriptor de Tres Meses Alta</option>
+      </options>
+    </field>
+  </entity>
+</doctrine-mapping>

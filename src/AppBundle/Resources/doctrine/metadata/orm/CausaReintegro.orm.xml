@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="CausaReintegro" table="CAUSA_REINTEGRO">
+    <field name="csrnCodigo" type="integer" column="CSRN_CODIGO" nullable="true">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Llave primaria de la fuente de datos</option>
+      </options>
+    </field>
+    <field name="csrnDescripcion" type="string" column="CSRN_DESCRIPCION" length="50" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">descripción de la causa_reintegro</option>
+      </options>
+    </field>
+    <field name="csrnFuerza" type="integer" column="CSRN_FUERZA" nullable="true">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Fuerza en el reintegro</option>
+      </options>
+    </field>
+    <field name="csrnId" type="integer" column="CSRN_ID" nullable="true">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Surrogate key para la jerarquia</option>
+      </options>
+    </field>
+    <field name="csrnPk" type="integer" column="CSRN_PK" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Surrogate key de la dimensión</option>
+      </options>
+    </field>
+  </entity>
+</doctrine-mapping>

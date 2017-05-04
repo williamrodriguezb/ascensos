@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="UnidadDependenciaJerarquia" table="UNIDAD_DEPENDENCIA_JERARQUIA">
+    <field name="consecutivo" type="integer" column="CONSECUTIVO" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="descripcionDependencia" type="string" column="DESCRIPCION_DEPENDENCIA" length="100" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="jerarquiaConsecutivo" type="string" column="JERARQUIA_CONSECUTIVO" length="100" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="marcaTimestamp" type="datetime" column="MARCA_TIMESTAMP" nullable="true"/>
+    <field name="nivel" type="integer" column="NIVEL" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="unidadDependenciaPk" type="integer" column="UNIDAD_DEPENDENCIA_PK" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+  </entity>
+</doctrine-mapping>

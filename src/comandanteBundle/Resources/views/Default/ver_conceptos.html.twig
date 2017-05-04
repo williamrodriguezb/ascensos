@@ -1,0 +1,21 @@
+
+	<table class="table table-responsive">
+		<tr>
+			<th>N°</th>
+			<th>Fecha de Diligenciamiento</th>
+			<th>Fecha de Ascenso</th>
+			<th>Calificacion</th>
+			<th></th>
+		</tr>
+		{% set num = 0 %}
+	{% for c in conceptos %}
+		{% set num = num + 1 %}
+			<tr>
+			<td class="text-center">{{ num }}</td>
+			<td class="text-center">{{c.f_diligenciamiento}}</td>
+			<td class="text-center">{{c.f_ascenso}}</td>
+			<td class="text-center">{{c.calificacion}}</td>
+			<td class="text-center"><a href="" class="btn btn-outline-warning">Editar</a></td>
+			<td class="text-center"><a href="{{url('pdfconcepto')}}/{{id}}/{{c.id_concepto}}" class="btn btn-outline-primary">Ver</a></td>
+	{% endfor %}
+	</table>

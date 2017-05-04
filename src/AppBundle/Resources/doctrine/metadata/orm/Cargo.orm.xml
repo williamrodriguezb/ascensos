@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Cargo" table="CARGO">
+    <field name="cargoAbreviatura" type="string" column="CARGO_ABREVIATURA" length="10" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Abreviatura del cargo</option>
+      </options>
+    </field>
+    <field name="cargoClaseCargo" type="string" column="CARGO_CLASE_CARGO" length="240" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Clase de cargo, según CG_REF_CODES</option>
+      </options>
+    </field>
+    <field name="cargoCodigo" type="integer" column="CARGO_CODIGO" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Llave primaria del cargo en la fuente de datos</option>
+      </options>
+    </field>
+    <field name="cargoCodigoClaseCargo" type="string" column="CARGO_CODIGO_CLASE_CARGO" length="2" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Código de la clase de cargo, según CG_REF_CODES</option>
+      </options>
+    </field>
+    <field name="cargoCodigoTipoAsignacion" type="string" column="CARGO_CODIGO_TIPO_ASIGNACION" length="2" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Código del tipo de asignación, según CG_REF_CODES</option>
+      </options>
+    </field>
+    <field name="cargoCodigoTipoCargo" type="string" column="CARGO_CODIGO_TIPO_CARGO" length="2" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Código del tipo de cargo, según CG_REF_CODES</option>
+      </options>
+    </field>
+    <field name="cargoDescripcion" type="string" column="CARGO_DESCRIPCION" length="60" nullable="false">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Descripción del cargo</option>
+      </options>
+    </field>
+    <field name="cargoFechaExpiracion" type="date" column="CARGO_FECHA_EXPIRACION" nullable="true">
+      <options>
+        <option name="comment">Fecha de expiración del registro</option>
+      </options>
+    </field>
+    <field name="cargoFechaVigencia" type="date" column="CARGO_FECHA_VIGENCIA" nullable="false">
+      <options>
+        <option name="comment">Fecha de inicio de vigencia del registro</option>
+      </options>
+    </field>
+    <field name="cargoId" type="integer" column="CARGO_ID" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Surrogate key de la dimensión</option>
+      </options>
+    </field>
+    <field name="cargoPk" type="integer" column="CARGO_PK" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="cargoTipoAsignacion" type="string" column="CARGO_TIPO_ASIGNACION" length="240" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Tipo de asignación, según CG_REF_CODES</option>
+      </options>
+    </field>
+    <field name="cargoTipoCargo" type="string" column="CARGO_TIPO_CARGO" length="240" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Tipo de cargo, según CG_REF_CODES</option>
+      </options>
+    </field>
+    <field name="cargoVigente" type="string" column="CARGO_VIGENTE" length="2" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Indicador vigente SI/NO/NR</option>
+      </options>
+    </field>
+  </entity>
+</doctrine-mapping>

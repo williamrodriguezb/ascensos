@@ -1,0 +1,4 @@
+services:
+#    disan.example:
+#        class: disanBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]

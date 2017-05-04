@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="UnidadDependencia" table="UNIDAD_DEPENDENCIA">
+    <indexes>
+      <index name="idx_unidad_dependencia_nk" columns="CODIGO,FUERZA"/>
+    </indexes>
+    <field name="codigo" type="integer" column="CODIGO" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="codigoSigla" type="integer" column="CODIGO_SIGLA" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="codigoTipounidad" type="integer" column="CODIGO_TIPOUNIDAD" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="descripcion" type="string" column="DESCRIPCION" length="100" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="desde" type="date" column="DESDE" nullable="true"/>
+    <field name="dificultad" type="integer" column="DIFICULTAD" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="fuerza" type="integer" column="FUERZA" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="hasta" type="date" column="HASTA" nullable="true"/>
+    <field name="id" type="integer" column="ID" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="nivelFuncional" type="string" column="NIVEL_FUNCIONAL" length="2" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="ordenPublico" type="string" column="ORDEN_PUBLICO" length="2" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="sigla" type="string" column="SIGLA" length="15" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="tipoUnidad" type="string" column="TIPO_UNIDAD" length="100" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="unidadDependenciaPk" type="integer" column="UNIDAD_DEPENDENCIA_PK" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="vigente" type="string" column="VIGENTE" length="2" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="visualizar" type="string" column="VISUALIZAR" length="2" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+  </entity>
+</doctrine-mapping>

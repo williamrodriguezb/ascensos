@@ -1,0 +1,195 @@
+<html lang="es">
+<head>
+	<title>Concepto {{persona.APELLIDOS}} {{persona.NOMBRES}}</title>
+	<link rel="stylesheet" href="">
+	 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+	 <style>
+	 	body{
+	 		font-family: arial;
+	 	}
+	 	header{
+	 		margin: 1em 0;
+	 	}
+	 	ul{
+	 		list-style: none;
+	 		font-size: 11px;
+	 	}
+	 	#escudo{
+	 		width:80px; height:80px;
+	 		float: left;
+	 	}
+	 	th{
+	 		
+	 	}
+	 </style>
+</head>
+<body>
+	<header>
+		<div class="col col-lg-6">
+			<p class="text-center" style="color:red; font-size:16px">
+				CONFIDENCIAL
+			</p>
+		</div>
+		<div class="row">
+			<div class="col col-lg-6">
+				<img id="escudo" src="{{ absolute_url(asset('img/escudo.png') )}}" alt="">
+				<ul>
+					<li>MINISTERIO DE DEFENSA NACIONAL</li>
+					<li>COMANDO GENERAL FUERZAS MILITARES</li>
+					<li>ARMADA  NACIONAL</li>
+					<li>JEFATURA DE DESARROLLO HUMANO Y FAMILIA</li>
+					<li>MDN-CGFM-CARMA-SECAR-JEDHU-JUCLA</li>
+				</ul>
+			</div>
+			<div class="col text-center">
+				<img src="{{ absolute_url(asset('img/todos_por_un_pais.png') )}}" alt="">
+			</div>
+		</div>
+	</header>
+	<h1 class="text-center"  style="font-size: 18px; font-weight: bold;">CONCEPTO PERSONAL MILITAR PROPUESTO  PARA ASCENSO</h1>
+
+
+
+	<div class="row" style="font-size: 15px">
+
+		<div class=" col-6">	
+			NOMBRE: <u> {{persona.GRADO}}. {{persona.APELLIDOS}} {{persona.NOMBRES}}</u> 
+		</div>
+		<div class=" col-3">	
+			CODIGO: <u></u>
+		</div>
+		<div class="col-4">
+			FUERZA:<u></u>
+		</div>
+		
+		
+	</div>
+	<div class="row"  style="font-size: 15px">
+		
+		<div class="col-6">
+			UNIDAD:<u>{{persona.UNIDAD}}</u> 
+			
+		</div>	
+		<div class="col-4">
+			GUARNICION:<u><u>{{persona.GUARNICION}}</u> </u>
+			
+		</div>	
+		
+	</div>
+	<div class="row" style="font-size: 15px">
+		<div class="col">	
+			
+			ESPECIALIDAD <u>{{persona.ESPECIALIDAD}}</u>
+		</div>
+		<div class="col-4">	
+			CARGO ADICIONAL
+		</div>
+		<div class="col-4">		
+			CARGO PRINCIPAL:
+		</div>
+
+	</div>
+			
+	<table class="table table-bordered">
+		<thead class="text-center" style="">
+			<th style="writing-mode: tb-rl;">INDICADOR</th>
+			<th>N/A</th>
+			<th>DEFICIENTE</th>
+			<th>REGULAR</th>
+			<th>BUENO</th>
+			<th>MUY BUENO</th>
+			<th>EXCELENTE</th>
+		</thead>	
+		<tbody style="font-size:10px;">
+			{% for i in ind_concepto %}
+				<tr>
+					<td>{{i.descripcion}}</td>
+			   		<td class="text-center"><input type="radio"  name="{{i.id_indicador}}" value="0"></td>
+					<td class="text-center"><input type="radio"  name="{{i.id_indicador}}" value="1" 
+						{% if i.calificacion == 1 %}
+							checked
+						{% endif %}
+					></td>
+					<td class="text-center"><input type="radio"  name="{{i.id_indicador}}" value="2" 
+						{% if i.calificacion == 2 %}
+							checked
+						{% endif %}
+					></td>
+					<td class="text-center"><input type="radio"  name="{{i.id_indicador}}" value="3"
+						{% if i.calificacion == 3 %}
+							checked
+						{% endif %}
+					></td>
+					<td class="text-center">
+						<input type="radio"  name="{{i.id_indicador}}" value="4"
+							{% if i.calificacion == 4 %}
+								checked
+							{% endif %}
+						>
+					</td>
+					<td class="text-center"><input type="radio"  name="{{i.id_indicador}}" value="4"
+						{% if i.calificacion == 5 %}
+							checked
+						{% endif %}
+					></td>
+				</tr>
+				{% endfor %} 	
+				
+			</table>
+			
+			
+		</tbody>
+	</table>
+	<div class="mx-auto text-center">
+		<p>CONCEPTO DEL COMANDANTE</p>
+	<u>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+		<br>
+
+	&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+		<br>
+		&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+		<br>
+		&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+		<br>
+	</u>
+	</div>
+	
+	<p class="text-center">COMANDANTE RECOMIENDA ASCENSO AL GRADO INMEDIATAMENTE SUPERIOR  SI :    NO:  </p>
+
+	<div class="row">
+		<div class="col col-lg-6" style="margin-top: 80px">
+			<p class="text-center" >
+				<u>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</u><br>
+				GRADO-FIRMA Y POSFIRMA COMANDANTE DE LA UNIDAD
+			</p>
+		</div>
+	</div>
+<footer class="container" style="font-size:12px">
+	<div class="row">
+		<div class="col">
+			“Protegemos el Azul de la Bandera”
+			Línea Anticorrupción Armada Nacional 01 8000 11 69 69 – 24 horas
+			Carrera 54 No. 26-25 CAN – Conmutador 3692000 Ext. 10193 Bogotá, Colombia.
+			www.armada.mil.co –   juntaclasificadora@armada.mil.co
+		</div>
+		<div class="col text-right mr-2">
+			GEDOC-FT-001-AYGAR-V07 
+			<p><img id="sellos" src="{{ absolute_url(asset('img/sellos.png') )}}" alt=""></p>
+			
+		</div>
+
+	</div>
+	
+	<div class="row">
+		<div class="col col-lg-6">
+			<p class="text-center" style="color:red; font-size:16px">
+				CONFIDENCIAL
+			</p>
+		</div>
+	</div>
+	
+
+</footer>
+</body>
+</html>
+

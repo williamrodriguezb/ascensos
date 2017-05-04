@@ -1,0 +1,145 @@
+{% extends '/default/base.html.twig' %}
+
+{% block main %}
+	<main class="container_fluid">
+		{# {% if page == null %} #}
+			<div class="container">
+				<div class="row">
+					<div class="col-md-4 col-xs-12 mx-auto ">
+						<h2 class="text-center text-muted">Personal a Ascender </h2>
+						<form  action="{{ url('cal_listado') }}?page=1" method="POST" class="form-group">
+							<label for="anio">Año</label>		
+							<select name="anio" id="anio" class="form-control" required>
+								{% if app.session.get('anio') %}
+									<option value="{{app.session.get('anio')}}" >{{app.session.get('anio')}}</option>
+
+								{% else %}
+								    <option value="" selected>Año</option>
+								    <option value="2017">2017</option>
+								{% endif %}
+								
+							</select>
+							<label for="categoria">Categoria</label>		
+							<select name="categoria" id="categoria" class="form-control" required>
+
+								{% if app.session.get('categoria') %}
+									<option value="{{app.session.get('categoria')}}" class="text-muted " selected >{{app.session.get('categoria')}}</option>
+									
+
+								{% else %}
+								    <option value="" class="text-muted " selected >Categoria</option>
+								    <option value="OFIC" >OFICIAL</option>
+									<option value="SUBOFIC" >SUBOFICIAL</option>
+
+								{% endif %}
+								
+								
+							</select>
+							<label for="turno">Turno</label>		
+							<select name="turno" id="turno" class="form-control" required>
+								{% if app.session.get('turno') %}
+										<option value="{{app.session.get('turno')}}" selected>{{app.session.get('turno')}}</option>
+								{% else %}
+									<option value="" selected>Turno</option>
+									<option value="1" >1-JUN</option>
+									<option value="2" >2-DIC</option>
+								{% endif %}
+							</select>
+					</div>
+				</div>
+			</div>
+			<div class="container" >
+				<div class="row">
+					<div class="col-md-6 mx-auto">
+						<div class="row">
+							<div class="col-md-4 mt-1">
+							<input type="submit" value="Ver Listado" class="btn btn-info form-control ">
+						</div>
+						<div class="col-md-4 mt-1">
+							<a href="{{ url('cal_listado') }}" class="btn  btn-info form-control ">VER REPORTE</a>
+						</div>
+						<div class="col-md-4 mt-1">
+							<a href="{{ url('cal_listado') }}" class="btn btn-outline-primary  form-control">LIMPIAR</a>
+						</div>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+			</form>
+	{# 	{% endif %} #}
+	{# {% if empleados != null %}
+		<div class="row">
+			<div class="col"></div>
+		</div>
+	
+		{% endif %} #}
+
+		{% if pagination %}
+			<div class="text-center">
+				<span class="badge badge-pill badge-default">Total de Personas{{ pagination.getTotalItemCount}}</span>
+			</div>
+		<div class="container_fluid">
+			<div class="table-responsive">
+				<table class="table" style="font-size:0.85em">
+					<thead class="thead-default">
+						<th>N</th>
+						<th>CEDULA</th>
+						<th>GRADO</th>
+						<th>APELLIDOS</th>
+						<th>NOMBRES</th>
+						<th>ESPECIALIDAD</th>
+						<th>GUARNICION</th>
+						<th>UNIDAD</th>
+						<th>SIGLA</th>
+						<th>OBSERVACIONES</th>
+					</thead>
+					<tbody>
+						{% set i = 0 %}
+						{% for e in pagination%}
+						
+						<tr>	{% set i = i + 1 %}
+							<td>{{ i }}</td>
+							<td>{{e.IDENTIFICACION}}</td>
+							<td>{{e.GRADO}}</td>
+							<td>{{e.APELLIDOS}}</td>
+							<td>{{e.NOMBRES}}</td>
+							<td>{{e.ESPECIALIDAD}}</td>
+							<td>{{e.GUARNICION}}</td>
+							<td>{{e.UNIDAD}}</td>
+							<td>{{e.SIGLA}}</td>
+							
+							<td>
+								<a href="{{ url('persona_datos') }}?id={{ e.IDENTIFICACION }}" class="btn btn-outline-primary btn-sm">
+									Hoja Personal
+								</a>
+							</td>
+						</tr>
+					</tbody>
+					{% endfor %}
+				</table>
+			</div>
+			
+		</div>
+		
+
+			
+			{# display navigation #}
+	<div class="container">
+		<div class="row">
+			<div class="col-md-8 mx-auto">
+				
+				{{ knp_pagination_render(pagination) }}
+			</div>
+		</div>
+	</div>
+    
+
+		{% endif %}
+{% endblock %}
+{% block footer %}
+{% endblock %}
+
+
+
+

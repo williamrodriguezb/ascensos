@@ -1,0 +1,29 @@
+<div class="folios">
+				<h3>FOLIOS DE VIDA</h3>
+			<table class="table table-bordered table-responsive table-striped table-condensed ">
+				<tr>
+					<th>LAPSO INICIO</th>
+					<th>LAPSO FIN</th>
+					<th>UNIDAD</th>
+					<th>SIGLA</th>
+					<th>AÑO LISTA</th>
+					<th>LISTA</th>
+					<th>CARGO</th>
+				</tr>
+				{% for f in folio %}
+				<tr>
+					<td class="text-center">{{f.LAPSO_INICIAL}}</td>
+					<td class="text-center">{{f.LAPSO_FINAL}}</td>
+					<td>{{f.UNIDAD}}</td>
+					<td class="text-center">{{f.SIGLA}}</td>
+					<td class="text-center">{{f.ANO_LISTA}}</td>
+					<td class="text-center">{{f.LISTA}}</td>
+					<td>{{f.CARGO}}</td>
+					
+				</tr>
+				    
+				{% endfor %}
+				
+
+			</table>
+		</div>

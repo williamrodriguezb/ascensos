@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Toe" table="TOE">
+    <field name="fechaExpiracion" type="date" column="FECHA_EXPIRACION" nullable="true">
+      <options>
+        <option name="comment">Fecha de expiración del registro</option>
+      </options>
+    </field>
+    <field name="fechaVigencia" type="date" column="FECHA_VIGENCIA" nullable="true">
+      <options>
+        <option name="comment">Fecha de vigencia del registro</option>
+      </options>
+    </field>
+    <field name="gradAlfabetico" type="string" column="GRAD_ALFABETICO" length="5" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Codigo alfabetico del grado</option>
+      </options>
+    </field>
+    <field name="plantaActual" type="integer" column="PLANTA_ACTUAL" nullable="true">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Cantidad de personal actual</option>
+      </options>
+    </field>
+    <field name="plantaAutorizada" type="integer" column="PLANTA_AUTORIZADA" nullable="true">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Cantidad de personal autorizado</option>
+      </options>
+    </field>
+    <field name="toe" type="integer" column="TOE" nullable="true">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Cantidad de personal</option>
+      </options>
+    </field>
+    <field name="toeId" type="integer" column="TOE_ID" nullable="true">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Identificador unico del registro</option>
+      </options>
+    </field>
+    <field name="toePk" type="integer" column="TOE_PK" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="undeConsecutivo" type="integer" column="UNDE_CONSECUTIVO" nullable="true">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Consecutivo</option>
+      </options>
+    </field>
+  </entity>
+</doctrine-mapping>

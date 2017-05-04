@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="QrtzBlobTriggers" table="QRTZ_BLOB_TRIGGERS">
+    <field name="blobData" type="blob" column="BLOB_DATA" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <many-to-one field="triggerName" target-entity="QrtzTriggers" fetch="LAZY">
+      <join-columns>
+        <join-column name="TRIGGER_NAME" referenced-column-name="TRIGGER_NAME"/>
+        <join-column name="TRIGGER_GROUP" referenced-column-name="TRIGGER_GROUP"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>
