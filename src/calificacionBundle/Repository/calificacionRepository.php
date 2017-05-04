@@ -9,8 +9,8 @@ namespace calificacionBundle\Repository;
  * repository methods below.
  */
 class calificacionRepository extends \Doctrine\ORM\EntityRepository
-{	
-	
+{
+
   public function getFoto($identificacion)
   {
      $em = $this->getEntityManager();
@@ -84,22 +84,22 @@ class calificacionRepository extends \Doctrine\ORM\EntityRepository
        NUEVO_REHU.CF_TOT_TIEMGRADO(ee.unde_consecutivo,ee.fuerza_empleado,ee.id_empleado, sysdate) t_grado,
       NUEVO_REHU.edad_anio(ee.fecha_nacimiento)edad,
       RTRIM(LTRIM(RF.SERVIDOR||RF.RUTA_FOTO||FE.NOMBRE_FOTO)) RUTA
- 
+
   FROM  escalafones_empleados ee,
         unidades_dependencia ud,
         siglas s ,
         armas_cuerpos ac,
         fotos_empleados fe,
         rutas_fotos rf
- 
+
   WHERE ee.fuerza_empleado = 4
     AND   ee.unde_consecutivo_laborando = ud.consecutivo
     AND   ee.unde_fuerza_laborando = ud.fuerza
-    AND   ud.id_sigla = s.id_sigla(+)  
+    AND   ud.id_sigla = s.id_sigla(+)
     AND   ee.id_categoria IN (".$categoria.")
-   
+
     AND   (ee.abrev_grado <> 'CN' AND ee.abrev_grado <> 'CA' AND
-          ee.abrev_grado <> 'CR' AND ee.abrev_grado <> 'AL' 
+          ee.abrev_grado <> 'CR' AND ee.abrev_grado <> 'AL'
          AND ee.abrev_grado <> 'VA' AND ee.abrev_grado <> 'VA'
          AND ee.abrev_grado <> 'BG' AND ee.abrev_grado <> 'MG'
          AND ee.abrev_grado <> 'SJTC' AND ee.abrev_grado <> 'SMC'
@@ -107,14 +107,14 @@ class calificacionRepository extends \Doctrine\ORM\EntityRepository
          AND ee.abrev_grado <> 'SM')
     AND TO_CHAR(ee.Fecha_Prox_Ascenso,'YYYY') = 2017
     AND TO_CHAR (ee.Fecha_Prox_Ascenso,'MM') BETWEEN ".$f_inicio." AND ".$f_limite."
-    
+
     AND   ee.id_empleado = fe.empl_consecutivo
     AND   ee.fuerza_empleado = fe.empl_unde_fuerza
     AND   ee.unde_consecutivo = fe.empl_unde_consecutivo
-    
+
     AND FE.ID_RUTA_FOTO = RF.ID_RUTA_FOTO
-    
-    
+
+
     AND     ee.id_arma_cuerpo = ac.id_arma_cuerpo
     AND     ee.fuerza_empleado = ac.fuerza
    ORDER BY ee.id_categoria ASC,
@@ -140,7 +140,7 @@ class calificacionRepository extends \Doctrine\ORM\EntityRepository
       $categoria = 11;
     }
     $datos = array();
-    $parametros = array(  
+    $parametros = array(
                           'identificacion'  => $identificacion,
                           'apellidos'       =>$apellidos ,
                           'nombres'         =>$nombres,
@@ -153,7 +153,7 @@ class calificacionRepository extends \Doctrine\ORM\EntityRepository
         array_push($datos,array($k=>$p)) ;
       }
      }
-    
+
     if (count($datos)>=1 ) {
       foreach ($datos as $key=>  $value) {
           foreach ($value as $clave => $v) {
@@ -162,18 +162,18 @@ class calificacionRepository extends \Doctrine\ORM\EntityRepository
             }else{
               $queryParametros .= " ee.".$clave." LIKE '".$v."' AND   ";
             }
-            
+
           }
       }
     }else{
         $queryParametros = "ee.identificacion =  '".$identificacion."'
-      OR ee.apellidos LIKE '".$apellidos."' 
+      OR ee.apellidos LIKE '".$apellidos."'
       OR ee.nombres   LIKE '".$nombres."'
       OR ee.id_categoria = '".$categoria."'  ";
     }
-    
+
     $query="
-  SELECT 
+  SELECT
     ee.identificacion,
     ee.categoria,
     EE.DESC_GRADO grado_completo,
@@ -186,23 +186,23 @@ class calificacionRepository extends \Doctrine\ORM\EntityRepository
     s.sigla,
     ee.fecha_prox_ascenso,
     NUEVO_REHU.CF_TOT_TIEMGRADO(ee.unde_consecutivo,ee.fuerza_empleado,ee.id_empleado, sysdate) t_grado
-  FROM 
+  FROM
     escalafones_empleados ee,
     unidades_dependencia ud,
-    siglas s 
-  WHERE 
+    siglas s
+  WHERE
     ee.fuerza_empleado = 4
   AND ( ".$queryParametros.")
  AND   ee.unde_consecutivo_laborando = ud.consecutivo
  AND   ee.unde_fuerza_laborando = ud.fuerza
-   
- AND   ud.id_sigla = s.id_sigla(+)  
-   
-   
+
+ AND   ud.id_sigla = s.id_sigla(+)
+
+
    AND ee.id_categoria IN (10, 11)
-      
+
    AND TO_CHAR(ee.Fecha_Prox_Ascenso,'YYYY') ='2017'
-   
+
    ORDER BY ee.id_categoria ASC,
             ee.grado_numerico,
             ee.fecha_ult_ascenso,
@@ -211,88 +211,88 @@ class calificacionRepository extends \Doctrine\ORM\EntityRepository
             ee.nombres
 
 ";
-    
-    
+
+
     $smtp = $db->prepare($query);
     $smtp->execute();
     return  $smtp->fetchAll();
 
   }
 
-  
+
 	public function getPersona($identificacion){
 		$em = $this->getEntityManager();
 		$db = $em->getConnection();
 		$query="
-      SELECT 
-       ee.identificacion,
-       ee.categoria,
-       EE.DESC_GRADO grado_completo,
-       ee.abrev_grado grado,
-       ee.apellidos ,
-       ee.nombres,
-       ee.descr_especialidad especialidad,
-       ee.guarnicion,
-       ee.unidad_dependencia unidad,
-       s.sigla,
-       ee.fecha_prox_ascenso,
-       ee.arma_cuerpo,
-       ee.fecha_ult_ascenso uascenso,
-       ee.fecha_nacimiento f_nacimiento,
-       ee.fecha_disp_alta f_alta,
-       ee.cursos_militares,
-       ac.descripcion arma_cuerpo,
-       proc_gral.tiempoServicio(ee.unde_consecutivo ,ee.fuerza_empleado,ee.id_empleado)t_servicio,
-       NUEVO_REHU.CF_TOT_TIEMGRADO(ee.unde_consecutivo,ee.fuerza_empleado,ee.id_empleado, sysdate) t_grado,
-       NUEVO_REHU.edad_anio(ee.fecha_nacimiento)edad,
-       rg.edad_limite edad_limite,
-      RTRIM(LTRIM(RF.SERVIDOR||RF.RUTA_FOTO||FE.NOMBRE_FOTO)) RUTA
- 
-      FROM  escalafones_empleados ee,
-            unidades_dependencia ud,
-            siglas s ,
-            armas_cuerpos ac,
-            fotos_empleados fe,
-            rutas_fotos rf,
-            requisitos_grado rg
- 
-        WHERE ee.fuerza_empleado = 4
-          AND   ee.unde_consecutivo_laborando = ud.consecutivo
-          AND   ee.unde_fuerza_laborando = ud.fuerza
-          AND   ud.id_sigla = s.id_sigla(+)  
-          AND   ee.id_categoria IN (10,11)
-          AND   ee.identificacion = ".$identificacion."
-         
-          AND   (ee.abrev_grado <> 'CN' AND ee.abrev_grado <> 'CA' AND
-                ee.abrev_grado <> 'CR' AND ee.abrev_grado <> 'AL' 
-               AND ee.abrev_grado <> 'VA' AND ee.abrev_grado <> 'VA'
-               AND ee.abrev_grado <> 'BG' AND ee.abrev_grado <> 'MG'
-               AND ee.abrev_grado <> 'SJTC' AND ee.abrev_grado <> 'SMC'
-               AND ee.abrev_grado <> 'ST' AND ee.abrev_grado <> 'JT'
-               AND ee.abrev_grado <> 'SM')
-          AND TO_CHAR(ee.Fecha_Prox_Ascenso,'YYYY') = 2017
-          
-          
-          AND   ee.id_empleado = fe.empl_consecutivo
-          AND   ee.fuerza_empleado = fe.empl_unde_fuerza
-          AND   ee.unde_consecutivo = fe.empl_unde_consecutivo
-          
-          AND FE.ID_RUTA_FOTO = RF.ID_RUTA_FOTO
-          
-          
-          AND     ee.id_arma_cuerpo = ac.id_arma_cuerpo
-          AND     ee.fuerza_empleado = ac.fuerza
+		SELECT
+		 ee.identificacion,
+		 ee.categoria,
+		 EE.DESC_GRADO grado_completo,
+		 ee.abrev_grado grado,
+		 ee.apellidos ,
+		 ee.nombres,
+		 ee.descr_especialidad especialidad,
+		 ee.guarnicion,
+		 ee.unidad_dependencia unidad,
+		 s.sigla,
+		 ee.fecha_prox_ascenso,
+		 ee.arma_cuerpo,
+		 ee.fecha_ult_ascenso uascenso,
+		 ee.fecha_nacimiento f_nacimiento,
+		 ee.fecha_disp_alta f_alta,
+		 ee.cursos_militares,
+		 ac.descripcion arma_cuerpo,
+		 proc_gral.tiempoServicio(ee.unde_consecutivo ,ee.fuerza_empleado,ee.id_empleado)t_servicio,
+		 NUEVO_REHU.CF_TOT_TIEMGRADO(ee.unde_consecutivo,ee.fuerza_empleado,ee.id_empleado, sysdate) t_grado,
+		 NUEVO_REHU.edad_anio(ee.fecha_nacimiento)edad,
+		 rg.edad_limite edad_limite,
+		RTRIM(LTRIM(RF.SERVIDOR||RF.RUTA_FOTO||FE.NOMBRE_FOTO)) RUTA
 
-          AND ee.fuerza_empleado =  rg.fuerza
-          AND ee.id_arma_cuerpo =   rg.id_arma_cuerpo
-          AND ee.abrev_grado   = rg.grad_alfabetico
+		FROM  escalafones_empleados ee,
+					unidades_dependencia ud,
+					siglas s ,
+					armas_cuerpos ac,
+					fotos_empleados fe,
+					rutas_fotos rf,
+					requisitos_grado rg
 
-         ORDER BY ee.id_categoria ASC,
-                  ee.grado_numerico,
-                  ee.fecha_ult_ascenso,
-                  ee.ubicacion_escalafon,
-                  ee.apellidos,
-                  ee.nombres
+			WHERE ee.fuerza_empleado = 4
+				AND   ee.unde_consecutivo_laborando = ud.consecutivo
+				AND   ee.unde_fuerza_laborando = ud.fuerza
+				AND   ud.id_sigla = s.id_sigla(+)
+				AND   ee.id_categoria IN (10,11)
+				AND   ee.identificacion = TRIM(".$identificacion.")
+
+				AND   (ee.abrev_grado <> 'CN' AND ee.abrev_grado <> 'CA' AND
+							ee.abrev_grado <> 'CR' AND ee.abrev_grado <> 'AL'
+						 AND ee.abrev_grado <> 'VA' AND ee.abrev_grado <> 'VA'
+						 AND ee.abrev_grado <> 'BG' AND ee.abrev_grado <> 'MG'
+						 AND ee.abrev_grado <> 'SJTC' AND ee.abrev_grado <> 'SMC'
+						 AND ee.abrev_grado <> 'ST' AND ee.abrev_grado <> 'JT'
+						 AND ee.abrev_grado <> 'SM')
+				AND TO_CHAR(ee.Fecha_Prox_Ascenso,'YYYY') = 2017
+
+
+				AND   ee.id_empleado = fe.empl_consecutivo(+)
+				AND   ee.fuerza_empleado = fe.empl_unde_fuerza(+)
+				AND   ee.unde_consecutivo = fe.empl_unde_consecutivo(+)
+
+				AND   FE.ID_RUTA_FOTO = RF.ID_RUTA_FOTO(+)
+
+
+				AND     ee.id_arma_cuerpo = ac.id_arma_cuerpo
+				AND     ee.fuerza_empleado = ac.fuerza
+
+				AND ee.fuerza_empleado =  rg.fuerza
+				AND ee.id_arma_cuerpo =   rg.id_arma_cuerpo
+				AND ee.abrev_grado   = rg.grad_alfabetico
+
+			 ORDER BY ee.id_categoria ASC,
+								ee.grado_numerico,
+								ee.fecha_ult_ascenso,
+								ee.ubicacion_escalafon,
+								ee.apellidos,
+								ee.nombres
 
     ";
 
@@ -301,7 +301,7 @@ class calificacionRepository extends \Doctrine\ORM\EntityRepository
    	return	$smtp->fetch();
 
 	}
-  
+
   public function getMando($identificacion){
     $em = $this->getEntityManager();
     $db = $em->getConnection();
@@ -321,10 +321,10 @@ class calificacionRepository extends \Doctrine\ORM\EntityRepository
        AND e.consecutivo = tar.empl_consecutivo
        AND e.unde_fuerza = tar.empl_unde_fuerza
        AND e.unde_consecutivo = tar.empl_unde_consecutivo
-       
+
        AND cg.rv_domain='TIPO REQUISITO'
        AND trim(cg.rv_low_value) = trim(tar.tipo_requisito)
-      
+
      GROUP BY e.identificacion, cg.rv_meaning
     ";
 
@@ -352,39 +352,39 @@ class calificacionRepository extends \Doctrine\ORM\EntityRepository
              ud.descripcion_dependencia unidad,
              s.sigla,
              c.descripcion cargo
-      FROM 
-           empleados e, 
+      FROM
+           empleados e,
            evaluaciones_empleados eve,
            escalas_evaluacion esv,
            clasificacion_empleados cle,
            unidades_dependencia ud,
            siglas s,
            cargos c
-          
-      WHERE e.unde_fuerza       = 4 
+
+      WHERE e.unde_fuerza       = 4
         AND   e.activo            = 'SI'
-        
+
         AND e.identificacion = ".$identificacion."
-       
+
         AND   e.unde_consecutivo  = eve.empl_unde_consecutivo
         AND   e.consecutivo       = eve.empl_consecutivo
         AND   e.unde_fuerza       = eve.empl_unde_fuerza
-        
+
         AND   e.consecutivo       = cle.empl_consecutivo
         AND   e.unde_consecutivo  = cle.empl_unde_consecutivo
         AND   e.unde_fuerza       = cle.empl_unde_fuerza
-        
+
         AND  cle.esev_fuerza      = esv.fuerza
         AND  cle.esev_id_escala   = esv.id_escala
-        
+
         AND   eve.id_escala       = esv.id_escala
         AND   eve.esev_fuerza     = esv.fuerza
-        
+
         AND   cle.unde_consecutivo  = ud.consecutivo
         AND   cle.unde_fuerza       = ud.unde_fuerza
-        
+
         AND   ud.id_sigla           = s.id_sigla(+)
-        
+
         AND   eve.cargo             = c.cargo
         AND   eve.esev_fuerza       = c.fuerza
 
@@ -403,11 +403,11 @@ class calificacionRepository extends \Doctrine\ORM\EntityRepository
     $db = $em->getConnection();
 
     $query = "
-        SELECT count(fe.observaciones) num 
-        FROM 
+        SELECT count(fe.observaciones) num
+        FROM
           empleados e, felicitaciones_empleados fe
 
-        WHERE 
+        WHERE
           e.unde_fuerza = 4
         AND      e.activo = 'SI'
         AND      e.identificacion = ".$identificacion."
@@ -429,7 +429,7 @@ class calificacionRepository extends \Doctrine\ORM\EntityRepository
 
       WHERE e.unde_fuerza = 4
         AND   e.activo = 'SI'
-        AND   e.identificacion =".$identificacion." 
+        AND   e.identificacion =".$identificacion."
         AND   e.consecutivo = cde.empl_consecutivo
         AND   e.unde_fuerza = cde.empl_unde_fuerza
         AND   e.unde_consecutivo = cde.empl_unde_consecutivo
@@ -447,10 +447,10 @@ class calificacionRepository extends \Doctrine\ORM\EntityRepository
     FROM empleados e, ausencias_laborales_empl ale
 
    WHERE e.unde_fuerza = 4
-        
+
      AND e.activo = 'SI'
-     
-     AND e.identificacion = ".$identificacion."   
+
+     AND e.identificacion = ".$identificacion."
      AND e.consecutivo = ale.empl_consecutivo
      AND e.unde_fuerza = ale.empl_unde_fuerza
      AND e.unde_consecutivo = ale.empl_unde_consecutivo
@@ -473,12 +473,12 @@ class calificacionRepository extends \Doctrine\ORM\EntityRepository
     FROM escalafones_empleados ee, ascensos_empleados ae, disposiciones d, cg_ref_codes cg_ref
 
    WHERE ee.fuerza_empleado = 4
-        
+
      AND ee.id_empleado = ae.empl_consecutivo
      AND ee.fuerza_empleado = ae.empl_unde_fuerza
      AND ee.unde_consecutivo = ae.empl_unde_consecutivo
-       
-     
+
+
      AND ae.disp_id_disposicion = d.id_disposicion
      AND cg_ref.rv_domain = 'TIPO ASCENSO'
      AND cg_ref.rv_low_value = ae.tipo_ascenso
@@ -498,7 +498,7 @@ class calificacionRepository extends \Doctrine\ORM\EntityRepository
     $conn = $em->getConnection();
 
     $query="
-      SELECT 
+      SELECT
              d.descripcion dispocision,
              fe.numero_disposicion,
              fe.fecha_disposicion,
@@ -509,7 +509,7 @@ class calificacionRepository extends \Doctrine\ORM\EntityRepository
              c.descripcion cargo,
              i.descripcion indicador,
              i2.descripcion subindicador
-             
+
 
         FROM empleados                e,
              felicitaciones_empleados fe,
@@ -519,7 +519,7 @@ class calificacionRepository extends \Doctrine\ORM\EntityRepository
              indicadores              i,
              indicadores              i2,
              cargos                   c
-             
+
 
        WHERE e.unde_fuerza = 4
          AND e.activo = 'SI'
@@ -527,21 +527,21 @@ class calificacionRepository extends \Doctrine\ORM\EntityRepository
          AND e.unde_fuerza = fe.empl_unde_fuerza
          AND e.unde_consecutivo = fe.empl_unde_consecutivo
          AND e.consecutivo = fe.empl_consecutivo
-            
+
          AND fe.disp_id_disposicion = d.id_disposicion
-         
+
          AND fe.carg_cargo =  c.cargo
          AND fe.unde_fuerza = c.fuerza
-            
+
          AND fe.id_clase_novedad = cn.id_clase_novedad
-            
+
          AND fe.unde_fuerza = mf.indi_fuerza(+)
-            
+
          AND fe.id_motivo_felicitac = mf.id_motivo_felicitac
-            
+
          AND mf.indi_id_indicador = i.id_indicador(+)
          AND mf.indi_fuerza = i.fuerza(+)
-            
+
          AND i.indi_id_indicador = i2.id_indicador(+)
          AND i.indi_fuerza = i2.fuerza(+)";
 
@@ -555,7 +555,7 @@ class calificacionRepository extends \Doctrine\ORM\EntityRepository
       $conn = $em->getConnection();
 
       $query="
-        SELECT 
+        SELECT
                cn.descripcion,
                ce.descripcion estimulo,
                d.descripcion disposicion,
@@ -594,19 +594,19 @@ class calificacionRepository extends \Doctrine\ORM\EntityRepository
       $conn = $em->getConnection();
 
       $query="
-        SELECT cn.descripcion complemento, ce.contenido, ce.id_fecha_complem, ce.grad_alfabetico 
+        SELECT cn.descripcion complemento, ce.contenido, ce.id_fecha_complem, ce.grad_alfabetico
 
           FROM empleados e,
                complementos_empleados ce,
                clases_novedades cn
-             
+
           WHERE e.unde_fuerza = 4
           AND   e.consecutivo = ce.empl_consecutivo
           AND   e.unde_fuerza = ce.empl_unde_fuerza
           AND   e.unde_consecutivo = ce.empl_unde_consecutivo
-          
+
           AND ce.id_clase_novedad in (8446)
-          
+
           AND   ce.id_clase_novedad =  cn.id_clase_novedad
           and  e.identificacion = ".$id."
 
@@ -621,19 +621,19 @@ class calificacionRepository extends \Doctrine\ORM\EntityRepository
         $conn = $em->getConnection();
 
         $query="
-          SELECT cn.descripcion complemento, ce.contenido, ce.id_fecha_complem, ce.grad_alfabetico 
+          SELECT cn.descripcion complemento, ce.contenido, ce.id_fecha_complem, ce.grad_alfabetico
 
             FROM empleados e,
                  complementos_empleados ce,
                  clases_novedades cn
-               
+
             WHERE e.unde_fuerza = 4
             AND   e.consecutivo = ce.empl_consecutivo
             AND   e.unde_fuerza = ce.empl_unde_fuerza
             AND   e.unde_consecutivo = ce.empl_unde_consecutivo
-            
+
             AND ce.id_clase_novedad in (1555,8628)
-            
+
             AND   ce.id_clase_novedad =  cn.id_clase_novedad
             and  e.identificacion = ".$id."
 
@@ -648,19 +648,19 @@ class calificacionRepository extends \Doctrine\ORM\EntityRepository
         $conn = $em->getConnection();
 
         $query="
-          SELECT cn.descripcion complemento, ce.contenido, ce.id_fecha_complem, ce.grad_alfabetico 
+          SELECT cn.descripcion complemento, ce.contenido, ce.id_fecha_complem, ce.grad_alfabetico
 
             FROM empleados e,
                  complementos_empleados ce,
                  clases_novedades cn
-               
+
             WHERE e.unde_fuerza = 4
             AND   e.consecutivo = ce.empl_consecutivo
             AND   e.unde_fuerza = ce.empl_unde_fuerza
             AND   e.unde_consecutivo = ce.empl_unde_consecutivo
-            
+
             AND ce.id_clase_novedad in (8627)
-            
+
             AND   ce.id_clase_novedad =  cn.id_clase_novedad
             and  e.identificacion = ".$id."
 
@@ -675,19 +675,19 @@ class calificacionRepository extends \Doctrine\ORM\EntityRepository
         $conn = $em->getConnection();
 
         $query="
-          SELECT cn.descripcion complemento, ce.contenido, ce.id_fecha_complem, ce.grad_alfabetico 
+          SELECT cn.descripcion complemento, ce.contenido, ce.id_fecha_complem, ce.grad_alfabetico
 
             FROM empleados e,
                  complementos_empleados ce,
                  clases_novedades cn
-               
+
             WHERE e.unde_fuerza = 4
             AND   e.consecutivo = ce.empl_consecutivo
             AND   e.unde_fuerza = ce.empl_unde_fuerza
             AND   e.unde_consecutivo = ce.empl_unde_consecutivo
-            
+
             AND ce.id_clase_novedad in (8448)
-            
+
             AND   ce.id_clase_novedad =  cn.id_clase_novedad
             and  e.identificacion = ".$id."
 
@@ -702,47 +702,47 @@ class calificacionRepository extends \Doctrine\ORM\EntityRepository
         $conn = $em->getConnection();
 
         $query="
-                    SELECT 
+                    SELECT
                  esv.lista , count(esv.lista)n_lista
-                 
-          FROM 
-               empleados e, 
+
+          FROM
+               empleados e,
                evaluaciones_empleados eve,
                escalas_evaluacion esv,
                clasificacion_empleados cle,
                unidades_dependencia ud,
                siglas s,
                cargos c
-              
-          WHERE 
-                  e.unde_fuerza       = 4 
+
+          WHERE
+                  e.unde_fuerza       = 4
             AND   e.activo            = 'SI'
-            
-            AND   e.identificacion = ".$id." 
-           
+
+            AND   e.identificacion = ".$id."
+
             AND   e.unde_consecutivo  = eve.empl_unde_consecutivo
             AND   e.consecutivo       = eve.empl_consecutivo
             AND   e.unde_fuerza       = eve.empl_unde_fuerza
-            
+
             AND   e.consecutivo       = cle.empl_consecutivo
             AND   e.unde_consecutivo  = cle.empl_unde_consecutivo
             AND   e.unde_fuerza       = cle.empl_unde_fuerza
-            
+
             AND  cle.esev_fuerza      = esv.fuerza
             AND  cle.esev_id_escala   = esv.id_escala
-            
+
             AND   eve.id_escala       = esv.id_escala
             AND   eve.esev_fuerza     = esv.fuerza
-            
+
             AND   cle.unde_consecutivo  = ud.consecutivo
             AND   cle.unde_fuerza       = ud.unde_fuerza
-            
+
             AND   ud.id_sigla           = s.id_sigla
-            
+
             AND   eve.cargo             = c.cargo
             AND   eve.esev_fuerza       = c.fuerza
-            
-            
+
+
             GROUP BY esv.lista
       ";
         $smtp = $conn->prepare($query);
@@ -755,7 +755,7 @@ class calificacionRepository extends \Doctrine\ORM\EntityRepository
     $conn = $em->getConnection();
 
     $query="
-      SELECT 
+      SELECT
       TO_CHAR(ale.fecha_disposicion, 'YYYY') año_disposicion,
        cat.descripcion Categoria,
        g.alfabetico GRD,
@@ -779,26 +779,26 @@ class calificacionRepository extends \Doctrine\ORM\EntityRepository
             AND e.identificacion = ".$id."
          AND e.activo = 'SI'
          AND e.unde_fuerza = g.fuerza
-            
+
          AND e.grad_alfabetico = g.alfabetico
-            
+
          AND e.unde_fuerza = cat.fuerza
          AND g.id_categoria = cat.id_categoria
          AND cat.id_categoria IN (10, 11)
-            
+
          AND e.unde_fuerza = ud.fuerza
          AND e.unde_consecutivo = ud.consecutivo
-            
+
          AND e.unde_fuerza = ALE.EMPL_UNDE_FUERZA
          AND e.unde_consecutivo = ale.empl_unde_consecutivo
          AND e.consecutivo = ale.empl_consecutivo
-            
+
          AND ALE.ID_CLASE_NOVEDAD = CN.ID_CLASE_NOVEDAD
-            
+
          AND cn.id_clase_novedad IN (1483, 1489, 1480)
-            
-        
-   
+
+
+
        ORDER BY año_disposicion,
                 cat.id_categoria,
                 g.alfabetico,

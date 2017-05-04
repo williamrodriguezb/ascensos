@@ -8,118 +8,101 @@
 	<p>Disciplinarias</p>
 {% endblock %}
 {% block consulta_action %}
-	action="{{ url('jpm_datos') }}" 
+	action="{{ url('jpm_datos') }}"
 {% endblock %}
 
 {% block listado_target %}
     href="{{url('jpm')}}{{parent()}}
 {% endblock %}
-
 {% block datos %}
-				{% if sanciones != null %}
-					<div class="container">
-						<table class="table table-bordered table-hover table-responsive ">
-							<caption>SANCIONES</caption>
-							<thead>
-							<tr>
-								<th>Fecha Sancion</th>
-								<th>Tipo Novedad</th>
-								<th>Clase Novedad</th>
-								<th>Motivo de Hechos</th>
-								<th>Num Dispo</th>
-								<th>Disposicion</th>
-								<th>Grado en la novedad</th>
-							</tr>
-							</thead>
-							<tbody>
-							{% for sancion in sanciones%}
-								<tr>
-									<td>{{  sancion.FECHA_SANCION  }}</td>
-									<td>{{  sancion.TIPO_NOVEDAD  }}</td>
-									<td>{{  sancion.NUM_EXPED  }}</td>
-									<td>{{  sancion.MOTIVO_HECHOS  }}</td>
-									<td>{{  sancion.NUM_DISPO  }}</td>
-									<td>{{  sancion.DISPOSICION  }}</td>
-									<td>{{  sancion.GRADO_NOVEDAD  }}</td>
-								</tr>
-							{% endfor %}
-							</tbody>
-						</table>
-					</div>
-				{% endif %}
-					{% if suspenciones == null and persona != null %}
-						
-							<p class="text-muted text-center">Suspenciones: 0</p>
-						
-					{% endif %}
-					{% if sanciones == null and persona != null %}
-						
-							<p class="text-muted text-center">Sanciones:0</p>
-						
-					{% endif %}
-					{% if investigaciones == null and persona != null %}
-						
-							<p class="text-muted text-center">Investigaciones:0</p>
-						
-					{% endif %}
-				{% if investigaciones != null %}
-					
-							<h4 class="text-center">INVESTIGACIONES</h4>
-						<table class="table table-bordered table-hover table-responsive">
-							<thead>
-							<tr>
-								<th>Fecha Sancion</th>
-								<th>Tipo Novedad</th>
-								<th>Clase Novedad</th>
-								<th>Motivo de Hechos</th>
-								<th>Num Dispo</th>
-							</tr>
-							</thead>
-							<tbody>
-							{% for investigacion in investigaciones%}
-								<tr>
-									<td>{{investigacion.FECHA_INICIO  }}</td>
-									<td>{{investigacion.FECHA_HECHOS  }}</td>
-									<td>{{investigacion.NUMERO_PROCESO  }}</td>
-									<td>{{investigacion.OBSERVACION  }}</td>
-									<td>{{investigacion.TIPO_INVES }}</td>
-								</tr>
-							{% endfor %}
-							</tbody>
-						</table>
-					{% if suspenciones != null %}
-							<h4>SUSPENCIONES</h4>
-						<table class="table table-bordered table-hover table-responsive">
-							<thead>
-							<tr>
-								<th>N° Disposicion</th>
-								<th>DIPOSICION</th>
-								<th>FECHA DISPOSICION</th>
-								<th>NUMERO EXPEDIENTE</th>
-								<th>FECHA SUSPENCION</th>
-							</tr>
-							</thead>
-							<tbody>
-							{% for suspencion in suspenciones %}
-								<tr>
-									<td>{{  suspencion.NUM_DISPOSICION  }}</td>
-									<td>{{  suspencion.DISPOSICION  }}</td>
-									<td>{{  suspencion.FECHA_DISPOSICION  }}</td>
-									<td>{{  suspencion.NUMERO_EXPEDIENTE  }}</td>
-									<td>{{  suspencion.FECHA_SUSPENCION }}</td>
-								</tr>
-							{% endfor %}
-							</tbody>
-						</table>
-					</fieldset>
-					{% endif %}
-					
-				{% endif %}
-					    
-			{% endblock %}
+	{% if persona and plantilla %}{{persona.IDENTIFICACION}}
+		{{persona.CATEGORIA}}
+		{{persona.GRADO_COMPLETO}}
+		{{persona.APELLIDOS}}
+		{{persona.NOMBRES}}
+		{{persona.ESPECIALIDAD}}
+		{{persona.GUARNICION}}
+		{{persona.UNIDAD}}
+		{{persona.SIGLA}}
+<div class="table-responsive">
 
+	<table class="table table-bordered">
+		<thead class="thead-default">
+			<tr>
+				<th>Sanciones</th>
+				<th>Investigaciones</th>
+				<th>Suspenciones</th>
+				<th>Separaciones</th>
+			</tr>
+		</thead>
+		<tbody class="text-center">
+			<tr>
+				<td>{{sanciones|length}}</td>
+				<td>{{investigaciones|length}}</td>
+				<td>{{suspenciones|length}}</td>
+				<td>{{separaciones|length}}</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+{% endif %}
 
-
-
-
-
+<div class="container_fluid">
+	<div class="row">
+	{% if sanciones %}
+	<section id="sanciones" class="card col-md-4">
+		<h2 class="card-header">Sanciones</h2>
+		<div class="card-block">
+			<ul>
+				{% for s in sanciones %}
+				<li>Fecha:{{s.FECHA_SANCION}}</li>
+				<li>Novedad:{{s.TIPO_NOVEDAD}}</li>
+				<li>Clase Novedad:{{s.CLASE_NOVEDAD}}</li>
+				<li>Numero Expediente:{{s.NUM_EXPED}}</li>
+				<li>Hechos:{{s.MOTIVO_HECHOS}}</li>
+				<li>N° Dispo:{{s.NUM_DISPO}}</li>
+				<li>Dispocision:{{s.DISPOSICION}}</li>
+				<li>Grado:{{s.GRADO_NOVEDAD}}</li>
+				{% endfor %}
+			</ul>
+		</div>
+	</section>
+	{% endif %}
+	{% if investigaciones %}
+	<section id="investigaciones" class="card col-md-4">
+		<h2 class="card-header">Investigaciones</h2>
+		<div class="card-block">
+			{% for i in investigaciones %}
+			{{i.FECHA_INICIO}}
+			{{i.FECHA_HECHOS}}
+			{{i.NUMERO_PROCESO}}
+			{{i.OBSERVACION}}
+			{{i.TIPO_INVES}}
+			{% endfor %}
+		</div>
+	</section>
+	{% endif %}
+	{% if suspenciones %}
+		<section id="investigaciones" class="card col-md-4">
+			<h2 class="card-header">Suspensiones</h2>
+			<div class="card-block">
+			{% for s in suspenciones %}
+				{{s.NUM_DISPOSICION}}
+				{{s.DISPOSICION}}
+				{{s.FECHA_DISPOSICION}}
+				{{s.NUMERO_EXPEDIENTE}}
+				{{s.FECHA_SUSPENCION}}
+				{{s.FECHA_TERMINO}}
+				{{s.DIAS_MES_AÑO}}
+				{{s.CLASE_NOVEDAD}}
+				{{s.TIPO_SUSPENCION}}
+			{% endfor %}
+			</div>
+		</section>
+	{% endif %}
+	{% if separaciones %}
+		{{dump(separaciones)}}
+	{% endif %}
+	</div>
+	</div>
+{% endblock %}

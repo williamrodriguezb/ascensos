@@ -18,7 +18,7 @@ class DefaultController extends Controller
         $categoria      = $request->get('categoria');
         $listado        = null;
 
-        if ($documento != null  or $apellidos != null or $nombres != null 
+        if ($documento != null  or $apellidos != null or $nombres != null
         or  $categoria != null) {
           $em           =   $this->getDoctrine()->getManager();
           $db           =   $em->getConnection();
@@ -33,26 +33,26 @@ class DefaultController extends Controller
           $emdbal2          =   $this->getDoctrine()->getManager();
           $cal_repo         =    $em->getRepository('calificacionBundle:calificacion');
           $jpm_repo         =   $emdbal2->getRepository('jpmBundle:jpm');
-          $empleado         =   $cal_repo->getPersona($identificacion); 
+          $empleado         =   $cal_repo->getPersona($identificacion);
           $sanciones        =   $jpm_repo->getSanciones($identificacion);
           $investigaciones  =   $jpm_repo->getInvestigaciones($identificacion);
           $suspenciones     =   $jpm_repo->getSuspenciones($identificacion);
+          $separaciones     =   $jpm_repo->getSeparaciones($identificacion);
         }else{
           $empleado         = null;
           $sanciones        = null;
           $investigaciones  = null;
           $suspenciones     = null;
+          $separaciones     = null;
         }
         return $this->render('jpmBundle:default:jpm.html.twig', array(
-            'usuario'       =>  $usuario,
-            'correo'        =>  $correo,
-            'perfil'        =>  $perfil, 
-            'persona'       =>  $empleado,
-            'listado'       =>  $listado,
-            'sanciones'     =>  $sanciones,
-            'investigaciones' => $investigaciones,
-            'suspenciones'  => $suspenciones,
-            'plantilla'     => $plantilla,
+            'persona'         =>  $empleado,
+            'listado'         =>  $listado,
+            'sanciones'       =>  $sanciones,
+            'investigaciones' =>  $investigaciones,
+            'suspenciones'    =>  $suspenciones,
+            'separaciones'    =>  $separaciones,
+            'plantilla'       =>  $plantilla,
             )
         );
     }

@@ -1,20 +1,15 @@
 {% extends 'default/base.html.twig' %}
+
+{% block head %}
+{{parent()}}
+<script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.bundle.js'>
+</script>
+{% endblock %}
 {% block main %}
 	<main class="container">
-		<div class="row card">
-			<div class="card-header">Acto Administrativos</div>
-			<div class="col-md-10 mx-auto card-block">
-				<form action="">
-					<div class="form-inline">
-					<label for="dispo">Disposicion</label>
-					<input type="text" name="dispo" id="dispo" class="form-control mb-2 mr-sm-2 mb-sm-0">
-					<label for="dispo">N°</label>
-					<input type="text" name="num" id="dispo" class="form-control mb-2 mr-sm-2 mb-sm-0">
-					<label for="fecha">Fecha</label>
-					<input type="date" name="dispo" id="fecha" class="form-control mb-2 mr-sm-2 mb-sm-0">
-					<input type="submit" value="Generar" class="btn btn-default">
-					</div>
-				</form>
+		<div class="row">
+			<div class="col-md-10 mx-auto">
+				<canvas id="barras"></canvas>
 			</div>
 		</div>
 		<div class="row">
@@ -26,20 +21,18 @@
 							<th colspan="2">{{ascendidos|length}}</th>
 						</tr>
 						<tr>
-						      	<th colspan="2" >
-						        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-						          Asciende
-						        </a>
-						        </th>
-						</tr>
-					</thead>
-					<thead class="thead-default">
-						<tr>
-							<th>Documento</th>
-							<th>acto</th>
+				      	<th colspan="2" >
+				        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+				          Asciende
+				        </a>
+				        </th>
 						</tr>
 					</thead>
 					 <tbody id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne">
+						 <tr>
+ 							<th>Documento</th>
+ 							<th>acto</th>
+ 						</tr>
 				       {% for a in ascendidos %}
 							<tr>
 								<td>{{a.documento}}</td>
@@ -47,7 +40,7 @@
 							</tr>
 						{% endfor %}
 				    </tbody>
-						
+
 				</table>
 			</div>
 			</div>
@@ -59,22 +52,17 @@
 						</tr>
 						<tr>
 							<th colspan="2">
-
 								 <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
 						          Retardos
 						        </a>
 							</th>
 						</tr>
 					</thead>
-					<thead class="thead-default">
-						
+					<tbody id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
 						<tr>
 							<th>Documento</th>
 							<th>acto</th>
 						</tr>
-					</thead>
-					<tbody id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
-						
 						{% for r in retardos %}
 							<tr>
 								<td>{{r.documento}}</td>
@@ -98,14 +86,11 @@
 							</th>
 						</tr>
 					</thead>
-					<thead class="thead-default">
-						
-						<tr>
-							<th>Documento</th>
-							<th>acto</th>
-						</tr>
-					</thead>
 					 <tbody id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree">
+						 <tr>
+ 							<th>Documento</th>
+ 							<th>acto</th>
+ 						</tr>
 						{% for ret in retirados %}
 							<tr>
 								<td>{{ret.documento}}</td>
@@ -116,4 +101,68 @@
 				</table>
 			</div>
 		</div>
+		<div class="row card">
+			<div class="card-header">Acto Administrativos</div>
+			<div class="col-md-10 mx-auto card-block">
+				<form action="">
+					<div class="form-inline">
+					<label for="dispo">Disposicion</label>
+					<input type="text" name="dispo" id="dispo" class="form-control mb-2 mr-sm-2 mb-sm-0">
+					<label for="dispo">N°</label>
+					<input type="text" name="num" id="dispo" class="form-control mb-2 mr-sm-2 mb-sm-0">
+					<label for="fecha">Fecha</label>
+					<input type="date" name="dispo" id="fecha" class="form-control mb-2 mr-sm-2 mb-sm-0">
+					<input type="submit" value="Generar" class="btn btn-default">
+					</div>
+				</form>
+			</div>
+		</div>
+{% endblock %}
+
+
+{% block scripts %}
+	{{parent()}}
+	<script>
+		var ctx = document.getElementById("barras").getContext("2d");
+		var datos = {
+
+	    labels: ["Ascienden", "Retardos", "Retiros"],
+	    datasets: [
+	        {
+	            label: "Datos Diligenciados",
+	            backgroundColor: [
+	                'rgba(92, 184, 92, 0.55)',
+									'rgba(255, 206, 86, 0.2)',
+	                'rgba(217, 83, 79, 0.87)',
+
+	            ],
+	            borderColor: [
+	                'rgb(92, 184, 92)',
+									'rgba(255, 206, 86, 1)',
+	                'rgb(217, 83, 79)',
+
+	            ],
+	            borderWidth: 1,
+	            data: [{{ascendidos|length}}, {{retardos|length}}, {{retirados|length}}],
+	        }
+	    ]
+			};
+			var chart_bar = new Chart(ctx,{
+				type:'horizontalBar',
+				data:datos,
+				options:{
+
+					responsive:true,
+					scales: {
+		            xAxes: [{
+		                stacked: true
+		            }],
+		            yAxes: [{
+		                stacked: true
+		            }]
+		        }
+				}
+			});
+
+	</script>
 {% endblock %}

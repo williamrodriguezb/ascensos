@@ -10,13 +10,13 @@ namespace jpmBundle\Repository;
  */
 class jpmRepository extends \Doctrine\ORM\EntityRepository
 {
-	
+
 	public function getSanciones($identificacion){
 		global $em,$db;
 		$GLOBALS['em'] = $this->getEntityManager();
 		$GLOBALS['db'] = $em->getConnection();
 		$query = "
-         	SELECT 
+         	SELECT
          		se.id_fechfisc_sancion fecha_sancion,
 				tn.descripcion Tipo_Novedad,
 				cn.descripcion Clase_Novedad,
@@ -25,13 +25,13 @@ class jpmRepository extends \Doctrine\ORM\EntityRepository
 				se.numero_disposicion num_dispo,
 				d.descripcion disposicion,
 				SE.GRAD_ALFABETICO grado_novedad
-          	FROM 
+          	FROM
 				empleados           e,
 				sanciones_empleados se,
 				clases_novedades    cn,
 				tipos_novedades     tn,
 				disposiciones d
-         	WHERE 
+         	WHERE
          		e.unde_fuerza = 4
 				AND e.consecutivo 			= se.empl_consecutivo
 				AND e.unde_fuerza 			= se.empl_unde_fuerza
@@ -46,13 +46,13 @@ class jpmRepository extends \Doctrine\ORM\EntityRepository
 	}
 	public function getInvestigaciones($identificacion){
 		$query = "
-			SELECT 
+			SELECT
 				ie.fecha_inicio,
 				ie.fecha_hechos,
 				ie.numero_proceso,
 				ie.observacion,
 				tipo_inves.rv_abbreviation tipo_inves
-			FROM 
+			FROM
 				empleados                 e,
 				investigaciones_empleados ie,
 				cg_ref_codes              tipo_inves
@@ -68,11 +68,11 @@ class jpmRepository extends \Doctrine\ORM\EntityRepository
 		";
 		$smtp = $GLOBALS['db']->prepare($query);
 	   	$smtp->execute();
-	   	return $smtp->fetchAll(); 
+	   	return $smtp->fetchAll();
 	}
 	public function getSuspenciones($identificacion){
-		$query_suspencion = "
-			SELECT 
+		$query = "
+			SELECT
 				sue.numero_disposicion num_disposicion,
 				d.descripcion disposicion,
 				sue.fecha_disposicion,
@@ -82,12 +82,12 @@ class jpmRepository extends \Doctrine\ORM\EntityRepository
 				sue.numero_dias || '-' || sue.numero_meses ||'-' || sue.numero_anos dias_mes_año,
 				cn.descripcion clase_novedad,
 				ref_cod.rv_meaning Tipo_suspencion
-			FROM 
-				empleados e, 
+			FROM
+				empleados e,
 				suspensiones_empleados sue,
 				cg_ref_codes ref_cod, clases_novedades cn,
 				disposiciones d
-			WHERE 
+			WHERE
 				e.unde_fuerza = 4
 			AND e.activo = 'SI'
 			AND e.identificacion = ".$identificacion."
@@ -100,11 +100,64 @@ class jpmRepository extends \Doctrine\ORM\EntityRepository
 			AND sue.id_clase_novedad = cn.id_clase_novedad
 			AND sue.disp_id_disposicion = d.id_disposicion
 		";
-		
-	}
-	public function getSeparaciones(){
-		
+			$smtp = $GLOBALS['db']->prepare($query);
+	   	$smtp->execute();
+	   	return $smtp->fetchAll();
 
 	}
-	
+	public function getSeparaciones($identificacion){
+		$query = "
+		SELECT
+	 se.id_fechfisc_separacion  AS fecha_separacion,
+	 sue.id_fechfisc_suspension AS fecha_suspencion,
+	 t_susp.rv_meaning          AS tipo_suspension,
+	 cn.descripcion             AS novedad,
+	 d.descripcion              AS disposicion,
+	 se.numero_disposicion      AS num_dispo_se,
+	 se.fecha_disposicion,
+	 se.fecha_presentacion,
+	 se.anos_pena,
+	 se.meses_pena,
+	 se.dias_pena,
+	 tc.rv_meaning              AS tipo_condena,
+	 t_recurso.rv_meaning       AS tipo_recurso,
+	 t_solucion.rv_meaning      AS tipo_solucion,
+	 cn_suspension.descripcion AS novedad_suspension
+FROM empleados e,separaciones_empleados se
+JOIN cg_ref_codes tc
+ON (se.tipo_condena = tc.rv_low_value)
+JOIN cg_ref_codes t_recurso
+ON (se.tipo_recurso = t_recurso.rv_low_value)
+JOIN cg_ref_codes t_solucion
+ON (se.tipo_solucion = t_solucion.rv_low_value)
+JOIN clases_novedades cn
+USING (id_clase_novedad)
+JOIN disposiciones d
+ON se.disp_id_disposicion = d.id_disposicion
+JOIN suspensiones_empleados sue
+USING (id_susp_empl)
+JOIN cg_ref_codes t_susp
+ON (sue.tipo_suspension = t_susp.rv_low_value)
+JOIN clases_novedades cn_suspension
+ON (sue.id_clase_novedad = cn_suspension.id_clase_novedad)
+
+
+WHERE e.unde_fuerza = 4
+AND e.identificacion = ".$identificacion."
+AND e.consecutivo = se.empl_consecutivo
+AND e.unde_fuerza = se.empl_unde_fuerza
+AND e.unde_consecutivo = se.empl_unde_consecutivo
+
+AND tc.rv_domain = 'TIPO CONDENA'
+AND t_recurso.rv_domain = 'TIPO RECURSO'
+AND t_solucion.rv_domain = 'TIPO SOLUCION'
+AND t_susp.rv_domain = 'TIPO SUSPENSION'
+		";
+		$smtp = $GLOBALS['db']->prepare($query);
+		$smtp->execute();
+		return $smtp->fetchAll();
+
+
+	}
+
 }
