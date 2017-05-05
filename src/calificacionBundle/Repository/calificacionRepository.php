@@ -224,76 +224,74 @@ class calificacionRepository extends \Doctrine\ORM\EntityRepository
 		$em = $this->getEntityManager();
 		$db = $em->getConnection();
 		$query="
-		SELECT
-		 ee.identificacion,
-		 ee.categoria,
-		 EE.DESC_GRADO grado_completo,
-		 ee.abrev_grado grado,
-		 ee.apellidos ,
-		 ee.nombres,
-		 ee.descr_especialidad especialidad,
-		 ee.guarnicion,
-		 ee.unidad_dependencia unidad,
-		 s.sigla,
-		 ee.fecha_prox_ascenso,
-		 ee.arma_cuerpo,
-		 ee.fecha_ult_ascenso uascenso,
-		 ee.fecha_nacimiento f_nacimiento,
-		 ee.fecha_disp_alta f_alta,
-		 ee.cursos_militares,
-		 ac.descripcion arma_cuerpo,
-		 proc_gral.tiempoServicio(ee.unde_consecutivo ,ee.fuerza_empleado,ee.id_empleado)t_servicio,
-		 NUEVO_REHU.CF_TOT_TIEMGRADO(ee.unde_consecutivo,ee.fuerza_empleado,ee.id_empleado, sysdate) t_grado,
-		 NUEVO_REHU.edad_anio(ee.fecha_nacimiento)edad,
-		 rg.edad_limite edad_limite,
-		RTRIM(LTRIM(RF.SERVIDOR||RF.RUTA_FOTO||FE.NOMBRE_FOTO)) RUTA
+    SELECT
+       ee.identificacion,
+       ee.categoria,
+       EE.DESC_GRADO grado_completo,
+       ee.abrev_grado grado,
+       ee.apellidos ,
+       ee.nombres,
+       ee.descr_especialidad especialidad,
+       ee.guarnicion,
+       ee.unidad_dependencia unidad,
+       s.sigla,
+       ee.fecha_prox_ascenso,
+       ee.arma_cuerpo,
+       ee.fecha_ult_ascenso uascenso,
+       ee.fecha_nacimiento f_nacimiento,
+       ee.fecha_disp_alta f_alta,
+       ee.cursos_militares,
+       ac.descripcion arma_cuerpo,
+       proc_gral.tiempoServicio(ee.unde_consecutivo ,ee.fuerza_empleado,ee.id_empleado)t_servicio,
+       NUEVO_REHU.CF_TOT_TIEMGRADO(ee.unde_consecutivo,ee.fuerza_empleado,ee.id_empleado, sysdate) t_grado,
+       NUEVO_REHU.edad_anio(ee.fecha_nacimiento)edad,
+       rg.edad_limite edad_limite,
+      RTRIM(LTRIM(RF.SERVIDOR||RF.RUTA_FOTO||FE.NOMBRE_FOTO)) RUTA
 
-		FROM  escalafones_empleados ee,
-					unidades_dependencia ud,
-					siglas s ,
-					armas_cuerpos ac,
-					fotos_empleados fe,
-					rutas_fotos rf,
-					requisitos_grado rg
+      FROM  escalafones_empleados ee,
+            unidades_dependencia ud,
+            siglas s ,
+            armas_cuerpos ac,
+            fotos_empleados fe,
+            rutas_fotos rf,
+            requisitos_grado rg
 
-			WHERE ee.fuerza_empleado = 4
-				AND   ee.unde_consecutivo_laborando = ud.consecutivo
-				AND   ee.unde_fuerza_laborando = ud.fuerza
-				AND   ud.id_sigla = s.id_sigla(+)
-				AND   ee.id_categoria IN (10,11)
-				AND   ee.identificacion = TRIM(".$identificacion.")
+        WHERE ee.fuerza_empleado = 4
+          AND   ee.unde_consecutivo_laborando = ud.consecutivo(+)
+          AND   ee.unde_fuerza_laborando = ud.fuerza(+)
+          AND   ud.id_sigla = s.id_sigla(+)
+          AND   ee.id_categoria IN (10,11)
+          AND   ee.identificacion = 9531508
 
-				AND   (ee.abrev_grado <> 'CN' AND ee.abrev_grado <> 'CA' AND
-							ee.abrev_grado <> 'CR' AND ee.abrev_grado <> 'AL'
-						 AND ee.abrev_grado <> 'VA' AND ee.abrev_grado <> 'VA'
-						 AND ee.abrev_grado <> 'BG' AND ee.abrev_grado <> 'MG'
-						 AND ee.abrev_grado <> 'SJTC' AND ee.abrev_grado <> 'SMC'
-						 AND ee.abrev_grado <> 'ST' AND ee.abrev_grado <> 'JT'
-						 AND ee.abrev_grado <> 'SM')
-				AND TO_CHAR(ee.Fecha_Prox_Ascenso,'YYYY') = 2017
+          AND   ( ee.abrev_grado <> 'CA' AND
+                ee.abrev_grado <> 'CR' AND ee.abrev_grado <> 'AL'
+               AND ee.abrev_grado <> 'VA' AND ee.abrev_grado <> 'VA'
+               AND ee.abrev_grado <> 'BG' AND ee.abrev_grado <> 'MG'
+               AND ee.abrev_grado <> 'SJTC' AND ee.abrev_grado <> 'SMC'
+               AND ee.abrev_grado <> 'ST' AND ee.abrev_grado <> 'JT'
+               AND ee.abrev_grado <> 'SM')
+          AND TO_CHAR(ee.Fecha_Prox_Ascenso,'YYYY') = 2017
+
+          AND   ee.id_empleado = fe.empl_consecutivo(+)
+          AND   ee.fuerza_empleado = fe.empl_unde_fuerza(+)
+          AND   ee.unde_consecutivo = fe.empl_unde_consecutivo(+)
+
+          AND   FE.ID_RUTA_FOTO = RF.ID_RUTA_FOTO(+)
 
 
-				AND   ee.id_empleado = fe.empl_consecutivo(+)
-				AND   ee.fuerza_empleado = fe.empl_unde_fuerza(+)
-				AND   ee.unde_consecutivo = fe.empl_unde_consecutivo(+)
+          AND     ee.id_arma_cuerpo = ac.id_arma_cuerpo(+)
+          AND     ee.fuerza_empleado = ac.fuerza(+)
 
-				AND   FE.ID_RUTA_FOTO = RF.ID_RUTA_FOTO(+)
+          AND ee.fuerza_empleado =  rg.fuerza(+)
+          AND ee.id_arma_cuerpo =   rg.id_arma_cuerpo(+)
+          AND ee.abrev_grado   = rg.grad_alfabetico(+)
 
-
-				AND     ee.id_arma_cuerpo = ac.id_arma_cuerpo
-				AND     ee.fuerza_empleado = ac.fuerza
-
-				AND ee.fuerza_empleado =  rg.fuerza
-				AND ee.id_arma_cuerpo =   rg.id_arma_cuerpo
-				AND ee.abrev_grado   = rg.grad_alfabetico
-
-			 ORDER BY ee.id_categoria ASC,
-								ee.grado_numerico,
-								ee.fecha_ult_ascenso,
-								ee.ubicacion_escalafon,
-								ee.apellidos,
-								ee.nombres
-
+         ORDER BY ee.id_categoria ASC,
+                  ee.grado_numerico,
+                  ee.fecha_ult_ascenso,
+                  ee.ubicacion_escalafon,
+                  ee.apellidos,
+                  ee.nombres
     ";
 
    	$smtp = $db->prepare($query);
@@ -469,6 +467,7 @@ class calificacionRepository extends \Doctrine\ORM\EntityRepository
        ae.fecha_disposicion,
        ae.id_fechfisc_ascenso,
        cg_ref.rv_meaning,
+			 ae.grad_alfabetico grado,
        ae.ubicacion_escalafon
     FROM escalafones_empleados ee, ascensos_empleados ae, disposiciones d, cg_ref_codes cg_ref
 
@@ -809,6 +808,154 @@ class calificacionRepository extends \Doctrine\ORM\EntityRepository
         $smtp = $conn->prepare($query);
         $smtp->execute();
         return $smtp->fetchAll();
+  }
+  public function getNivelesAcademicos($id){
+    $em= $this->getEntityManager();
+    $conn = $em->getConnection();
+    $query=
+    "select
+       na.descripcion nivel,
+       ca.descripcion,
+       eeduc.nombre || empr.nombre_o_razon_social ||
+       ud.descripcion_dependencia unidad,
+       nae.fecha_inicio,
+       nae.fecha_termino,
+       nae.nivel_acad_actual
+  from empleados                   e,
+       niveles_academicos_empleado nae,
+       carreras                    ca,
+       niveles_academicos          na,
+       establecimientos_educa      eeduc,
+       empresas                    empr,
+       unidades_dependencia        ud
+
+ WHERE e.unde_fuerza = 4
+   AND e.identificacion = ".$id."
+   AND e.consecutivo = nae.empl_consecutivo
+   AND e.unde_fuerza = nae.empl_unde_fuerza
+   AND e.unde_consecutivo = nae.empl_unde_consecutivo
+   AND nae.carr_id_carrera = ca.id_carrera(+)
+   AND nae.empl_unde_fuerza = ca.fuerza(+)
+   AND ca.id_nivel_academico = na.id_nivel_academico(+)
+   AND nae.id_establecimiento_educa = eeduc.id_establecimiento_educa(+)
+   AND nae.empr_identificacion = empr.identificacion(+)
+   AND nae.empr_tipo_identificacion = empr.tipo_identificacion(+)
+   AND nae.empr_unde_consecutivo = empr.unde_consecutivo(+)
+   AND nae.empr_unde_fuerza = empr.unde_fuerza(+)
+   AND nae.unde_fuerza = ud.fuerza(+)
+   AND nae.unde_consecutivo = ud.consecutivo(+)
+
+ ORDER BY nae.fecha_inicio DESC
+";
+    $smtp = $conn->prepare($query);
+    $smtp->execute();
+    return $smtp->fetchAll();
+
+  }
+
+  public function countNiveles($id){
+    $em= $this->getEntityManager();
+    $conn = $em->getConnection();
+    $query="select
+
+       na.descripcion, COUNT(*) AS conteo
+
+  from empleados                   e,
+       niveles_academicos_empleado nae,
+       carreras                    ca,
+       niveles_academicos          na
+     /*  establecimientos_educa      eeduc,
+       empresas                    empr,
+       unidades_dependencia        ud*/
+
+ WHERE e.unde_fuerza = 4
+   AND e.identificacion = ".$id."
+   AND e.consecutivo = nae.empl_consecutivo
+   AND e.unde_fuerza = nae.empl_unde_fuerza
+   AND e.unde_consecutivo = nae.empl_unde_consecutivo
+   AND nae.carr_id_carrera = ca.id_carrera(+)
+   AND nae.empl_unde_fuerza = ca.fuerza(+)
+   AND ca.id_nivel_academico = na.id_nivel_academico(+)
+  /* AND nae.id_establecimiento_educa = eeduc.id_establecimiento_educa(+)
+   AND nae.empr_identificacion = empr.identificacion(+)
+   AND nae.empr_tipo_identificacion = empr.tipo_identificacion(+)
+   AND nae.empr_unde_consecutivo = empr.unde_consecutivo(+)
+   AND nae.empr_unde_fuerza = empr.unde_fuerza(+)
+   AND nae.unde_fuerza = ud.fuerza(+)
+   AND nae.unde_consecutivo = ud.consecutivo(+)*/
+
+
+      GROUP BY na.descripcion";
+    $smtp = $conn->prepare($query);
+    $smtp->execute();
+    return $smtp->fetchAll();
+  }
+
+  public function getExperiencia($id){
+
+    $em= $this->getEntityManager();
+    $conn = $em->getConnection();
+    $query="SELECT vin.rv_meaning,
+       empr.nombre_o_razon_social,
+       ele.fecha_inicial,
+       ele.fecha_retiro
+  FROM empleados                   e,
+       experiencias_laborales_empl ele,
+       empresas                    empr,
+       cg_ref_codes                vin
+
+ WHERE e.unde_fuerza = 4
+   AND e.identificacion =".$id."
+   AND e.consecutivo = ele.empl_consecutivo
+   AND e.unde_fuerza = ele.empl_unde_fuerza
+   AND e.unde_consecutivo = ele.empl_unde_consecutivo
+   AND vin.rv_domain = 'TIPO VINCULACION'
+   AND ele.tipo_vinculacion = vin.rv_low_value
+   AND ele.empr_identificacion = empr.identificacion
+   AND ele.empr_unde_fuerza = empr.unde_fuerza
+   AND ele.empr_unde_consecutivo = empr.unde_consecutivo
+   AND ele.empr_tipo_identificacion = empr.tipo_identificacion";
+
+    $smtp = $conn->prepare($query);
+    $smtp->execute();
+    return $smtp->fetchAll();
+
+  }
+  public function getIdiomas($id){
+    $em= $this->getEntityManager();
+    $conn = $em->getConnection();
+    $query = "SELECT i.descripcion idioma,
+       ie.habla,
+       ie.lee,
+       ie.escribe,
+       ie.escucha,
+       ie.puntos,
+       ie.fecha_examen,
+       ee.nombre || ud.descripcion_dependencia || empr.nombre_o_razon_social AS ENTIDAD
+
+  FROM empleados              e,
+       idiomas_empleados      ie,
+       idiomas                i,
+       establecimientos_educa ee,
+       empresas               empr,
+       unidades_dependencia   ud
+ where ie.empl_unde_fuerza = 4
+   AND e.identificacion = ".$id."
+   AND e.consecutivo = ie.empl_consecutivo
+   AND e.unde_consecutivo = ie.empl_unde_consecutivo
+   AND e.unde_fuerza = ie.empl_unde_fuerza
+   AND ie.id_idioma = i.id_idioma
+   AND ie.creado_por <> 'PRUEBA'
+   AND ie.id_establecimiento_educa = ee.id_establecimiento_educa(+)
+   AND ie.empr_tipo_identificacion = empr.tipo_identificacion(+)
+   AND ie.empr_unde_fuerza = empr.unde_fuerza(+)
+   AND ie.empr_unde_consecutivo = empr.unde_consecutivo(+)
+   AND ie.empr_identificacion = empr.identificacion(+)
+   AND ie.unde_fuerza = ud.fuerza(+)
+   AND ie.unde_consecutivo = ud.consecutivo(+)";
+    $smtp = $conn->prepare($query);
+    $smtp->execute();
+    return $smtp->fetchAll();
   }
 
 }

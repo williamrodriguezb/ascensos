@@ -1,0 +1,68 @@
+<div class="row">
+  <h4 class="mx-auto ">IDIOMAS</h4>
+
+  {% for i in idiomas %}
+  <div class="table-responsive">
+      <h5 class="text-center">{{i.IDIOMA}}</h5>
+    <ul class='lista-idioma'>
+      <li>Puntaje: {{i.PUNTOS}}</li>
+      <li>Examen: {{i.FECHA_EXAMEN}}</li>
+      <li>Entidad: {{i.ENTIDAD}}</li>
+    </ul>
+    <table class="table table-sm table-bordered">
+      <thead>
+        <tr>
+          <th>Habla</th>
+          <th>Lee</th>
+          <th>Escribe</th>
+          <th>Escucha</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+            <td>{{i.HABLA}}</td>
+            <td>{{i.LEE}}</td>
+            <td>{{i.ESCRIBE}}</td>
+            <td>{{i.ESCUCHA}}</td>
+          {% endfor %}
+        </tr>
+      </tbody>
+    </table>
+  </div>
+ <div class="table-responsive">
+
+   <table class="table table-sm">
+     <tr>
+       <thead>
+         <th colspan="2">Formacion Academica</th>
+       </thead>
+     </tr>
+     {% for c in count_niveles %}
+     <tr>
+       <th>{{c.DESCRIPCION}}</th>
+       <td><span class="badge badge-default">{{c.CONTEO}}</span></td>
+     </tr>
+     {% endfor %}
+   </table>
+ </div>
+  {% set num_curso = 1 %}
+  {% for n in niveles_academicos %}
+  <div class="card col-md-6">
+    <h3 class="card-header" style="font-size: 18px;">{{num_curso}}-{{n.DESCRIPCION}}</h3>
+    <div class="card-block">
+      <h4 class="card-title" style="font-size: 16px;">Nivel Academico: {{n.NIVEL}}</h4>
+      <p class="card-text"></p>
+    </div>
+    <ul class="list-group list-group-flush" style="font-size: 14px;">
+      <li class="list-group-item">{{n.UNIDAD}} </li>
+      <li class="list-group-item">Inicio:{{n.FECHA_INICIO}}</li>
+      <li class="list-group-item">Termino: {{n.FECHA_TERMINO}}</li>
+    </ul>
+  </div>
+  {% set num_curso = num_curso + 1 %}
+  {% endfor %}
+</div>
+  {% for e in experiencia %}
+
+  {% endfor %}
+</ul>

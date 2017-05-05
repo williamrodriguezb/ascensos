@@ -52,12 +52,12 @@ header#encabezado{
 }
 
 #min-panel-user ul{
-	border-radius: 1em;	
+	border-radius: 1em;
 	/*background-color: #1E2F40;*/
 	display: flex;
 	list-style: none;
 	font-size: 0.9em;
-	
+
 }
 #min-panel-user ul li{
 	margin-top:  0.5em;
@@ -94,7 +94,7 @@ main{
 #ventajas {
     /*height: 250px;*/
     width: 100%;
-    
+
 }
 input[type='radio'].checkbox-btn{
 	display: none;
@@ -120,7 +120,7 @@ input[type='radio'].checkbox-btn{
 
 
 #login>input{
-	margin-top: 1.2em; 
+	margin-top: 1.2em;
 
 }
 #login>h1{
@@ -144,7 +144,7 @@ div.marg_arriba a{
 	margin: 0 0.6em;
 }
 #form-calificacion{
-	
+
 }
 
 #form-calificacion>div>label{
@@ -234,7 +234,12 @@ div.marg_arriba a{
 	display: inline;
 	padding: 0.5em;
 }
-
+.lista-idioma{
+	display: flex;
+	justify-content: space-around;
+	text-align: center;
+	list-style: none;
+}
 #clas_consulta{
 	text-align: center;
 	display: block;
@@ -246,7 +251,7 @@ div.marg_arriba a{
 }
 .items_consulta input{
 	width: 20vw;
-	margin: 1em 0;	
+	margin: 1em 0;
 }
 .items_consulta_persona ul li{
 	list-style: none;
@@ -311,7 +316,7 @@ table th {
 	font-weight: 1em;
 }
 /*** HOJA DE REPORTES-------------------------------------------
-*/ 
+*/
 
 .foto_persona{
 	height: 150px;
@@ -319,7 +324,7 @@ table th {
 	margin:auto;
 }
 .hoja_presentacion{
-	
+
 	border-radius: 0.5em;
 	box-shadow: 0 0 0.2em 0.2em gray;
 	display: block;
@@ -354,7 +359,7 @@ div.folios{
 
 #form-disan{
 	width: 60vw;
-	margin: auto;	
+	margin: auto;
 }
 .campos-disan{
 	display: flex;
@@ -386,7 +391,7 @@ dd {
 }
 
 #logo{
-    
+
 	animation-name: vuelos;
 	animation-duration: 2s;
 }
@@ -429,7 +434,7 @@ dd {
 	}
 }*/
 .ico-tab{
-	font-size:40px; 
+	font-size:40px;
 	color:rgba(49, 112, 142, 0.28);
 }
 nav-link active .ico-tab{
@@ -442,21 +447,27 @@ nav-link active .ico-tab{
 
 }
 #navbarDropdownMenuLink:hover{
-	
+
 	background: none;
 
 }
 /*---------------------------------------------------*/
 @media screen and (max-width: 900px) {
-  
+
 	header#inicio{
 		padding: 0;
 		margin: 0;
 	}
-	
+
+	.lista-idioma{
+		display: flex;
+		flex-flow: column;
+
+	}
+
 	/*#navbarDropdownMenuLink{
 		display: flex;
-	    flex-flow: row wrap;	
+	    flex-flow: row wrap;
 	}*/
 	.nav-tabs{
 		flex-flow: column wrap;
@@ -496,7 +507,7 @@ nav-link active .ico-tab{
 	td{
 		display: block;
 	}*/
-	
+
 }
 @media screen and (max-width: 500px) {
 
@@ -509,12 +520,10 @@ nav-link active .ico-tab{
 }
 }
 footer{
-	position: static;
+	position: relative;
 }
 @media (min-width: 1200px){
 	main {
     min-height: 86vh;
 	}
 }
-
-

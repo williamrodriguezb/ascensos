@@ -13,25 +13,25 @@
 {# concepto negativo #}
 {% set n_negativo = 0 %}
 {% for f in felicitaciones %}
-	{% set n_fel = n_fel + 1 %}		
+	{% set n_fel = n_fel + 1 %}
 {% endfor %}
 {% for c in condecoraciones %}
-	{% set n_con = n_con + 1 %}		
+	{% set n_con = n_con + 1 %}
 {% endfor %}
 {% for m in merito %}
-	{% set n_mer = n_mer + 1 %}		
+	{% set n_mer = n_mer + 1 %}
 {% endfor %}
 {% for p in positivo %}
-	{% set n_pos = n_pos + 1 %}		
+	{% set n_pos = n_pos + 1 %}
 {% endfor %}
 {% for s in sanciones %}
-	{% set n_san = n_san + 1 %}		
+	{% set n_san = n_san + 1 %}
 {% endfor %}
 {% for d in demerito %}
-	{% set n_demerito = n_demerito + 1 %}		
+	{% set n_demerito = n_demerito + 1 %}
 {% endfor %}
 {% for d in negativo %}
-	{% set n_negativo = n_negativo + 1 %}		
+	{% set n_negativo = n_negativo + 1 %}
 {% endfor %}
 
 <style>
@@ -49,14 +49,15 @@
 </style>
 <div class="container mx-auto">
 	<div class="row">
-		
+
 		<div class="col-md-6">
 			<table class="table table-responsive table-sm table-bordered table-sm">
-				<thead >
-					<tr class="table-inverse">
-						<th colspan="2">Positiva</th>
+				<thead class="thead-default">
+					<tr >
+						<th  colspan="2">Positiva</th>
 						<th colspan="2">Negativas</th>
 					</tr>
+				</thead>
 					<tr>
 						<th>Felicitaciones</th>
 						<td>
@@ -67,7 +68,7 @@
 						<th>Sanciones</th>
 						<td>
 							<button type="button" class="btn btn-outline-primary text-center" data-toggle="modal" data-target="#modalSanciones">
-						
+
 							{{n_san}}
 							</button>
 						</td>
@@ -76,7 +77,7 @@
 						<th>Medallas</th>
 						<td>
 							<button type="button" class="btn btn-outline-primary text-center" data-toggle="modal" data-target="#exampleModalLong2">
-						
+
 							{{n_con}}
 							</button>
 						</td>
@@ -105,9 +106,9 @@
 							{{n_negativo}}
 							</button>
 						</td>
-					
+
 					</tr>
-				</thead>
+
 				<tbody>
 					<tr>
 					</tr>
@@ -122,23 +123,23 @@
 			</tr>
 		</thead>
 		<tbody>
-			
+
 				{% for l in listas %}
 					<tr>
 					<th>LISTA {{l.LISTA}} </td>
 					<th>{{l.N_LISTA}}</td>
 					</tr>
 				{% endfor %}
-			
+
 		</tbody>
 	</table>
 		</div>
 		<div class="col-md-4">
-			
+
 		</div>
 	</div>
-	
-	
+
+
 <!-- Button trigger modal -->
 </div>
 
@@ -153,8 +154,8 @@
 	        </button>
 	      </div>
 	      <div class="modal-body">
-	       
-	       		
+
+
 				<table class="table table-responsive table-sm table-bordered">
 		<thead class="table-inverse" style="font-size: 16px">
 			<tr>
@@ -190,7 +191,7 @@
 	</div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-       
+
       </div>
     </div>
   </div>
@@ -227,17 +228,17 @@
 					<td>{{c.FECHA_DISPOSICION}}</td>
 					<td>{{c.POSTUMO}}</td>
 					<td>{{c.CLASE_ESTIMULO}}</td>
-					
+
 				</tr>
-	    		
+
 			{% endfor %}
-			
+
 		</tbody>
 		</table>
 	</div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-       
+
       </div>
     </div>
   </div>
@@ -261,7 +262,7 @@
 				<th>CONTENIDO</th>
 				<th>FECHA</th>
 				<th>GRAD</th>
-				
+
 			</tr>
 		</thead>
 		<tbody style="font-size:0.7em;">
@@ -273,13 +274,13 @@
 					<td>{{m.GRAD_ALFABETICO}}</td>
 				</tr>
 			{% endfor %}
-			
+
 		</tbody>
 		</table>
 	</div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-       
+
       </div>
     </div>
   </div>
@@ -303,7 +304,7 @@
 				<th>CONTENIDO</th>
 				<th>FECHA</th>
 				<th>GRADO</th>
-				
+
 			</tr>
 		</thead>
 		<tbody style="font-size:0.7em;">
@@ -315,13 +316,13 @@
 					<td>{{p.GRAD_ALFABETICO}}</td>
 				</tr>
 			{% endfor %}
-			
+
 		</tbody>
 		</table>
 	</div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-       
+
       </div>
     </div>
   </div>
@@ -407,13 +408,13 @@
 					<td>{{n.GRAD_ALFABETICO}}</td>
 				</tr>
 			{% endfor %}
-			
+
 		</tbody>
 		</table>
 	</div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-       
+
       </div>
     </div>
   </div>
@@ -428,7 +429,7 @@
 	        </button>
 	      </div>
 	      <div class="modal-body">
-		
+
 		<table class="table table-responsive table-sm table-bordered">
 		<thead class="table-inverse" style="font-size: 16px">
 			<tr>
@@ -436,7 +437,7 @@
 				<th>CONTENIDO</th>
 				<th>FECHA</th>
 				<th>GRADO</th>
-				
+
 			</tr>
 		</thead>
 		<tbody style="font-size:0.7em;">
@@ -448,13 +449,13 @@
 					<td>{{d.GRAD_ALFABETICO}}</td>
 				</tr>
 			{% endfor %}
-			
+
 		</tbody>
 		</table>
 	</div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-       
+
       </div>
     </div>
   </div>

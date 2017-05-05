@@ -9,6 +9,7 @@
 			<th>FECHA DISPO</th>
 			<th>F_FISC_ASCENSO</th>
 			<th>TIPO ASCENSO</th>
+			<th>Grado</th>
 			<th>UBICACION_ESCALAFON</th>
 		</thead>
 	</tr>
@@ -21,12 +22,13 @@
 			<td>{{h.FECHA_DISPOSICION}}</td>
 			<td>{{h.ID_FECHFISC_ASCENSO}}</td>
 			<td>{{h.RV_MEANING}}</td>
+			<td>{{h.GRADO}}</td>
 			<td>{{h.UBICACION_ESCALAFON}}</td>
 		</tr>
 		{% set var = var + 1 %}
 	{% endfor %}
-	
+
 </table>
-		
+
 	</div>
 </div>

@@ -1,8 +1,6 @@
 {% extends plantilla ? "/default/consulta.html.twig" : 'disanBundle:default:vacia.html.twig' %}
 {% block header %}
 {% endblock %}
-
-
 {% block consulta_header %}
 	<i class="fa fa-balance-scale text-center card-img-top" aria-hidden="true" style="font-size:80px; color:#58401e;"></i>
 	<p>Disciplinarias</p>
@@ -15,7 +13,9 @@
     href="{{url('jpm')}}{{parent()}}
 {% endblock %}
 {% block datos %}
-	{% if persona and plantilla %}{{persona.IDENTIFICACION}}
+	{% if persona %}
+	  {% if plantilla == true %}
+		{{persona.IDENTIFICACION}}
 		{{persona.CATEGORIA}}
 		{{persona.GRADO_COMPLETO}}
 		{{persona.APELLIDOS}}
@@ -24,14 +24,14 @@
 		{{persona.GUARNICION}}
 		{{persona.UNIDAD}}
 		{{persona.SIGLA}}
+		{% endif %}
 <div class="table-responsive">
-
 	<table class="table table-bordered">
 		<thead class="thead-default">
 			<tr>
 				<th>Sanciones</th>
 				<th>Investigaciones</th>
-				<th>Suspenciones</th>
+				<th>Suspensiones</th>
 				<th>Separaciones</th>
 			</tr>
 		</thead>
@@ -46,7 +46,6 @@
 	</table>
 </div>
 {% endif %}
-
 <div class="container_fluid">
 	<div class="row">
 	{% if sanciones %}
