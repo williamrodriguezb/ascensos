@@ -55,74 +55,87 @@ class calificacionRepository extends \Doctrine\ORM\EntityRepository
         $f_inicio = 1;
         $f_limite = 3;
       }elseif ($turno == 2) {
-        $f_inicio = 9;
-        $f_limite = 12;
+        $mes = 9;
+       
       }
 		}
 
 		$em =   $this->getEntityManager();
 		$db =   $em->getConnection();
 		$query = "
-	SELECT ee.identificacion,
-       ee.categoria,
-       EE.DESC_GRADO grado_completo,
-       ee.abrev_grado grado,
-       ee.apellidos ,
-       ee.nombres,
-       ee.descr_especialidad especialidad,
-       ee.guarnicion,
-       ee.unidad_dependencia unidad,
-       s.sigla,
-       ee.fecha_prox_ascenso,
-       ee.arma_cuerpo,
-       ee.fecha_ult_ascenso uascenso,
-       ee.fecha_nacimiento f_nacimiento,
-       ee.fecha_disp_alta f_alta,
-       ee.cursos_militares,
-       ac.descripcion arma_cuerpo,
-       proc_gral.tiempoServicio(ee.unde_consecutivo ,ee.fuerza_empleado,ee.id_empleado)t_servicio,
-       NUEVO_REHU.CF_TOT_TIEMGRADO(ee.unde_consecutivo,ee.fuerza_empleado,ee.id_empleado, sysdate) t_grado,
-      NUEVO_REHU.edad_anio(ee.fecha_nacimiento)edad,
-      RTRIM(LTRIM(RF.SERVIDOR||RF.RUTA_FOTO||FE.NOMBRE_FOTO)) RUTA
+	SELECT 
+       empleados.identificacion,
+       categorias.descripcion categoria,
+       empleados.grad_alfabetico grado,
+       empleados.nombres,
+       empleados.apellidos,
+       cargos.descripcion cargo_actual,
+       UD.DESCRIPCION_DEPENDENCIA         Unidad,
+       S.SIGLA                            Sigla,
+       esp.descripcion especialidad,
+       guarniciones_complejos.descripcion guarnicion
 
-  FROM  escalafones_empleados ee,
-        unidades_dependencia ud,
-        siglas s ,
-        armas_cuerpos ac,
-        fotos_empleados fe,
-        rutas_fotos rf
+       
+  from empleados,
+       grados,
+       categorias,
+       cargos,
+       UNIDADES_DEPENDENCIA UD,
+       SIGLAS S,
+       especialidades esp,
+        guarniciones_complejos 
+           
+     
+       
+where EMPLEADOS.unde_fuerza = 4
+   and EMPLEADOS.activo = 'SI'
+     
+   and grados.id_categoria IN (".$categoria.")
+      
+   AND (SUBSTR(NUEVO_REHU.CF_TOT_TIEMGRADO(EMPLEADOS.UNDE_CONSECUTIVO,
+                                          EMPLEADOS.UNDE_FUERZA,
+                                          EMPLEADOS.CONSECUTIVO,
+                                          '30/".$mes."/".$anio."'),1,1) >= GRADOS.TIEMPO_GRADO
 
-  WHERE ee.fuerza_empleado = 4
-    AND   ee.unde_consecutivo_laborando = ud.consecutivo
-    AND   ee.unde_fuerza_laborando = ud.fuerza
-    AND   ud.id_sigla = s.id_sigla(+)
-    AND   ee.id_categoria IN (".$categoria.")
+OR nuevo_rehu.proc_gral.ret_prox_ascenso(EMPLEADOS.CONSECUTIVO,
+                                                   EMPLEADOS.UNDE_CONSECUTIVO,
+                                                   EMPLEADOS.UNDE_FUERZA) between '01/".$mes."/".$anio."' and '30/".$mes."/".$anio."'
 
-    AND   (ee.abrev_grado <> 'CN' AND ee.abrev_grado <> 'CA' AND
-          ee.abrev_grado <> 'CR' AND ee.abrev_grado <> 'AL'
-         AND ee.abrev_grado <> 'VA' AND ee.abrev_grado <> 'VA'
-         AND ee.abrev_grado <> 'BG' AND ee.abrev_grado <> 'MG'
-         AND ee.abrev_grado <> 'SJTC' AND ee.abrev_grado <> 'SMC'
-         AND ee.abrev_grado <> 'ST' AND ee.abrev_grado <> 'JT'
-         AND ee.abrev_grado <> 'SM')
-    AND TO_CHAR(ee.Fecha_Prox_Ascenso,'YYYY') = 2017
-    AND TO_CHAR (ee.Fecha_Prox_Ascenso,'MM') BETWEEN ".$f_inicio." AND ".$f_limite."
-
-    AND   ee.id_empleado = fe.empl_consecutivo
-    AND   ee.fuerza_empleado = fe.empl_unde_fuerza
-    AND   ee.unde_consecutivo = fe.empl_unde_consecutivo
-
-    AND FE.ID_RUTA_FOTO = RF.ID_RUTA_FOTO
+OR nuevo_rehu.proc_gral.ret_prox_ascenso(EMPLEADOS.CONSECUTIVO,
+                                                   EMPLEADOS.UNDE_CONSECUTIVO,
+                                                   EMPLEADOS.UNDE_FUERZA) IS NULL )
 
 
-    AND     ee.id_arma_cuerpo = ac.id_arma_cuerpo
-    AND     ee.fuerza_empleado = ac.fuerza
-   ORDER BY ee.id_categoria ASC,
-            ee.grado_numerico,
-            ee.fecha_ult_ascenso,
-            ee.ubicacion_escalafon,
-            ee.apellidos,
-            ee.nombres
+   and GRADOS.numerico IN (4, 5, 6, 7, 8, 9, 22, 24, 26, 28, 30, 32)
+    
+   and grados.fuerza = empleados.unde_fuerza
+   and grados.alfabetico = empleados.grad_alfabetico
+   and categorias.id_categoria = grados.id_categoria
+   and categorias.fuerza = grados.fuerza
+   AND EMPLEADOS.CARG_CARGO = CARGOS.CARGO
+   AND EMPLEADOS.CARG_FUERZA = CARGOS.FUERZA
+   AND EMPLEADOS.UNDE_FUERZA_LABORANDO = UD.FUERZA
+   AND EMPLEADOS.UNDE_CONSECUTIVO_LABORANDO = UD.CONSECUTIVO
+   AND UD.ID_SIGLA = S.ID_SIGLA(+)
+
+   AND EMPLEADOS.Espe_Id_Especialidad = esp.id_especialidad(+)
+   AND EMPLEADOS.UNDE_FUERZA = esp.fuerza(+)
+
+    AND UD.GUCO_FUERZA = GUARNICIONES_COMPLEJOS.FUERZA(+)
+   AND UD.GUCO_CODIGO = GUARNICIONES_COMPLEJOS.CODIGO(+)
+
+       
+   AND EMPLEADOS.GRAD_ALFABETICO <> 'TO'
+   AND EMPLEADOS.GRAD_ALFABETICO <> 'SJM'
+   AND EMPLEADOS.GRAD_ALFABETICO <> 'E2'
+   AND EMPLEADOS.IDENTIFICACION <> 1
+      
+
+ORDER BY    
+          grados.id_categoria,
+          GRADOS.Numerico,
+          EMPLEADOS.FECHA_ULT_ASCENSO,
+          empleados.Ubicacion_Escalafon
    ";
    	$smtp = $db->prepare($query);
    	$smtp->execute();

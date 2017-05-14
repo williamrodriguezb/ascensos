@@ -5,6 +5,7 @@ namespace calificacionBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\ParameterBag;
 
@@ -123,7 +124,12 @@ class DefaultController extends Controller
       $calif_repo   =   $em->getRepository("calificacionBundle:calificacion");
       $listado      =   $calif_repo->buscaPersona($documento,$apellidos,$nombres,$categoria);
       $empleado     =   null;
+       return new JsonResponse($listado) ;
+       die();
     }
+
+
+   
 
     return $this->render('calificacionBundle:default:consulta_persona.html.twig', array(
           'usuario'   =>  $usuario,
@@ -262,12 +268,8 @@ class DefaultController extends Controller
       if (preg_match('/^acto-([0-9])/', $key))
       {
         $documento =  substr($key, 5,-1);
-
         if ($value =='Asciende') {
-
           $persona = $calif_repo->getPersona($documento);
-
-
           $array= array('apellidos'=>$persona['APELLIDOS'],  'documento'=>$documento,'acto'=>'Asciende');
           array_push($ascendidos,$array);
         }

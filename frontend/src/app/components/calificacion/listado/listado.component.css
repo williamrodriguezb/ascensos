@@ -1,0 +1,11 @@
+.col-md-6{
+  /*border-left:   1px solid gray;*/
+  /*border-right:   1px solid gray;*/
+}
+label{
+  font-size: 1.2em;
+}
+legend{
+  text-align: center;
+
+}

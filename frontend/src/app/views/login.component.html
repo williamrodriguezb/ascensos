@@ -1,0 +1,41 @@
+<section id="login" class="container_fluid">
+	<hr>
+	<h2 class="text-center" *ngIf='!identity'>{{titulo}}</h2>
+	<h2 class="text-center" *ngIf='identity'>Bienvenido a Ascensos en Linea</h2>
+	<hr>
+<div *ngIf='identity'>
+<div class="alert alert-success text-center" *ngIf="identity.email">
+		<strong>Autenticacion Correcta</strong>
+		<p>{{identity.apellidos}} {{identity.nombres}}</p>
+
+</div>
+<div class="alert alert-danger text-center" *ngIf="identity.status">
+		<strong>Autenticacion Incorrecta</strong>
+		<p><strong>Valide Usuario y contraseña </strong></p>
+
+</div>
+</div>
+	<form #formLogin="ngForm" (ngSubmit)="onSubmit()" *ngIf="!identity "  action="" class="text-center container col-md-4" >
+		<i class="fa fa-paper-plane fa-5x" style="color: #31b0d5" aria-hidden="true"></i>
+		<h2>Ascensos en Linea</h2>
+			<div class=" row">
+		      <input type="text" #email="ngModel"  [(ngModel)]="user.username"  ngControl='email' class="form-control col-md-6" pattern='[az]'  name="usuario" placeholder="Usuario" aria-describedby="basic-addon1"  required="required">
+		      <span  class="input-group-addon col-md-6" id="basic-addon1">@armada.mil.co</span>
+    		</div>
+			<div class="alert alert-danger my-1 col-md-12" role="alert" *ngIf='!email.valid && email.touched'>
+					<strong>Usuario Incorrecto</strong>
+			</div>
+		<div class=" row">
+			<input #password="ngModel"  [(ngModel)]="user.password" name="password" type="password" class="form-control col-md-12" required="" placeholder="Contraseña">
+			<div class="alert alert-danger my-1 col-md-12" role="alert" *ngIf="!password.valid && password.touched">
+					<strong>Contraseña Incorrecto</strong>
+			</div>
+		</div>
+		<input type="submit" value="Inicia" class="btn btn-primary form-control">
+	</form>
+</section>
+<footer class="footer">
+    <div class="container">
+      <p class="text-muted text-center" style="padding: 0 ;margin: 0">ARMADA NACIONAL-2017<i class="fa fa-copyright" aria-hidden="true"></i></p>
+    </div>
+  </footer>

@@ -4,16 +4,20 @@ parameters:
 #    parameter_name: value
 
 services:
+    app.jwt_auth:
+        class: AppBundle\Services\jwt_auth
+        arguments: ["@doctrine.orm.entity_manager"]
+
+    ldap:
+        class: Symfony\Component\Ldap\LdapClient
+        arguments:
+            - 172.24.10.43   # host
+            - 389             # port
+            - 3              # version
+            - false           # SSL
+            - false          # TLS
+
 
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
-
-  ldap:
-    class: Symfony\Component\Ldap\LdapClient
-    arguments:
-        - 172.24.10.43   # host
-        - 389             # port
-        - 3              # version
-        - false           # SSL
-        - false          # TLS

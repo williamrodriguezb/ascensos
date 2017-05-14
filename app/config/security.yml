@@ -27,11 +27,13 @@ security:
             anonymous: ~
             # activate different ways to authenticate
             form_login_ldap:
-                login_path: login
-                check_path: login_ldap
+                # login_path: login
+                # check_path: login_ldap
                 service: ldap
                 dn_string: uid={username},ou=people,dc=armada,dc=mil,dc=co
-            logout: 
+                username_parameter: username
+                password_parameter: password
+            logout:
                 path: logout
                 # ...
             # http://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
@@ -39,8 +41,10 @@ security:
             # form_login: ~
             # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
     access_control:
-        # - { path: ^/ , roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/ , roles: IS_AUTHENTICATED_ANONYMOUSLY }
         # - { path: ^/comandante, roles: [IS_AUTHENTICATED_FULLY] }
+
+        # - { path: ^/login/ldap$ , roles: IS_AUTHENTICATED_ANONYMOUSLY host: localhost:4200$  }
         - { path: ^/calificacion, roles: [ROLE_USER ,ROLE_ADMIN] }
         - { path: ^/comandante, roles: [ROLE_USER ,ROLE_ADMIN]}
         - { path: ^/disan, roles: [ROLE_USER ,ROLE_ADMIN] }

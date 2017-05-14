@@ -1,0 +1,63 @@
+<div class="container_fluid" >
+ <header>
+    <nav class="navbar fixed-top navbar navbar-toggleable-md navbar-inverse bg-inverse">
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <a class="navbar-brand" style='display: flex;' [routerLink]="['inicio']">
+        <i id="logo" class="fa fa-paper-plane-o" aria-hidden="true" style="color:white; font-size: 1.5rem"></i>
+        <h1 class="h3">Ascensos en linea</h1>
+      </a>
+      <div class="container" style="margin-right: 1em;">
+        <div class=" collapse navbar-collapse" id="navbarTogglerDemo02">
+          <ul class="navbar-nav mr-auto mt-2 mt-md-0">
+            <li class="nav-item" [routerLinkActive]="['active']">
+              <a [routerLink]="['inicio']" class="nav-link" >Inicio</a>
+            </li>
+            <li *ngIf='identidad' class="nav-item" [routerLinkActive]="['active']">
+              <a class="nav-link" [routerLink]="['calificacion']">Calificacion</a>
+            </li>
+            <li *ngIf='identidad' class="nav-item" [routerLinkActive]="['active']">
+              <a class="nav-link" [routerLink]="['disan']">Disan</a>
+            </li>
+            <li *ngIf='identidad' class="nav-item" [routerLinkActive]="['active']">
+              <a class="nav-link"  [routerLink]="['disciplinario']">Disciplinarias</a>
+            </li>
+            <li *ngIf='identidad' class="nav-item" [routerLinkActive]="['active']">
+              <a class="nav-link" [routerLink]="['comandante']">Comandante</a>
+            </li>
+          </ul>
+          <ul id="nav-notificacion" class="navbar-nav">
+            <li class="nav-item">
+              <i id='campanita' class="fa fa-bell-o" aria-hidden="true" style="font-size: 20px;color: white;"></i>
+            </li>
+
+
+            <li *ngIf='identidad' class="nav-item dropdown">
+
+              <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fa fa-user-circle fa-2x" style="color:white" aria-hidden="true"></i>
+                {{identidad.email}}
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" href="#"><i class="fa fa-address-card" aria-hidden="true"></i>Perfil</a>
+                <a class="dropdown-item" href="#"><i class="fa fa-cogs" aria-hidden="true"></i>Configuracion</a>
+               <div class="dropdown-divider"></div>
+                <a class="dropdown-item" [routerLink]="['logout']"><i class="fa fa-sign-out" aria-hidden="true"></i>Cerrar Session</a>
+              </div>
+            </li>
+            <li *ngIf='!identidad' class="nav-item">
+              <a class='nav-link' [routerLink]="['login']">Identificate</a>
+            </li>
+
+
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <main class="container_fluid">
+    <router-outlet></router-outlet>
+</main>
+
+</div>

@@ -4,7 +4,8 @@ login:
     
 login_ldap:
     path:     /ldap
-    methods:  ['POST']
+    methods:  POST
+    defaults: { _controller: loginBundle:Default:ldap }
 logout:
     path:     /logout
 perfil:

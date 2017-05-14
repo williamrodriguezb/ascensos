@@ -1,0 +1,274 @@
+.card{
+	margin-bottom:  50px;
+}
+
+.card .fa{
+	margin: 0.3em 0;
+}
+
+#field-datos{
+	display: block;
+	margin: auto;
+	width: 200px;
+	flex: 2 ;
+}
+#field_calif{
+	display: flex;
+	flex-flow: row wrap;
+}
+#field_calif div{
+	flex: 1;
+}
+#form-calificacion span{
+	font-size: 1.5em;
+}
+.cumple{
+	color: green;
+}
+.noCumple{
+	color: red;
+}
+.noCalificado{
+	color: gray;
+}
+.btn-corto{
+	width: 20vh;
+}
+.campo-mediano{
+	width: 30vh;
+}
+#nav-pagination {
+	display: flex;
+	margin: auto;
+}
+#nav-pagination ul{
+	margin: auto;
+}
+
+.lista-idioma{
+	display: flex;
+	justify-content: space-around;
+	text-align: center;
+	list-style: none;
+}
+#clas_consulta{
+	text-align: center;
+	display: block;
+}
+.items_consulta{
+	width: 20vw;
+	margin: 2em auto;
+	display: block;
+}
+.items_consulta input{
+	width: 20vw;
+	margin: 1em 0;
+}
+.items_consulta_persona ul li{
+	list-style: none;
+	margin: 1em;
+}
+.items_consulta_persona{
+	display: block;
+	width: 35vw;
+	margin:auto;
+	padding: 1em;
+	text-align: center;
+}
+.items_consulta_persona label{
+	width: 100%;
+}
+.items_consulta_persona input{
+	width: 15vw;
+	margin: 0.5em 1em;
+}
+.items_consulta_persona select{
+	width: 15vw;
+	margin: 0.5em 1em;
+}
+.nav-link.active {
+    color: #313b40;
+}
+.nav-tabs .nav-link {
+    color: gray;
+}
+.datospersonales{
+	width: 80%;
+	display: flex;
+	margin: auto;
+}
+#accordion .card {
+    margin-bottom: 0px;
+
+}
+/*#accordion .card-header{
+    background-color: #5bc0de
+}*/
+#accordion .card-header a{
+	color: #31708f;
+}
+
+div.caja_flex_consulta:hover{
+	box-shadow: none;
+	background: none:;
+}
+.datospersonales ul{
+	flex: 1 1 0;
+}
+.datospersonales li{
+	list-style: none;
+	margin: 1em;
+}
+table th {
+	text-align: center;
+	text-transform: uppercase;
+}
+.negrilla{
+	font-weight: 1em;
+}
+/*** HOJA DE REPORTES-------------------------------------------
+*/
+
+.foto_persona{
+	height: 150px;
+	width: 150px;
+	margin:auto;
+}
+.hoja_presentacion{
+
+	border-radius: 0.5em;
+	box-shadow: 0 0 0.2em 0.2em gray;
+	display: block;
+	margin: 4em	;
+	height: auto;
+	padding: 3em;
+}
+.hp_dat_basicos{
+	color: white;
+	background-color: #46777F;
+	height: 10em;
+	display: flex;
+	justify-content: space-around;
+}
+
+.hp_dat_basicos ul{
+	margin: auto;
+}
+.hp_dat_basicos li{
+	list-style: none;
+}
+
+.header-persona{
+	font-size: 1.5em;
+	color: white;
+	text-align: center;
+	background-color: #6FBFCC;
+}
+div.folios{
+	font-size: 0.75em;
+}
+
+
+
+#myChart{
+	box-sizing: border-box;
+}
+
+dd {
+    padding: 1em;
+    margin: 1em;
+}
+
+#logo{
+	font-size: 1.3rem;
+	animation-name: vuelos;
+	animation-duration: 2s;
+}
+/*Notificacion*/
+
+.modal-grande {
+    max-width: 80vw !important;
+}
+.nav-item{
+	    padding: .3em 0;
+			font-size: 1.2em;
+}
+#campanita{
+	padding: .3em 0 0 0;
+}
+
+
+
+@keyframes vuelos {
+	from{
+		margin-left: -20em;
+
+	}
+	to{
+		margin-left: 0em;
+	}
+}
+
+
+
+/*---------------------------------------------------*/
+@media screen and (max-width: 900px) {
+
+	header#inicio{
+		padding: 0;
+		margin: 0;
+	}
+
+	.lista-idioma{
+		display: flex;
+		flex-flow: column;
+
+	}
+
+	/*#navbarDropdownMenuLink{
+		display: flex;
+	    flex-flow: row wrap;
+	}*/
+	.nav-tabs{
+		flex-flow: column wrap;
+	}
+	#min-panel-user{
+		font-size: 0.75em;
+		margin-left: 3em;
+	}
+	  .fixed-top {
+	    position: static;
+	    margin-bottom: 0em;
+	    padding: 0;
+	}
+	.fixed-top .container{
+		width: 100%;
+		text-align: center;
+	}
+	.fixed-top .container a{
+		box-shadow: 0 0 0.01em 0.01em white;
+		transition: box-shadow 1s, background-color 1s;
+	}
+	.fixed-top .container a:hover{
+		box-shadow: 0 0 1.5em gray;
+		background-color: white;
+		color: gray;
+	}
+	.navbar-inverse .navbar-nav .nav-link:focus, .navbar-inverse .navbar-nav .nav-link:hover {
+    	color: #31708f;
+}
+	.navbar-brand{
+		padding-bottom: .8rem;
+	}
+
+}
+@media screen and (max-width: 500px) {
+
+footer{
+	position: relative;
+}
+@media (min-width: 1200px){
+	main {
+    min-height: 84vh;
+	}
+}

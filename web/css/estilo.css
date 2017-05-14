@@ -1,9 +1,7 @@
-
 html,body, h1, h2, h3, li, ul{
 	margin: 0;
 	padding: 0;
 }
-
 
 body{
 	min-height: 100vh;
@@ -240,44 +238,12 @@ div.marg_arriba a{
 	text-align: center;
 	list-style: none;
 }
-#clas_consulta{
-	text-align: center;
-	display: block;
-}
-.items_consulta{
-	width: 20vw;
-	margin: 2em auto;
-	display: block;
-}
-.items_consulta input{
-	width: 20vw;
-	margin: 1em 0;
-}
-.items_consulta_persona ul li{
-	list-style: none;
-	margin: 1em;
-}
-.items_consulta_persona{
-	display: block;
-	width: 35vw;
-	margin:auto;
-	padding: 1em;
-	text-align: center;
-}
-.items_consulta_persona label{
-	width: 100%;
-}
-.items_consulta_persona input{
-	width: 15vw;
-	margin: 0.5em 1em;
-}
-.items_consulta_persona select{
-	width: 15vw;
-	margin: 0.5em 1em;
-}
 .nav-link.active {
     color: #313b40;
+    border: 2px solid #015292;
 }
+
+
 .nav-tabs .nav-link {
     color: gray;
 }
@@ -297,10 +263,6 @@ div.marg_arriba a{
 	color: #31708f;
 }
 
-div.caja_flex_consulta:hover{
-	box-shadow: none;
-	background: none:;
-}
 .datospersonales ul{
 	flex: 1 1 0;
 }
@@ -424,7 +386,7 @@ dd {
     border-color: #01549b;
 }
 
-/*@keyframes vuelos {
+@keyframes vuelos {
 	from{
 		margin-left: -20em;
 
@@ -432,25 +394,14 @@ dd {
 	to{
 		margin-left: 0em;
 	}
-}*/
+}
 .ico-tab{
 	font-size:40px;
 	color:rgba(49, 112, 142, 0.28);
 }
-nav-link active .ico-tab{
-	color:red;
-}
 
-#navbarDropdownMenuLink{
-	font-size: 0.8em;
-	box-shadow: none;
 
-}
-#navbarDropdownMenuLink:hover{
 
-	background: none;
-
-}
 /*---------------------------------------------------*/
 @media screen and (max-width: 900px) {
 
