@@ -1,0 +1,13 @@
+.lista-indicadores{
+  display: flex;
+  flex-flow: row wrap;
+  list-style: none;
+  justify-content: space-between;
+}
+.lista-indicadores li{
+  margin: .5em 1em;
+}
+.fa-plus-square{
+  font-size: 2em;
+  color: #607d8b;
+}

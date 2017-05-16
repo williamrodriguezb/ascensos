@@ -15,11 +15,11 @@
 
 </div>
 </div>
-	<form #formLogin="ngForm" (ngSubmit)="onSubmit()" *ngIf="!identity "  action="" class="text-center container col-md-4" >
+	<form #formLogin="ngForm" (ngSubmit)="onSubmit()" *ngIf="!identity "  action="" class="text-center container col-md-3" >
 		<i class="fa fa-paper-plane fa-5x" style="color: #31b0d5" aria-hidden="true"></i>
 		<h2>Ascensos en Linea</h2>
 			<div class=" row">
-		      <input type="text" #email="ngModel"  [(ngModel)]="user.username"  ngControl='email' class="form-control col-md-6" pattern='[az]'  name="usuario" placeholder="Usuario" aria-describedby="basic-addon1"  required="required">
+		      <input type="text" #email="ngModel"  [(ngModel)]="user.username"  ngControl='email' class="form-control col-md-6" pattern='[a-z.]+'  name="usuario" placeholder="Usuario" aria-describedby="basic-addon1"  required="required">
 		      <span  class="input-group-addon col-md-6" id="basic-addon1">@armada.mil.co</span>
     		</div>
 			<div class="alert alert-danger my-1 col-md-12" role="alert" *ngIf='!email.valid && email.touched'>

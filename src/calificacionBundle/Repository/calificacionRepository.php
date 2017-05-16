@@ -40,20 +40,17 @@ class calificacionRepository extends \Doctrine\ORM\EntityRepository
 
 	public function getListado($anio,$categoria,$turno)
 	{
-		if($categoria == 'OFIC'){
+		if($categoria == 'oficiales'){
 			$categoria = 10;
       if ($turno == 1) {
-        $f_inicio = 1;
-        $f_limite = 6;
+        $mes = 9;
       }elseif ($turno == 2) {
-        $f_inicio = 6;
-        $f_limite = 12;
+        $mes = 9;
       }
-		}elseif ($categoria == 'SUBOFIC') {
+		}elseif ($categoria == 'suboficiales') {
 			$categoria = 11;
        if ($turno == 1) {
-        $f_inicio = 1;
-        $f_limite = 3;
+        $mes = 3;
       }elseif ($turno == 2) {
         $mes = 9;
        
@@ -146,10 +143,10 @@ ORDER BY
   public function buscaPersona($identificacion='',$apellidos='',$nombres='',$categoria=''){
     $em = $this->getEntityManager();
     $db = $em->getConnection();
-    if($categoria == 'OFIC'){
+    if($categoria == 'oficiales'){
       $categoria = 10;
     }
-    elseif ($categoria == 'SUBOFIC') {
+    elseif ($categoria == 'suboficiales') {
       $categoria = 11;
     }
     $datos = array();
@@ -197,8 +194,7 @@ ORDER BY
     ee.guarnicion,
     ee.unidad_dependencia unidad,
     s.sigla,
-    ee.fecha_prox_ascenso,
-    NUEVO_REHU.CF_TOT_TIEMGRADO(ee.unde_consecutivo,ee.fuerza_empleado,ee.id_empleado, sysdate) t_grado
+    ee.fecha_prox_ascenso
   FROM
     escalafones_empleados ee,
     unidades_dependencia ud,
@@ -253,10 +249,7 @@ ORDER BY
        ee.fecha_ult_ascenso uascenso,
        ee.fecha_nacimiento f_nacimiento,
        ee.fecha_disp_alta f_alta,
-       ee.cursos_militares,
        ac.descripcion arma_cuerpo,
-       proc_gral.tiempoServicio(ee.unde_consecutivo ,ee.fuerza_empleado,ee.id_empleado)t_servicio,
-       NUEVO_REHU.CF_TOT_TIEMGRADO(ee.unde_consecutivo,ee.fuerza_empleado,ee.id_empleado, sysdate) t_grado,
        NUEVO_REHU.edad_anio(ee.fecha_nacimiento)edad,
        rg.edad_limite edad_limite,
       RTRIM(LTRIM(RF.SERVIDOR||RF.RUTA_FOTO||FE.NOMBRE_FOTO)) RUTA
@@ -274,7 +267,7 @@ ORDER BY
           AND   ee.unde_fuerza_laborando = ud.fuerza(+)
           AND   ud.id_sigla = s.id_sigla(+)
           AND   ee.id_categoria IN (10,11)
-          AND   ee.identificacion = 9531508
+          AND   ee.identificacion = ".$identificacion."
 
           AND   ( ee.abrev_grado <> 'CA' AND
                 ee.abrev_grado <> 'CR' AND ee.abrev_grado <> 'AL'

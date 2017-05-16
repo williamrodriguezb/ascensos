@@ -11,7 +11,7 @@
       <div class="container" style="margin-right: 1em;">
         <div class=" collapse navbar-collapse" id="navbarTogglerDemo02">
           <ul class="navbar-nav mr-auto mt-2 mt-md-0">
-            <li class="nav-item" [routerLinkActive]="['active']">
+            <li *ngIf='!identidad' class="nav-item" [routerLinkActive]="['active']">
               <a [routerLink]="['inicio']" class="nav-link" >Inicio</a>
             </li>
             <li *ngIf='identidad' class="nav-item" [routerLinkActive]="['active']">

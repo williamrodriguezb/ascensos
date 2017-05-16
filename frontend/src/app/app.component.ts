@@ -24,5 +24,6 @@ export class AppComponent {
   	ngOnInit(){
       this.identidad = this._loginService.getIdentity();
       this.token = this._loginService.getToken();
+      console.log(this.token);
   	}
 }

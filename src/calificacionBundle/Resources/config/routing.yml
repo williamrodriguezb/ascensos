@@ -2,17 +2,19 @@ calificacion:
     path:     /
     defaults: { _controller: calificacionBundle:Default:index }
 cal_listado:
-    path:     /listado/
+    path:     /listado
     defaults: { _controller: calificacionBundle:Default:listado }
-    methods: ['POST','GET']
+    methods: POST
+busca_persona:
+    path:     /persona/buscar
+    defaults: { _controller: calificacionBundle:Default:buscaPersona }
+    methods:    [ POST ]
+
 persona:
-    path:     /consulta_persona/
+    path:     /persona/{id}
     defaults: { _controller: calificacionBundle:Default:persona }
+    methods:    [ GET ]    
     
-persona_datos:
-    path:     /consulta_persona/
-    defaults: { _controller: calificacionBundle:Default:persona }
-    methods:    [ GET , POST ]
 calif_reporte:
     path:     /reporte
     defaults: { _controller: calificacionBundle:Default:reporte }

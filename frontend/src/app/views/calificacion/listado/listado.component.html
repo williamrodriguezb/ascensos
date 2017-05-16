@@ -1,0 +1,87 @@
+<hr><h2 class="text-center">Listado de Personal</h2><hr>
+<form #listadoForm='ngForm' (ngSubmit)="onSubmit()" class="container col-lg-3 card" >
+  <fieldset>
+    <hr>
+    <legend>Año</legend>
+  <select #year="ngModel"  [(ngModel)]="listado.year"  ngControl='year' class="" name="year" class="form-control col-md-4 mx-auto" required="required">
+      <option value=""></option>
+      <option value="2017">2017</option>
+      <option value="2018">2018</option>
+  </select>
+  <div *ngIf='!year.valid && year.touched' class="alert alert-danger">
+     Ingresa un año
+  </div>
+</fieldset>
+<hr>
+  <div class="row my-3">
+  <fieldset class="col-md-6 text-center">
+    <legend>Categoria</legend>
+<hr>
+      <div class="">
+      <label for="oficial"  class="">Oficiales</label>
+      <input #categoria='ngModel' [(ngModel)]='listado.categoria' type="radio" name='categoria' id="oficial" value='oficiales' class="" required="required">
+      </div>
+      <div class="">
+        <label for="suboficial" class="">Suboficiales</label>
+        <input #categoria='ngModel' [(ngModel)]='listado.categoria' type="radio" name='categoria' id="suboficial" value='suboficiales' class="">
+      </div>
+
+  </fieldset>
+  <fieldset class="col-md-6 text-center">
+    <legend>Turno</legend>
+    <hr>
+      <div>
+      <label for="primero" >Primero</label>
+      <input #turno='ngModel' [(ngModel)]='listado.turno' type="radio" name='turno'  value='1' id="primero" >
+      </div>
+      <div>
+        <label for="segundo" class="">Segundo</label>
+        <input #turno='ngModel' [(ngModel)]='listado.turno' type="radio" name='turno'  id="segundo" value='2'>
+      </div>
+  </fieldset>
+</div>
+<hr>
+<div *ngIf='!categoria.valid && categoria.touched' class="alert alert-danger">
+   Ingresa un año
+</div>
+<div class="row my-4">
+  <input type="submit" value="Ver Listado" class="btn btn-primary form-control col-md-5 mx-3 ">
+  <a (click)='limpiar()' class="btn btn-secondary form-control col-md-5">Limpiar</a>
+
+</div>
+</form>
+<p class="alert alert-info col-md-3 mx-auto">Año:{{listado.year}} Categoria:{{listado.categoria}} Turno:{{listado.turno}}</p>
+<div class="table-responsive" *ngIf='listadoResultado'>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>N</th>
+        <th class="text-center">ID</th>
+        <th class="text-center">CATEGORIA</th>
+        <th class="text-center">GR.</th>
+        <th class="text-center">NOMBRE</th>
+        <th class="text-center">CARGO</th>
+        <th class="text-center">UNIDAD</th>
+        <th class="text-center">SIGLA</th>
+        <th class="text-center">ESPECIALIDAD</th>
+        <th class="text-center">GUARNICION</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor='let postulado of listadoResultado; let i = index'>
+          <td>{{i}}</td>
+          <td>{{postulado.IDENTIFICACION}}</td>
+          <td>{{postulado.CATEGORIA}}</td>
+          <td>{{postulado.GRADO}}</td>
+          <td>{{postulado.APELLIDOS}} {{postulado.NOMBRES}}</td>
+          <td>{{postulado.CARGO_ACTUAL}}</td>
+          <td>{{postulado.UNIDAD}}</td>
+          <td>{{postulado.SIGLA}}</td>
+          <td>{{postulado.ESPECIALIDAD}}</td>
+          <td>{{postulado.GUARNICION}}</td>
+          <td><a class="btn btn-outline-primary" [routerLink]="['/calificacion/persona/']+postulado.IDENTIFICACION">Ver</a></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

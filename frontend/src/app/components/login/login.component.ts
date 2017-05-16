@@ -59,9 +59,10 @@ onSubmit(){
                     if(!response.status){
                       localStorage.setItem('token',this.token);
                       window.location.href="/";
+
                     }
                   }
-                  console.log(localStorage.getItem('token'));
+
 
                 }
               );

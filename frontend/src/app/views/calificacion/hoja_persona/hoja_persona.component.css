@@ -1,0 +1,50 @@
+.cumple{
+	color: green;
+}
+.noCumple{
+	color: red;
+}
+.noCalificado{
+	color: gray;
+}
+.lista-idioma{
+	display: flex;
+	justify-content: space-around;
+	text-align: center;
+	list-style: none;
+}
+.nav-link.active {
+    color: #313b40;
+}
+.nav-tabs .nav-link {
+    color: gray;
+}
+table th {
+	text-align: center;
+	text-transform: uppercase;
+}
+#colapsa,{
+  margin: 0;
+}
+#hoja_personal,#colapsa{
+    padding: 0;
+}
+.encabezado{
+  background-color: #636c72;
+      color: #f7f7f9;
+      text-align: center;
+      display: flex;
+      flex-flow: row;
+      justify-content: space-around;
+}
+
+/*Interactividad----------------------------------*/
+.none{
+  display: none
+}
+.tab{
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  list-style: none;  
+}

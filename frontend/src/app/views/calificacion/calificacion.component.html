@@ -1,15 +1,13 @@
-
 		<section class="container" id="panel-principal" *ngIf='identidad && identidad!= null'>
 			<div class="row">
 				<div class="col-md-12">
-					<h3>Bienvenido <br> {{identidad.sub}}  Dependencia: {{identidad.dependencia}}</h3>
+					<p>Bienvenido: {{identidad.sub}} <br> Dependencia: {{identidad.dependencia}}</p>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-4">
 					<div class="card">
-						<a class='text-center' href="">
-
+						<a class='text-center' [routerLink]="['matriz']">
 					  	 <i class="fa fa-cog  card-img-top" aria-hidden="true" style="font-size:100px; color:#005f8e;"></i>
 						</a>
 				 	 <h3 class="card-header text-center">Matriz de validacion</h3>
@@ -18,7 +16,6 @@
 				<div class="col-md-4">
 					<div class="card">
 						<a class='text-center' [routerLink]="['listado']">
-
 					  	 <i class="fa fa-list  card-img-top" aria-hidden="true" style="font-size:100px; color:#005f8e;"></i>
 						</a>
 				 	 <h3 class="card-header text-center">Personal a Ascender</h3>
@@ -26,15 +23,15 @@
 				</div>
 			<div class="col-md-4">
 			<div class="card">
-				<a class='text-center' href="">
+				<a class='text-center' [routerLink]="['persona']">
 			  	<i class="fa fa-user-circle text-center card-img-top" aria-hidden="true" style="font-size:100px; color:#005f8e;"></i>
 			  </a>
-		 	 <h3 class="card-header text-center">Ver Persona</h3>
+		 	 <h3 class="card-header text-center">Buscar por Persona</h3>
 			</div>
 		</div>
 		<div class="col-md-4">
 			<div class="card">
-				<a class='text-center' href="">
+				<a class='text-center' [routerLink]="['reporte']">
 			  	<i class="fa fa-file-text text-center card-img-top" aria-hidden="true" style="font-size:100px; color:#58401e;"></i>
 			  	</a>
 		 	 <h3 class="card-header text-center">Generar Reporte</h3>

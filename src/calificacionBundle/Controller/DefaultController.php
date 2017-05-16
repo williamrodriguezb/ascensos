@@ -23,125 +23,79 @@ class DefaultController extends Controller
           ));
     }
   public function listadoAction(Request $request){
-    $usuario = 'william';
-    $correo = 'william.rodriguez.b';
-    $perfil = 'administrador';
-    $page = $request->query->get('page');
 
+      $anio         =   $request->get('anio');
+      $categoria    =   $request->get('categoria');
+      $turno        =   $request->get('turno');
 
-    if ($page == null) {
+        $em = $this ->getDoctrine()->getManager();
+        $calif_repo = $em->getRepository("calificacionBundle:calificacion");
+        $listado= $calif_repo->getListado($anio,$categoria,$turno);
+        return new JsonResponse($listado);
+        // var_dump($turno);
+        // die();
 
-      $sesion= $request->getSession();
-      $sesion->clear();
-      $pagination = null;
-      // var_dump($page);
-      // die();
-    }else if($page==1){
-      $sesion= $request->getSession();
-      $repite     =$sesion->get('repite');
-      $anio =  $sesion->get('anio');
-      $categoria = $sesion->get('categoria');
-      $turno = $sesion->get('turno');
-      if ($repite) {
-        echo 'algo';
-      }else{
-        $anio = $request->get('anio');
-        $categoria = $request->get('categoria');
-        $turno     =$request->get('turno');
-      }
-      $sesion->set('anio',$anio);
-      $sesion->set('categoria',$categoria);
-      $sesion->set('turno',$turno);
-      $sesion->set('repite',true);
-
-      $em = $this ->getDoctrine()->getManager();
-      $calif_repo = $em->getRepository("calificacionBundle:calificacion");
-      $empleados =  $calif_repo->getListado($anio,$categoria,$turno);
-      $paginator = $this->get('knp_paginator');
-      $pagination = $paginator->paginate($empleados,
-      $request->query->getInt('page',1),7);
-    }else{
-      $sesion= $request->getSession();
-      $anio =  $sesion->get('anio');
-      $categoria = $sesion->get('categoria');
-      $turno = $sesion->get('turno');
-      $em = $this ->getDoctrine()->getManager();
-      $calif_repo = $em->getRepository("calificacionBundle:calificacion");
-      $empleados =  $calif_repo->getListado($anio,$categoria,$turno);
-      $paginator = $this->get('knp_paginator');
-      $pagination = $paginator->paginate($empleados,
-      $request->query->getInt('page',1),7);
-    }
-    // var_dump($sesion->get('anio'));
-    // die();
-   return $this->render('calificacionBundle:default:clas_listado.html.twig',array(
-      'usuario'   =>  $usuario,
-      'correo'    =>  $correo,
-      'perfil'    =>  $perfil,
-      // 'empleados' =>  $empleados,
-      'pagination' => $pagination,
-      'page'=>$page,
-      )
-   );
+   // return $this->render('calificacionBundle:default:clas_listado.html.twig',array(
+   //    'usuario'   =>  $usuario,
+   //    'correo'    =>  $correo,
+   //    'perfil'    =>  $perfil,
+   //    // 'empleados' =>  $empleados,
+   //    'pagination' => $pagination,
+   //    'page'=>$page,
+   //    )
+   // );
 }
-  public function personaAction(Request $request,
-    $identificacion=null
-    ){
-    $usuario        = 'william';
-    $correo         = 'william.rodriguez.b';
-    $perfil         = 'administrador';
+  public function buscaPersonaAction(Request $request, $identificacion=null){
+   
     //DATOS RECUPERADOS
     $documento      = $request->get('documento');
-    $identificacion = $request->query->get('id');
     $apellidos      = $request->get('apellidos');
     $nombres        = $request->get('nombres');
     $categoria      = $request->get('categoria');
-    $metodo         = $request->getMethod();
-    $listado        = null;
-    //VALIDACIONES
-   if ($identificacion==null){
-      $persona   = null;
-      $mando     = null;
-      $aptitud      =   null;
-      $cert_fisica  =  null;
-      $no_remuneradas = null;
-    }else{
-      $em           =   $this ->getDoctrine()->getManager();
-      $db           =   $em->getConnection();
-      $calif_repo   =   $em->getRepository("calificacionBundle:calificacion");
-      $disan_siath  =   $em->getRepository("disanBundle:disan");
-      $jpm_repo     =   $em->getRepository("jpmBundle:jpm");
-      $persona      =   $calif_repo->getPersona($identificacion);
-      $mando        =   $calif_repo->getMando($identificacion);
-      $aptitud      =   $disan_siath->getAptitud($identificacion);
-      $felicitaciones = $calif_repo->getFelicitaciones($identificacion);
-      $no_remuneradas = $calif_repo->getLicenciasNoRemuneradas($identificacion);
-    }
-    if ($documento != null  or $apellidos != null or $nombres != null
+
+       if ($documento != null  or $apellidos != null or $nombres != null
         or  $categoria != null) {
       $em           =   $this ->getDoctrine()->getManager();
       $db           =   $em->getConnection();
       $calif_repo   =   $em->getRepository("calificacionBundle:calificacion");
       $listado      =   $calif_repo->buscaPersona($documento,$apellidos,$nombres,$categoria);
-      $empleado     =   null;
        return new JsonResponse($listado) ;
-       die();
     }
+      
+    // return $this->render('calificacionBundle:default:consulta_persona.html.twig', array(
+    //       'usuario'   =>  $usuario,
+    //       'correo'    =>  $correo,
+    //       'perfil'    =>  $perfil,
+    //       'persona'   =>  $persona,
+    //       'listado'   =>  $listado,
+    //       'mando'     =>  $mando,
+    //       'aptitud'   =>  $aptitud,
+    //       'no_remuneradas'=> $no_remuneradas,
+    //       )
+    //   );
+  }
+  public function personaAction($id=''){
+      $em           =   $this ->getDoctrine()->getEntityManager();
+      $calif_repo   =   $em->getRepository("calificacionBundle:calificacion");
+      $disan_siath  =   $em->getRepository("disanBundle:disan");
+      $jpm_repo     =   $em->getRepository("jpmBundle:jpm");
+      $persona      =   $calif_repo->getPersona($id);
+      // $mando        =   $calif_repo->getMando($id);
+      // $niveles        =   $calif_repo->getNivelesAcademicos($id);
+      // $no_remuneradas = $calif_repo->getLicenciasNoRemuneradas($id); 
+      // $merito       =   $calif_repo->getMerito($id);
+      // $aptitud      =   $disan_siath->getAptitud($id);
+      // array_push($persona,$persona);
 
+        // $hoja_personal = array(
+        //     'persona'=>$persona,
+        //     'disan'=>$disan_siath,
+        //     'mando'=>$mando,
+        //     'niveles_academicos'=>$niveles
+        //   );
 
-   
-
-    return $this->render('calificacionBundle:default:consulta_persona.html.twig', array(
-          'usuario'   =>  $usuario,
-          'correo'    =>  $correo,
-          'perfil'    =>  $perfil,
-          'persona'   =>  $persona,
-          'listado'   =>  $listado,
-          'mando'     =>  $mando,
-          'aptitud'   =>  $aptitud,
-          'no_remuneradas'=> $no_remuneradas,
-          )
-      );
+        return new JsonResponse($persona);
+     // var_dump($niveles);
   }
 
   public function conteosAction($identificacion){

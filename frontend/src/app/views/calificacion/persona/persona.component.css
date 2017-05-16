@@ -1,0 +1,10 @@
+.fa-user-circle{
+    font-size:100px; color:#005f8e;
+}
+
+input[type='text'],select{
+  margin: .5em 0;
+}
+tbody{
+  font-size: .8rem;
+}

@@ -39,13 +39,8 @@ class jwt_auth{
     		$bind= $ldap->bind('uid='.$username.',ou=people,dc=armada,dc=mil,dc=co', $password);
 
     	}catch(\Exception $e){
-
-    			
     		return new JsonResponse(array('status'=>'login incorrecto'));
-
     	}
-
-
     	$user =  $ldap->find('ou=people,dc=armada,dc=mil,dc=co','(uid='.$username.')');
 
 	    $displayname = $user[0]['displayname'][0];
@@ -63,9 +58,7 @@ class jwt_auth{
         	$securityContext->getToken()->getUser();
 			$securityContext->getToken()->setUser($user_symf);
 			$securityContext->setToken($token);
-
         }
-
         $token_jwt = array(
                 "sub" 				=> $displayname,
                 "email" 			=> $mail,
@@ -81,12 +74,8 @@ class jwt_auth{
 
         		$jwt = JWT::encode($token_jwt, $key, 'HS256');
             	$decode = JWT::decode($jwt,$key,array('HS256'));
-    //     	if($hash == true){
-    //     		return new JsonResponse($jwt) ;
-    //     	}elseif($hash == false){
-				// return new JsonResponse($decode) ;
-    //     	}
-            		 	if($hash == 'true' || $hash==null){
+   
+		 	if($hash == 'true' || $hash==null){
         		return new JsonResponse($jwt) ;
         	}
 

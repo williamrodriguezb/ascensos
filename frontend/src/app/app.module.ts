@@ -13,7 +13,11 @@ import { DisciplinarioComponent } from './components/disciplinario/disciplinario
 import { ComandanteComponent } from './components/comandante/comandante.component';
 import { LoginComponent } from './components/login/login.component';
 import { LogoutComponent } from './components/login/logout.component';
-import { ListadoComponent } from './components/calificacion/listado/listado.component';
+import { ListadoComponent } from './components/calificacion/listado.component';
+import { PersonaComponent } from './components/calificacion/persona.component';
+import { ReporteComponent } from './components/calificacion/reporte.component';
+import { HojaPersonaComponent } from './components/calificacion/hoja_personal.component';
+import { MatrizComponent } from './components/calificacion/matriz.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +31,10 @@ import { ListadoComponent } from './components/calificacion/listado/listado.comp
     LoginComponent,
     LogoutComponent,
     ListadoComponent,
+    PersonaComponent,
+    ReporteComponent,
+    HojaPersonaComponent,
+    MatrizComponent
 
   ],
   imports: [

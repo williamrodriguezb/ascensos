@@ -1,0 +1,56 @@
+<div class="progress col-md-6 mx-auto" *ngIf='!persona'>
+  <p>cargando...</p>
+  <div class="progress-bar progress-bar-striped progress-bar-animated " role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+</div>
+<section id="hoja_personal" class="container card" *ngIf='persona'>
+  <section id='informacion-personal' class="row">
+    <div class="col-md-3 ml-auto">
+      <figure class="text-center m-0">
+        <i class="fa fa-user-circle text-center card-img-top" aria-hidden="true" style="font-size:100px; color:#005f8e;"></i>
+      </figure>
+    </div>
+    <div class="card-header encabezado container">
+      {{persona.IDENTIFICACION}}
+      <br> {{persona.GRADO}}.{{persona.APELLIDOS}} {{persona.NOMBRES}}
+    </div>
+  </section>
+  <section id='colapsa' class="container">
+    <article class="">
+        <a href=""><header class="card-header">Datos Personales</header></a>
+        <div class="none">
+          contenido
+        </div>
+    </article>
+    <article class="">
+      <a href=""><header class="card-header">Tiempos</header></a>
+      <div class="none">
+        contenido
+      </div>
+    </article>
+    <article class="">
+      <a href=""><header class="card-header">Folios</header></a>
+      <div class="none">
+        contenido
+      </div>
+    </article>
+    <article class="">
+      <a href=""><header class="card-header">Estimulos-Represiones</header></a>
+      <div class="none">
+        contenido
+      </div>
+    </article>
+    <article class="">
+      <a href=""><header class="card-header">Perfil Profesional</header></a>
+      <div class="none">
+        contenido
+      </div>
+    </article>
+  </section>
+
+  <ul class="tab">
+    <li>Medica</li>
+    <li>Juridica</li>
+    <li>Ascensos</li>
+    <li>Licencias no Remuneradas</li>
+  </ul>
+</section>

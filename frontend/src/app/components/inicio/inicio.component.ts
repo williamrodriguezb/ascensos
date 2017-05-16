@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'inicio',
@@ -7,12 +8,17 @@ import { Component } from '@angular/core';
 })
 export class InicioComponent {
   public titulo:string;
-  constructor(){
+  constructor(
+    private _router:Router
+  ){
     this.titulo = 'Inicio'
   }
 
   ngOnInit(){
-    console.log('inicio cargado correctamente');
+    if(localStorage.getItem('token')){
+      this._router.navigate(['/calificacion']);
+    }
+    console.log(localStorage.getItem('token'));
   }
 
 }

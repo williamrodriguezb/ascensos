@@ -1,0 +1,69 @@
+<h2 class="text-center">
+  Matriz de Evaluacion Integral
+</h2>
+<hr>
+<section id="panel-matriz" class="col-md-4 mx-auto ">
+    <article class="mx-auto">
+      <button class="btn btn-lg" (click)='panel("indicadores")'>Indicadores</button>
+      <button class="btn btn-lg" (click)='panel("factores")'>Factores</button>
+      <button class="btn btn-lg" (click)='panel("puntuacion")'>Puntuacion</button>
+    </article>
+</section>
+<section [ngSwitch]='panelSeleccionado'>
+    <article *ngSwitchCase="'indicadores'" class="col-md-9 mx-auto">
+      <header>
+        <h3 >Indicadores</h3><hr>
+      </header>
+        <ul class='lista-indicadores'>
+          <li><button class="btn btn-md btn-secondary" >Desempeño Profesional</button></li>
+          <li><button class="btn btn-md btn-secondary" >Compromiso Institucional</button></li>
+          <li><button class="btn btn-md btn-secondary" >Condiciones Personales</button></li>
+          <li><button class="btn btn-md btn-secondary" >Profesionalizacion Academica y Militar</button></li>
+          <li><button class="btn btn-md btn-secondary" >Acreditacion de Conducta</button></li>
+        </ul>
+        <hr>
+          <p><i class="fa fa-plus-square" aria-hidden="true"></i>Ingresar Indicador</p>
+    </article>
+    <div *ngSwitchCase="'factores'" class="col-md-9 mx-auto">
+      <header>
+        <h3 >Panel Factores</h3><hr>
+      </header>
+        <select name="" id="" class="form-control col-md-3 mx-auto" >
+          <option value="">Indicador</option>
+          <option value="">Desempeño Profesional</option>
+        </select>
+        <hr>
+        <ul class='lista-indicadores'>
+          <li><button class="btn btn-md btn-secondary" >Antiguedad</button></li>
+          <li><button class="btn btn-md btn-secondary" >Compromiso Institucional</button></li>
+          <li><button class="btn btn-md btn-secondary" >Acreditacion de Conducta</button></li>
+        </ul>
+      <p><i class="fa fa-plus-square" aria-hidden="true"></i>Ingresar Factor</p>
+      <hr>
+    </div>
+    <div *ngSwitchCase="'puntuacion'" class="col-md-9 mx-auto">
+      <header>
+        <h3 >Puntuacion</h3><hr>
+      </header>
+      <div class=" col-md-5 row mx-auto">
+        <select name="" id="" class='col-md-5 form-control'  >
+          <option value="">Indicador</option>
+          <option value="">Desempeño Profesional</option>
+        </select>
+        <select name="" id="" class='col-md-5 form-control' >
+          <option value="">Factor</option>
+          <option value="">Antiguedad</option>
+        </select>
+      </div>
+      <hr>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Tipo de puntuacion</th>
+            <th>Puntos</th>
+          </tr>
+        </thead>
+          <p><i class="fa fa-plus-square" aria-hidden="true"></i>Ingresar Tipo de Puntuacion</p>
+      </table>
+    </div>
+</section>

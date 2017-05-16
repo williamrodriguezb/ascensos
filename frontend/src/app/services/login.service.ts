@@ -17,8 +17,6 @@ export class loginService{
   ){
   }
   signUp(user){
-    ;
-
     let params= "username="+user.username+"&password="+user.password+"&hash="+user.hash;
     let headers = new Headers({
         'Content-Type': 'application/x-www-form-urlencoded',

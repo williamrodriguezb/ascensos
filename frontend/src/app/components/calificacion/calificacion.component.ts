@@ -3,8 +3,8 @@ import { loginService } from '../../services/login.service' ;
 
 @Component({
   selector: 'calificacion',
-  templateUrl: '../../views/calificacion.component.html',
-  styleUrls: ['./calificacion.component.css'],
+  templateUrl: '../../views/calificacion/calificacion.component.html',
+  styleUrls: ['../../views/calificacion/calificacion.component.css'],
   providers: [loginService]
 })
 export class CalificacionComponent {
