@@ -28,22 +28,20 @@ class DefaultController extends Controller
       $categoria    =   $request->get('categoria');
       $turno        =   $request->get('turno');
 
-        $em = $this ->getDoctrine()->getManager();
-        $calif_repo = $em->getRepository("calificacionBundle:calificacion");
-        $listado= $calif_repo->getListado($anio,$categoria,$turno);
-        return new JsonResponse($listado);
-        // var_dump($turno);
-        // die();
+      $em = $this ->getDoctrine()->getManager();
+      $calif_repo = $em->getRepository("calificacionBundle:calificacion");
+      $listado= $calif_repo->getListado($anio,$categoria,$turno);
 
-   // return $this->render('calificacionBundle:default:clas_listado.html.twig',array(
-   //    'usuario'   =>  $usuario,
-   //    'correo'    =>  $correo,
-   //    'perfil'    =>  $perfil,
-   //    // 'empleados' =>  $empleados,
-   //    'pagination' => $pagination,
-   //    'page'=>$page,
-   //    )
-   // );
+      $page = $request->query->getInt('page',1);
+
+      $paginador = $this->get('knp_paginator');
+      $items = 10;
+
+      $paginacion = $paginador->paginate($listado,$page,$items);
+      $total_items = $paginacion->getTotalItemCount();
+      // return new JsonResponse($paginacion['data']);
+      return $this->json($paginacion);
+      
 }
   public function buscaPersonaAction(Request $request, $identificacion=null){
    
@@ -59,20 +57,19 @@ class DefaultController extends Controller
       $db           =   $em->getConnection();
       $calif_repo   =   $em->getRepository("calificacionBundle:calificacion");
       $listado      =   $calif_repo->buscaPersona($documento,$apellidos,$nombres,$categoria);
-       return new JsonResponse($listado) ;
+
+
+       // return new JsonResponse($listado)
+       $page = $request->query->getInt('page',1);
+
+      $paginador = $this->get('knp_paginator');
+      $items = 10;
+
+      $paginacion = $paginador->paginate($listado,$page,$items);
+      $total_items = $paginacion->getTotalItemCount();
+      // return new JsonResponse($paginacion['data']);
+      return $this->json($paginacion); ;
     }
-      
-    // return $this->render('calificacionBundle:default:consulta_persona.html.twig', array(
-    //       'usuario'   =>  $usuario,
-    //       'correo'    =>  $correo,
-    //       'perfil'    =>  $perfil,
-    //       'persona'   =>  $persona,
-    //       'listado'   =>  $listado,
-    //       'mando'     =>  $mando,
-    //       'aptitud'   =>  $aptitud,
-    //       'no_remuneradas'=> $no_remuneradas,
-    //       )
-    //   );
   }
   public function personaAction($id=''){
       $em           =   $this ->getDoctrine()->getEntityManager();
@@ -80,22 +77,84 @@ class DefaultController extends Controller
       $disan_siath  =   $em->getRepository("disanBundle:disan");
       $jpm_repo     =   $em->getRepository("jpmBundle:jpm");
       $persona      =   $calif_repo->getPersona($id);
-      // $mando        =   $calif_repo->getMando($id);
-      // $niveles        =   $calif_repo->getNivelesAcademicos($id);
-      // $no_remuneradas = $calif_repo->getLicenciasNoRemuneradas($id); 
-      // $merito       =   $calif_repo->getMerito($id);
-      // $aptitud      =   $disan_siath->getAptitud($id);
-      // array_push($persona,$persona);
-
-        // $hoja_personal = array(
-        //     'persona'=>$persona,
-        //     'disan'=>$disan_siath,
-        //     'mando'=>$mando,
-        //     'niveles_academicos'=>$niveles
-        //   );
-
         return new JsonResponse($persona);
-     // var_dump($niveles);
+  }
+  public function pAccionAction($id,$accion){
+
+    //conexion base de datos
+    $em           =   $this ->getDoctrine()->getEntityManager();
+    $calif_repo   =   $em->getRepository("calificacionBundle:calificacion");
+    $jpm_repo   =   $em->getRepository("jpmBundle:jpm");
+
+    // 
+
+    if ($accion == 'tiempos') {
+      $tiempos        =   $calif_repo->getTiempos($id);
+      return new JsonResponse($tiempos);
+    }
+
+    //-------------------folios de vida
+    if($accion == 'folios'){
+      $folios   =   $calif_repo->getFolios($id);
+      return new JsonResponse($folios);
+    }
+
+    if($accion == 'estimulos-represiones'){
+      $felicitaciones = $calif_repo->getFelicitaciones($id);
+      $merito = $calif_repo->getMerito($id);
+      $concep_positivo = $calif_repo->getConceptoPositivo($id);
+      $concep_negativo = $calif_repo->getConceptoNegativo($id);
+      $demerito = $calif_repo->getDemerito($id);
+      $condecoraciones = $calif_repo->getEstimulo($id,'CONDECORACION');
+      $medallas = $calif_repo->getEstimulo($id,'MEDALLA');
+      $distintivo = $calif_repo->getEstimulo($id,'DISTINTIVO');
+      $sanciones = $jpm_repo->getSanciones($id);
+
+
+       $n_medallas=0;
+       $n_distintivos=0;
+       $n_condecoraciones=0;
+      foreach ($medallas as $key => $value) {
+        if ($value['TIPO_ESTIMULO']=='MEDALLA') {
+          $n_medallas= $n_medallas + 1;
+        }
+        if ($value['TIPO_ESTIMULO']=='DISTINTIVO') {
+          $n_distintivos= $n_distintivos + 1;
+        }if ($value['TIPO_ESTIMULO']=='CONDECORACION') {
+          $n_condecoraciones= $n_condecoraciones + 1;
+        }
+      }
+      
+      $est_repre= array('felicitaciones'=>$felicitaciones,
+                        'anotaciones_merito'=>$merito,
+                        'anotaciones_demerito'=>$demerito,
+                        'concepto_positivo'=>$concep_positivo,
+                        'concepto_negativo'=>$concep_negativo,
+                        'sanciones'=>$sanciones,
+                        'estimulos'=>array(
+                                          'n_condecoraciones'=>$n_condecoraciones,
+                                          'n_medallas'=>$n_medallas,
+                                          'n_distintivos'=>$n_distintivos
+                                          ),
+                        'condecoraciones'=>$condecoraciones,
+                        'medallas'=>$medallas,
+                        'n_distintivos'=>$n_distintivos
+                        );
+
+      return new JsonResponse($est_repre);
+    }
+
+    if($accion == 'perfil'){
+      $idiomas = $calif_repo->getIdiomas($id);
+      $formacion = $calif_repo->getFormacionAcademica($id);
+
+      $result = array('idiomas'=>$idiomas,
+                      'formacion'=>$formacion
+          );
+       return new JsonResponse($result);
+
+    }
+    
   }
 
   public function conteosAction($identificacion){

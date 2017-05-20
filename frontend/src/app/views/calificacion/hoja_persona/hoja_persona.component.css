@@ -1,33 +1,69 @@
-.cumple{
-	color: green;
-}
-.noCumple{
-	color: red;
-}
-.noCalificado{
-	color: gray;
-}
 .lista-idioma{
 	display: flex;
 	justify-content: space-around;
 	text-align: center;
 	list-style: none;
 }
-.nav-link.active {
-    color: #313b40;
-}
-.nav-tabs .nav-link {
-    color: gray;
+
+.img-especialidad{
+	width: 150px;
 }
 table th {
 	text-align: center;
 	text-transform: uppercase;
 }
-#colapsa,{
+#colapsa, .tab, figure{
   margin: 0;
 }
-#hoja_personal,#colapsa{
+#hoja_personal,#colapsa, .tab ,.card {
     padding: 0;
+}
+#hoja_personal a{
+  color: #31708f;
+}
+#hoja_personal a:hover{
+  text-decoration: none;
+}
+.card-header{
+  text-align: center;
+}
+#hoja_personal .card-header:hover{
+  background: #eceeef;
+}
+#estimulos-represiones td button{
+	font-size:.7em
+}
+.pop{
+	height: 92vh;
+	width: 95vw;
+	background-color: white;
+	box-shadow: 0em 0em .3em gray;
+	margin: auto;
+	position: fixed;
+	top:3.5em;
+	left: 2em;
+	overflow-y: scroll;
+	padding: 0em 1em;
+}
+.mifixed{
+	position: fixed;
+	/*width: 100%;*/
+	color:gray; font-size:1em;
+	display: block;
+	background: white;
+}
+.oculta{
+		transition-property: all;
+		display:none;
+}
+.muestra{
+		transition-property: all;
+		display: block;
+}
+.progress{
+	 padding:  .1em 0em;
+	 margin: auto;
+	 font-size: .8em;
 }
 .encabezado{
   background-color: #636c72;
@@ -36,15 +72,32 @@ table th {
       display: flex;
       flex-flow: row;
       justify-content: space-around;
+      padding: 1em;
 }
-
+.img-grado{
+	width: 4.2rem;
+}
 /*Interactividad----------------------------------*/
-.none{
-  display: none
-}
 .tab{
   display: flex;
-  flex-flow: row wrap;
-  justify-content: space-around;
-  list-style: none;  
+  /*flex-flow: row wrap;*/
+  list-style: none;
+	margin-top: .3em;
+}
+.tab li{
+	border-radius: 1em ;
+	flex: 1;
+	padding: .1em;
+}
+.tab i{
+	font-size: 2em;
+	color: white;
+}
+.tab a{
+	font-size: 0.8em;
+	background: #636c72;
+	padding: .5em;
+	color: white !important;
+	display: block;
+	border-radius: 1em 1em 0 0;
 }

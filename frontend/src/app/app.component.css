@@ -3,12 +3,10 @@ html,body, h1, h2, h3, li, ul{
 	margin: 0;
 	padding: 0;
 }
-
 /*Encabezado-------------------------------------------*/
 header{
-	    margin-bottom: 4em;
+  margin-bottom: 4em;
 }
-
 header#encabezado{
 	background-color: #22616F;
 	color: #98CFFF;
@@ -19,15 +17,20 @@ header#encabezado{
 	justify-content: space-between;
 	overflow: hidden;
 }
-
+#logo{
+	font-size: 1.3rem;
+	margin: 0 1em;
+	animation-name: vuelos;
+	animation-duration: 2s;
+}
 /*navbar-----------------------------------------------------------------*/
 .fixed-top {
-    position: fixed;
-    top: 0;
-    right: 0;
-    left: 0;
-    z-index: 1030;
-    background-color: #017db5 !important;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1030;
+  background-color: #017db5 !important;
 }
 .navbar{
 	padding: 0;
@@ -38,25 +41,42 @@ header#encabezado{
 .active{
 	background-color: #015e88;
 	border-top: 3px solid white;
-
 }
-
 #navbarDropdownMenuLink{
 	font-size: 0.8em;
 	box-shadow: none;
+}
 
+/*Notificacion------------------------------------------------------*/
+
+.modal-grande {
+    max-width: 80vw !important;
+}
+.nav-item{
+	    padding: .0em 0;
+			font-size: 1.1em;
+}
+#campanita{
+	padding: .6em 0 0 0;
+	font-size: 20px;
+	color: white;
+}
+
+@keyframes vuelos {
+	from{
+		margin-left: -20em;
+
+	}
+	to{
+		margin-left: 0em;
+	}
 }
 /*main--------------------------------------------------*/
-
 html {
 	min-height: 100vh;
 	position: relative;
-
 }
-body {
-/*position: relative;*/
 
-}
 /*pie de pagina----------------------------------------------------------*/
 .footer {
     position: relative;

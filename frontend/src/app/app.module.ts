@@ -4,20 +4,29 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { routing, appRoutingProviders } from './app.routing';
 
+//aplicacion
 import { AppComponent } from './app.component';
 import { InicioComponent } from './components/inicio/inicio.component';
 import { ErrorComponent } from './components/error/error.component';
-import { CalificacionComponent } from './components/calificacion/calificacion.component';
-import { DisanComponent } from './components/disan/disan.component';
-import { DisciplinarioComponent } from './components/disciplinario/disciplinario.component';
-import { ComandanteComponent } from './components/comandante/comandante.component';
 import { LoginComponent } from './components/login/login.component';
 import { LogoutComponent } from './components/login/logout.component';
+
+// calificacion componentes
+import { CalificacionComponent } from './components/calificacion/calificacion.component';
 import { ListadoComponent } from './components/calificacion/listado.component';
 import { PersonaComponent } from './components/calificacion/persona.component';
 import { ReporteComponent } from './components/calificacion/reporte.component';
 import { HojaPersonaComponent } from './components/calificacion/hoja_personal.component';
 import { MatrizComponent } from './components/calificacion/matriz.component';
+import { EstadisticasComponent } from './components/calificacion/estadisticas.component';
+
+//medica
+import { MedicaComponent } from './components/medica/medica.component';
+import { JuntasMedicasComponent } from './components/medica/juntas_medicas.component';
+import { EstadoComponent } from './components/medica/estado.component';
+
+import { DisciplinarioComponent } from './components/disciplinario/disciplinario.component';
+import { ComandanteComponent } from './components/comandante/comandante.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +34,7 @@ import { MatrizComponent } from './components/calificacion/matriz.component';
     InicioComponent,
     ErrorComponent,
     CalificacionComponent,
-    DisanComponent,
+    MedicaComponent,
     DisciplinarioComponent,
     ComandanteComponent,
     LoginComponent,
@@ -34,8 +43,9 @@ import { MatrizComponent } from './components/calificacion/matriz.component';
     PersonaComponent,
     ReporteComponent,
     HojaPersonaComponent,
-    MatrizComponent
-
+    MatrizComponent,
+    EstadisticasComponent,
+    JuntasMedicasComponent
   ],
   imports: [
     BrowserModule,

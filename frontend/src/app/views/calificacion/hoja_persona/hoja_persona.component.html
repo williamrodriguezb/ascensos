@@ -1,56 +1,586 @@
-<div class="progress col-md-6 mx-auto" *ngIf='!persona'>
-  <p>cargando...</p>
-  <div class="progress-bar progress-bar-striped progress-bar-animated " role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+<!-- Precarga ++++++++++++++++++++++++++++++++++++++++++++++ -->
+<div class="progress col-md-6" *ngIf='!persona'>
+  <div class="progress-bar progress-bar-striped progress-bar-animated " role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+    <p>Cargando...</p>
+  </div>
 </div>
+
+<!-- hoja_personal++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 <section id="hoja_personal" class="container card" *ngIf='persona'>
-  <section id='informacion-personal' class="row">
-    <div class="col-md-3 ml-auto">
+
+  <!-- encabezado  -->
+
+  <section id='informacion-personal' class="row container" style="margin:0; padding:0">
+    <!-- imagen grado -->
+    <figure style='font-size:.8em' [ngSwitch]='persona.GRADO_COMPLETO'>
+      <!-- <figcaption>{{persona.GRADO_COMPLETO}}</figcaption> -->
+      <img *ngSwitchCase="'CAPITAN'" class='img-grado' src="https://upload.wikimedia.org/wikipedia/commons/b/b7/Teniente_de_navio_colombia_armada.svg" alt="">
+      <img *ngSwitchCase="'TENIENTE DE CORBETA'" class='img-grado' src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Teniente_de_corbeta_armada_colombia.svg" alt="">
+      <img *ngSwitchCase="'SUBTENIENTE'" class='img-grado' src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Teniente_de_corbeta_armada_colombia.svg" alt="">
+      <img *ngSwitchCase="'TENIENTE'" src="https://upload.wikimedia.org/wikipedia/commons/b/b7/Teniente_de_navio_colombia_armada.svg" alt="" class='img-grado'>
+      <img *ngSwitchCase="'MAYOR'" src="https://upload.wikimedia.org/wikipedia/commons/3/33/Capitan_de_fragata_armada_colombia.svg" alt="" class='img-grado'>
+      <img *ngSwitchCase="'TENIENTE CORONEL'" src="https://upload.wikimedia.org/wikipedia/commons/3/34/Capitan_de_navio_armada_colombia.svg" alt="" class='img-grado'>
+
+      <img *ngSwitchCase="'TENIENTE DE FRAGATA'" src="https://upload.wikimedia.org/wikipedia/commons/7/77/Teniente_de_fragata_armada_colombia.svg" alt="" class='img-grado'>
+      <img *ngSwitchCase="'TENIENTE DE NAVIO'" src="https://upload.wikimedia.org/wikipedia/commons/b/b7/Teniente_de_navio_colombia_armada.svg" alt="" class='img-grado'>
+      <img *ngSwitchCase="'CAPITAN DE CORBETA'" src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Capitan_de_corbeta_colombia_armada.svg" alt="" class='img-grado'>
+      <img *ngSwitchCase="'CAPITAN DE FRAGATA'" src="https://upload.wikimedia.org/wikipedia/commons/3/33/Capitan_de_fragata_armada_colombia.svg" alt="" class='img-grado'>
+      <img *ngSwitchCase="'CAPITAN DE NAVIO' || 'TENIENTE CORONEL'" src="https://upload.wikimedia.org/wikipedia/commons/3/34/Capitan_de_navio_armada_colombia.svg" alt="" class='img-grado'>
+      <img *ngSwitchCase="'MARINERO SEGUNDO'" src="https://upload.wikimedia.org/wikipedia/commons/4/45/Marinero_segundo_armada_colombia.svg" alt="" class='img-grado'>
+      <img *ngSwitchCase="'MARINERO PRIMERO'" src="https://upload.wikimedia.org/wikipedia/commons/5/57/Marinero_primero_armada_colombia.svg" alt="" class='img-grado'>
+      <img *ngSwitchCase="'MARINERO TERCERO'" src="https://upload.wikimedia.org/wikipedia/commons/8/8a/Suboficial_tercero_armada_colombia.svg" alt="" class='img-grado'>
+      <img *ngSwitchCase="'SUBOFICIAL TERCERO'" src="https://upload.wikimedia.org/wikipedia/commons/8/8a/Suboficial_tercero_armada_colombia.svg" alt="" class='img-grado'>
+      <img *ngSwitchCase="'SUBOFICIAL SEGUNDO'" src="https://upload.wikimedia.org/wikipedia/commons/d/da/Suboficial_segundo_armada_colombia.svg" alt="" class='img-grado'>
+      <img *ngSwitchCase="'SUBOFICIAL PRIMERO'" src="https://upload.wikimedia.org/wikipedia/commons/9/9a/Suboficial_primero_armada_colombia.svg" alt="" class='img-grado'>
+      <img *ngSwitchCase="'SUBOFICIAL JEFE'" src="https://upload.wikimedia.org/wikipedia/commons/1/1f/Suboficial_jefe_armada_colombia.svg" alt="" class='img-grado'>
+      <img *ngSwitchCase="'CABO TERCERO'" src="https://upload.wikimedia.org/wikipedia/commons/5/58/Cabo_tercero_infanteria_marina.svg" alt="" class='img-grado'>
+      <img *ngSwitchCase="'CABO SEGUNDO'" src="https://upload.wikimedia.org/wikipedia/commons/5/58/Cabo_tercero_infanteria_marina.svg" alt="" class='img-grado'>
+      <img *ngSwitchCase="'CABO PRIMERO'" src="https://upload.wikimedia.org/wikipedia/commons/9/9f/Cabo_primero_infanteria_marina.svg" alt="" class='img-grado'>
+      <img *ngSwitchCase="'SARGENTO SEGUNDO'" src="https://upload.wikimedia.org/wikipedia/commons/4/41/Sargento_segundo_infanteria_marina.svg" alt="" class='img-grado'>
+      <img *ngSwitchCase="'SARGENTO VICEPRIMERO'" src="https://upload.wikimedia.org/wikipedia/commons/7/76/Sargento_viceprimero_infanteria_marina.svg" alt="" class='img-grado'>
+      <img *ngSwitchCase="'SARGENTO PRIMERO'" src="https://upload.wikimedia.org/wikipedia/commons/4/4c/Sargento_primero_infanteria_marina.svg" alt="" class='img-grado'>
+      <figcaption class="text-center" style="font-size: 1em">{{persona.GRADO}}</figcaption> <br>
+    </figure>
+    <div style="font-size:.8em" class="ml-2 text-center">
+      <!-- informacion basica -->
+      <strong>{{persona.ARMA_CUERPO}}</strong>
+      <br> Arma Cuerpo
+      <hr>
+
+    </div>
+    <div [ngSwitch]='persona.ESPECIALIDAD' class='col-md-2 ml-auto text-center'>
+      <img class='img-especialidad' *ngSwitchCase="'INFANTERIA DE MARINA'" src="../../../assets/img/especialidades/infanteria.png" alt="Infanteria de marina">
+      <img class='img-especialidad' *ngSwitchCase="'SUBMARINISTA'" src="../../../assets/img/especialidades/submarino.png" alt="Submarino">
+      <img class='img-especialidad' *ngSwitchCase="'SUPERFICIE'" src="../../../assets/img/especialidades/superficie.png" alt="Superficie">
+      <img class='img-especialidad' *ngSwitchCase="'INGENIERIA'" src="../../../assets/img/especialidades/ingenieria.png" alt="Ingenieria">
+      <img class='img-especialidad' *ngSwitchCase="'AVIACION NAVAL'" src="../../../assets/img/especialidades/aviacion.png" alt="Aviacion Naval">
+      <br>
+      <p class="" style="font-size: .78em"><strong>{{persona.ESPECIALIDAD}}</strong></p>
+      <hr>
+    </div>
+    <!-- <div class="col-md-2 ml-0">
+
       <figure class="text-center m-0">
         <i class="fa fa-user-circle text-center card-img-top" aria-hidden="true" style="font-size:100px; color:#005f8e;"></i>
       </figure>
-    </div>
-    <div class="card-header encabezado container">
+    </div> -->
+    <div class="encabezado col-md-12">
       {{persona.IDENTIFICACION}}
       <br> {{persona.GRADO}}.{{persona.APELLIDOS}} {{persona.NOMBRES}}
     </div>
   </section>
-  <section id='colapsa' class="container">
-    <article class="">
-        <a href=""><header class="card-header">Datos Personales</header></a>
-        <div class="none">
-          contenido
+
+  <section id='colapsa' class="container" id="accordion" role="tablist" aria-multiselectable="true">
+    <a data-toggle="collapse" role="tab" href="#datos" id='tab-datos'>
+      <header class="card-header">Datos Personales</header>
+    </a>
+    <article id="datos" class="collapse container" role="tabpanel" aria-labelledby="tab-datos">
+      <div class="col-md-4  table-responsive">
+        contenido
+      </div>
+    </article>
+    <a data-toggle="collapse" role="tab" href="#tiempos" id='tab-tiempos' (click)='tiempos_requisito(persona.IDENTIFICACION)'>
+      <header class="card-header">Tiempos</header>
+    </a>
+    <article id="tiempos" class="collapse" role="tabpanel" aria-labelledby="tab-tiempos" aria-expanded="true">
+      <div class="progress col-md-6 mx-auto" *ngIf='!tiempos'>
+        <div class="progress-bar progress-bar-striped progress-bar-animated " role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+          <p>cargando...</p>
         </div>
+      </div>
+      <section id='tiempos-sec' *ngIf='tiempos'>
+        <div *ngIf="persona.ARMA_CUERPO=='ADMINISTRATIVO'" class="text-center">
+          Administrativo
+        </div>
+        <div class="table-responsive">
+          <table class="table table-sm table-bordered" *ngIf='!tiempos'>
+            <thead>
+              <th>Dias</th>
+              <th>Meses</th>
+              <th>Años</th>
+              <th>Requisitos</th>
+              <th>Cantidad</th>
+            </thead>
+            <tbody>
+              <tr *ngFor='let t of tiempos'>
+                <td class="text-center">{{t.DIAS}}</td>
+                <td class="text-center">{{t.MESES}}</td>
+                <td class="text-center">{{t.ANOS}}</td>
+                <td>{{t.TIPO_REQUISITO}}</td>
+                <td>{{t.MILLAS}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
     </article>
-    <article class="">
-      <a href=""><header class="card-header">Tiempos</header></a>
-      <div class="none">
-        contenido
+    <a data-toggle="collapse" role="tab" href="#folios" id='tab-folios' (click)='getFolios(persona.IDENTIFICACION)'>
+      <header class="card-header">Folios</header>
+    </a>
+    <article id="folios" class="collapse" role="tabpanel" aria-labelledby="tab-folios">
+      <div class="">
+
+        <div class="progress col-md-6 mx-auto" *ngIf='!folios'>
+
+          <div class="progress-bar progress-bar-striped progress-bar-animated " role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+            cargando...
+          </div>
+        </div>
+        <div *ngIf='folios' class="table-responsive">
+          <table class="table table-sm table-bordered">
+            <thead class="thead-default" style="font-size: .7em">
+              <tr>
+                <th>Año</th>
+                <th>Cargo</th>
+                <th>F. Calificacion</th>
+                <th>F. Evaluacion</th>
+                <th>F. Inicio</th>
+                <th>F. Termino</th>
+                <th>Lapso Inicial</th>
+                <th>Lapso Final</th>
+                <th>Lista</th>
+                <th>Sigla</th>
+                <th>Unidad</th>
+              </tr>
+            </thead>
+            <tbody style="font-size: .69em">
+              <tr *ngFor='let f of folios'>
+                <td>{{f.ANO_LISTA}}</td>
+                <td>{{f.CARGO}}</td>
+                <td>{{f.FECHA_CLASIFICACION}}</td>
+                <td>{{f.FECHA_EVALUACION}}</td>
+                <td>{{f.FECHA_INICIO}}</td>
+                <td>{{f.FECHA_TERMINO}}</td>
+                <td>{{f.LAPSO_INICIAL}}</td>
+                <td>{{f.LAPSO_FINAL}}</td>
+                <td>{{f.LISTA}}</td>
+                <td>{{f.SIGLA}}</td>
+                <td>{{f.UNIDAD}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </article>
-    <article class="">
-      <a href=""><header class="card-header">Folios</header></a>
-      <div class="none">
-        contenido
+    <a data-toggle="collapse" role="tab" href="#estimulos-represiones" id='tab-estimulos-represiones' (click)='est_represiones(persona.IDENTIFICACION)'>
+      <header class="card-header">Estimulos-Represiones</header>
+    </a>
+    <article id="estimulos-represiones" class="collapse container" role="tabpanel" aria-labelledby="tab-estimulos-represiones">
+
+      <div class="progress col-md-6" *ngIf='!estimulos_represiones'>
+        <div class="progress-bar progress-bar-striped progress-bar-animated " role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+          <p>Cargando...</p>
+        </div>
+      </div>
+
+      <div class="row" *ngIf='estimulos_represiones'>
+        <div class="table-responsive col-md-4">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Felicitaciones</th>
+                <td class="mx-auto"><button type="button" class='btn btn-md' name="button" (click)='estado_pop("muestra","felicitaciones")'>{{n_felicitaciones}}</button></td>
+              </tr>
+              <tr>
+                <th>Anotaciones de Merito</th>
+                <td class="mx-auto"><button type="button" class='btn btn-md' name="button" (click)='estado_pop("muestra","merito")'>{{n_anot_merito}}</button></td>
+              </tr>
+              <tr>
+                <th>Concepto Positivo</th>
+                <td class="mx-auto"><button type="button" class='btn btn-md' (click)='estado_pop("muestra","positivo")' name="button">{{n_conc_positivo}}</button></td>
+              </tr>
+            </thead>
+          </table>
+        </div>
+        <div class="table-responsive col-md-4">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Sanciones</th>
+                <td class="mx-auto"><button type="button" class='btn btn-md' name="button" (click)='estado_pop("muestra","sanciones")'>{{n_sanciones}}</button></td>
+              </tr>
+              <tr>
+                <th>Anotaciones de Demerito</th>
+                <td class="mx-auto"><button type="button" class='btn btn-md' name="button" (click)='estado_pop("muestra","demerito")'>{{n_anot_demerito}}</button></td>
+              </tr>
+              <tr>
+                <th>Concepto Negativo</th>
+                <td class="mx-auto"><button type="button" class='btn btn-md' name="button" (click)='estado_pop("muestra","negativo")'>{{n_conc_negativo}}</button></td>
+              </tr>
+            </thead>
+          </table>
+        </div>
+        <div class="table-responsive col-md-4">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Condecoraciones</th>
+                <td><button class="btn btn-md" (click)='estado_pop("muestra","condecoraciones")'>{{estimulos.n_condecoraciones}}</button></td>
+              </tr>
+              <tr>
+                <th>Medallas</th>
+                <td><button class="btn btn-md" (click)='estado_pop("muestra","medallas")'>{{estimulos.n_medallas}}</button></td>
+              </tr>
+              <tr>
+                <th>Distintivos</th>
+                <td><button class="btn btn-md" (click)='estado_pop("muestra","distintivos")'>{{estimulos.n_distintivos}}</button></td>
+              </tr>
+            </thead>
+          </table>
+        </div>
       </div>
     </article>
-    <article class="">
-      <a href=""><header class="card-header">Estimulos-Represiones</header></a>
-      <div class="none">
-        contenido
+    <a data-toggle="collapse" role="tab" href="#perfil-profesional" id='tab-perfil-profesional' (click)='p_perfil(persona.IDENTIFICACION)'>
+      <header class="card-header">Perfil Profesional</header>
+    </a>
+    <article id="perfil-profesional" class="collapse row" role="tabpanel" aria-labelledby="tab-perfil-profesional"  >
+      <div class="progress col-md-6" *ngIf='!perfil'>
+        <div class="progress-bar progress-bar-striped progress-bar-animated " role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+          <p>Cargando...</p>
+        </div>
       </div>
-    </article>
-    <article class="">
-      <a href=""><header class="card-header">Perfil Profesional</header></a>
-      <div class="none">
-        contenido
+      <div *ngIf='perfil' >
+          <h4 class="text-center ">IDIOMAS</h4>
+
+          <div class="table-responsive">
+            <p></p>
+            <table class="table table-sm table-bordered">
+              <thead class='text-center' style="font-size:.79em">
+                <tr>
+                  <th>Habla</th>
+                  <th>Lee</th>
+                  <th>Escribe</th>
+                  <th>Escucha</th>
+                  <th>Puntaje</th>
+                  <th>Examen</th>
+                  <th>Entidad</th>
+                </tr>
+              </thead>
+              <tbody class="text-center">
+                <tr *ngFor='let i of idiomas'>
+                  <td><strong>{{i.IDIOMA}}</strong></td>
+                  <td>{{i.HABLA}}</td>
+                  <td>{{i.LEE}}</td>
+                  <td>{{i.ESCRIBE}}</td>
+                  <td>{{i.ESCUCHA}}</td>
+                  <td>{{i.PUNTOS}}</td>
+                  <td>{{i.FECHA_EXAMEN}}</td>
+                  <td>{{i.ENTIDAD}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-md-4">
+            <h3>formacion Academica</h3>
+            <ul *ngFor='let f of formacion'>
+              <li>{{f.NIVEL}}</li>
+            </ul>
+
+          </div>
       </div>
     </article>
   </section>
-
-  <ul class="tab">
-    <li>Medica</li>
-    <li>Juridica</li>
-    <li>Ascensos</li>
-    <li>Licencias no Remuneradas</li>
+  <ul class="tab text-center" role="tablist">
+    <li>
+      <a href='' class="text-center" role="tab" data-toggle="tab" aria-expanded="false">
+        <i class="fa fa-address-book text-center card-img-top ico-tab" aria-hidden="true"></i>
+        <br>Calificacion
+      </a>
+    </li>
+    <li>
+      <a class="text-center" role="tab" data-toggle="tab" aria-expanded="false">
+        <i class="fa fa-ambulance text-center card-img-top ico-tab" aria-hidden="true"></i>
+        <br>Juntas Medicas
+      </a>
+    </li>
+    <li>
+      <a class="text-center" role="tab" data-toggle="tab" aria-expanded="false">
+        <i class="fa fa-hospital-o text-center card-img-top ico-tab" aria-hidden="true"></i>
+        <br>Estado Salud
+      </a>
+    </li>
+    <li>
+      <a class="text-center" role="tab" data-toggle="tab" aria-expanded="false">
+        <i class="fa fa-balance-scale text-center card-img-top ico-tab" aria-hidden="true"></i>
+        <br>Disciplinarias
+      </a>
+    </li>
+    <li>
+      <a class="text-center" role="tab" data-toggle="tab" aria-expanded="true">
+        <i class="fa fa-address-card-o ico-tab" aria-hidden="true"></i><br> Ascensos
+      </a>
+    </li>
+    <li>
+      <a class="text-center" role="tab" data-toggle="tab" aria-expanded="false">
+        <i class="fa fa-address-card-o ico-tab" aria-hidden="true"></i>
+        <br>Licencias no Remuneradas
+      </a>
+    </li>
   </ul>
+  <section id="Contenido" class="card">
+    Contenido
+  </section>
 </section>
+
+<div class="pop" [class.oculta]="pop=='oculta'" [class.muestra]="pop=='muestra'">
+  <!-- {{felicitaciones |json}} -->
+  <div *ngIf='seccion=="felicitaciones"' class="table-responsive">
+    <div class="mifixed">
+      <i class="fa fa-times" aria-hidden="true" (click)='estado_pop("oculta")'></i>
+    </div>
+    <h3 class="text-center h5 ">Felicitaciones <br> {{persona.GRADO}}.{{persona.APELLIDOS}} {{persona.NOMBRES}}</h3>
+    <table class="table table-sm ">
+      <thead class="">
+        <tr style="font-size:0.9em">
+          <th></th>
+          <th>DISPOCISION</th>
+          <th>N. DISPOSICION</th>
+          <th>F. DISPOSICION</th>
+          <th>DESCRIPCION</th>
+          <th>OBSERVACIONES</th>
+          <th>MOTIVO</th>
+          <th>GRD</th>
+          <th>CARGO</th>
+          <th>INDICADOR</th>
+          <th>SUBINDICADOR</th>
+        </tr>
+      </thead>
+      <tbody style="font-size:.8em">
+        <tr *ngFor='let f of felicitaciones; let i = index'>
+          <td>{{i+1}}</td>
+          <td>{{f.DISPOCISION}}</td>
+          <td>{{f.NUMERO_DISPOSICION}}</td>
+          <td>{{f.FECHA_DISPOSICION}}</td>
+          <td>{{f.DESCRIPCION}}</td>
+          <td>{{f.OBSERVACIONES}}</td>
+          <td>{{f.MOTIVO_FELICITACION}}</td>
+          <td>{{f.GRAD_ALFABETICO}}</td>
+          <td>{{f.CARGO}}</td>
+          <td>{{f.INDICADOR}}</td>
+          <td>{{f.SUBINDICADOR}}</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+  <div *ngIf='seccion=="merito"'>
+    <div class="mifixed">
+      <i class="fa fa-times" aria-hidden="true" (click)='estado_pop("oculta")'></i>
+    </div>
+    <h3 class="text-center">Anotacion de Merito</h3>
+    <table class="table table-bordered table-sm">
+      <thead>
+        <tr>
+          <th>COMPLEMENTO</th>
+          <th>CONTENIDO</th>
+          <th>ID_FECHA_COMPLEM</th>
+          <th>GRAD_ALFABETICO</th>
+        </tr>
+      </thead>
+      <tbody style="font-size:.8em">
+        <tr *ngFor='let m of merito'>
+          <td>{{m.COMPLEMENTO}}</td>
+          <td>{{m.CONTENIDO}}</td>
+          <td>{{m.ID_FECHA_COMPLEM}}</td>
+          <td>{{m.GRAD_ALFABETICO}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div *ngIf='seccion=="positivo"'>
+    <div class="mifixed">
+      <i class="fa fa-times" aria-hidden="true" (click)='estado_pop("oculta")'></i>
+    </div>
+    <h3 class="text-center">Conceptos Positivos</h3>
+    <table class="table table-bordered table-sm">
+      <thead>
+        <tr>
+          <th>COMPLEMENTO</th>
+          <th>CONTENIDO</th>
+          <th>ID_FECHA_COMPLEM</th>
+          <th>GRAD_ALFABETICO</th>
+        </tr>
+      </thead>
+      <tbody style="font-size:.8em">
+        <tr *ngFor='let m of positivo'>
+          <td>{{m.COMPLEMENTO}}</td>
+          <td>{{m.CONTENIDO}}</td>
+          <td>{{m.ID_FECHA_COMPLEM}}</td>
+          <td>{{m.GRAD_ALFABETICO}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div *ngIf='seccion=="sanciones"'>
+    <div class="mifixed">
+      <i class="fa fa-times" aria-hidden="true" (click)='estado_pop("oculta")'></i>
+    </div>
+    <h3 class="text-center">Sanciones</h3>
+    <table class="table table-bordered table-sm">
+      <thead>
+        <tr>
+          <th>fecha_sancion</th>
+          <th>Tipo_Novedad</th>
+          <th>Clase_Novedad</th>
+          <th>num_exped</th>
+          <th>motivo_hechos</th>
+          <th>num_dispo</th>
+          <th>disposicion</th>
+          <th>grado_novedad</th>
+        </tr>
+      </thead>
+      <tbody style="font-size:.8em">
+        <tr *ngFor='let m of sanciones'>
+          <td>{{m.FECHA_SANCION}}</td>
+          <td>{{m.TIPO_NOVEDAD}}</td>
+          <td>{{m.CLASE_NOVEDAD}}</td>
+          <td>{{m.NUM_EXPED}}</td>
+          <td>{{m.MOTIVO_HECHOS}}</td>
+          <td>{{m.NUM_DISPO}}</td>
+          <td>{{m.DISPOSICION}}</td>
+          <td>{{m.GRADO_NOVEDAD}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div *ngIf='seccion=="demerito"'>
+    <div class="mifixed">
+      <i class="fa fa-times" aria-hidden="true" (click)='estado_pop("oculta")'></i>
+    </div>
+    <h3 class="text-center">Demerito</h3>
+
+    <table class="table table-bordered table-sm">
+      <thead>
+        <tr>
+          <th>COMPLEMENTO</th>
+          <th>CONTENIDO</th>
+          <th>ID_FECHA_COMPLEM</th>
+          <th>GRAD_ALFABETICO</th>
+        </tr>
+      </thead>
+      <tbody style="font-size:.8em">
+        <tr *ngFor='let m of demerito'>
+          <td>{{m.COMPLEMENTO}}</td>
+          <td>{{m.CONTENIDO}}</td>
+          <td>{{m.ID_FECHA_COMPLEM}}</td>
+          <td>{{m.GRAD_ALFABETICO}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div *ngIf='seccion=="negativo"'>
+    <div class="mifixed">
+      <i class="fa fa-times" aria-hidden="true" (click)='estado_pop("oculta")'></i>
+    </div>
+    <h3 class="text-center">Negativo</h3>
+    <table class="table table-bordered table-sm">
+      <thead>
+        <tr>
+          <th>COMPLEMENTO</th>
+          <th>CONTENIDO</th>
+          <th>ID_FECHA_COMPLEM</th>
+          <th>GRAD_ALFABETICO</th>
+        </tr>
+      </thead>
+      <tbody style="font-size:.8em">
+        <tr *ngFor='let m of negativo'>
+          <td>{{m.COMPLEMENTO}}</td>
+          <td>{{m.CONTENIDO}}</td>
+          <td>{{m.ID_FECHA_COMPLEM}}</td>
+          <td>{{m.GRAD_ALFABETICO}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div *ngIf='seccion=="condecoraciones"'>
+    <div class="mifixed">
+      <i class="fa fa-times" aria-hidden="true" (click)='estado_pop("oculta")'></i>
+    </div>
+    <h3 class="text-center">Condecoraciones</h3>
+    <table class="table table-bordered table-sm">
+      <thead>
+        <tr>
+          <th>TIPO_ESTIMULO</th>
+          <th>ESTIMULO</th>
+          <th>DISPOSICION</th>
+          <th>NUMERO_DISPOSICION</th>
+          <th>FECHA_DISPOSICION</th>
+          <th>POSTUMO</th>
+          <th>CLASE_ESTIMULO</th>
+        </tr>
+      </thead>
+      <tbody style="font-size:.8em">
+        <tr *ngFor="let e of condecoraciones">
+          <td>{{e.TIPO_ESTIMULO}}</td>
+          <td>{{e.ESTIMULO}}</td>
+          <td>{{e.DISPOSICION}}</td>
+          <td>{{e.NUMERO_DISPOSICION}}</td>
+          <td>{{e.FECHA_DISPOSICION}}</td>
+          <td>{{e.POSTUMO}}</td>
+          <td>{{e.CLASE_ESTIMULO}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div *ngIf='seccion=="medallas"'>
+    <div class="mifixed">
+      <i class="fa fa-times" aria-hidden="true" (click)='estado_pop("oculta")'></i>
+    </div>
+    <h3 class="text-center">Medallas</h3>
+    <table class="table table-bordered table-sm">
+      <thead>
+        <tr>
+          <th>TIPO_ESTIMULO</th>
+          <th>ESTIMULO</th>
+          <th>DISPOSICION</th>
+          <th>NUMERO_DISPOSICION</th>
+          <th>FECHA_DISPOSICION</th>
+          <th>POSTUMO</th>
+          <th>CLASE_ESTIMULO</th>
+        </tr>
+      </thead>
+      <tbody style="font-size:.8em">
+        <tr *ngFor="let e of medallas">
+          <td>{{e.TIPO_ESTIMULO}}</td>
+          <td>{{e.ESTIMULO}}</td>
+          <td>{{e.DISPOSICION}}</td>
+          <td>{{e.NUMERO_DISPOSICION}}</td>
+          <td>{{e.FECHA_DISPOSICION}}</td>
+          <td>{{e.POSTUMO}}</td>
+          <td>{{e.CLASE_ESTIMULO}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div *ngIf='seccion=="distintivos"'>
+    <div class="mifixed">
+      <i class="fa fa-times" aria-hidden="true" (click)='estado_pop("oculta")'></i>
+    </div>
+    <h3 class="text-center">Distintivos</h3>
+    <table class="table table-bordered table-sm">
+      <thead>
+        <tr>
+          <th>TIPO_ESTIMULO</th>
+          <th>ESTIMULO</th>
+          <th>DISPOSICION</th>
+          <th>NUMERO_DISPOSICION</th>
+          <th>FECHA_DISPOSICION</th>
+          <th>POSTUMO</th>
+          <th>CLASE_ESTIMULO</th>
+        </tr>
+      </thead>
+      <tbody style="font-size:.8em">
+        <tr *ngFor="let e of distintivos">
+          <td>{{e.TIPO_ESTIMULO}}</td>
+          <td>{{e.ESTIMULO}}</td>
+          <td>{{e.DISPOSICION}}</td>
+          <td>{{e.NUMERO_DISPOSICION}}</td>
+          <td>{{e.FECHA_DISPOSICION}}</td>
+          <td>{{e.POSTUMO}}</td>
+          <td>{{e.CLASE_ESTIMULO}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>

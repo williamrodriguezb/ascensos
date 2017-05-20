@@ -7,15 +7,19 @@
 			<form #formConsultaP='ngForm' (ngSubmit)='onSubmit()' class="container col-md-8 mx-auto">
 						<div class="row">
 							<div class="col-md-6">
-								<input #documento='ngModel' [(ngModel)]='consultaPersona.documento' ngControl='documento' pattern='[0-9]+'   class="form-control btn-group" name="documento" type="text" placeholder="Cedula">
+								<input #documento='ngModel' [(ngModel)]='consultaPersona.documento' ngControl='documento'
+								pattern='[0-9]+'   class="form-control btn-group" name="documento" type="text" placeholder="Cedula">
                   <span *ngIf='!documento.valid' class="alert alert-danger">Documento Incorrecto</span>
-                <input #apellido='ngModel' [(ngModel)]='consultaPersona.apellidos' ngControl='apellido' class="form-control btn-group" name="apellidos" id="apellidos" type="text" placeholder="Apellidos" pattern='[A-Z%]+'>
+                <input #apellido='ngModel' [(ngModel)]='consultaPersona.apellidos' ngControl='apellido'
+								 class="form-control btn-group" name="apellidos" id="apellidos" type="text" placeholder="Apellidos" pattern='[A-Z%]+'>
                 <span *ngIf='!apellido.valid' class="alert alert-danger">Apellido Incorrecto</span>
 							</div>
 							<div class="col-md-6 ">
-								<input #nombres='ngModel' [(ngModel)]='consultaPersona.nombres' ngControl='nombres'  pattern='[A-Z%]+' class="form-control btn-group" name="nombres" id="nombres" type="text" placeholder="nombres">
+								<input #nombres='ngModel' [(ngModel)]='consultaPersona.nombres' ngControl='nombres'  pattern='[A-Z%]+'
+								 class="form-control btn-group" name="nombres" id="nombres" type="text" placeholder="nombres">
                 <span *ngIf='!nombres.valid' class="alert alert-danger">Nombre incorrecto</span>
-                <select #categoria='ngModel' [(ngModel)]='consultaPersona.categoria' class="form-control btn-group" name="categoria" id="categoria" placeholder="CATEGORIA">
+                <select #categoria='ngModel' [(ngModel)]='consultaPersona.categoria' class="form-control btn-group"
+								name="categoria" id="categoria" placeholder="CATEGORIA">
 									<option value="" selected="" data-default="">Categoria</option>
 									<option value="oficiales">Oficiales</option>
 									<option value="suboficiales">Suboficiales</option>
@@ -29,7 +33,7 @@
 								</a>
 						</div>
 			</form>
-			<p class="alert alert-info col-md-3 mx-auto">  {{consultaPersona.documento}}-{{consultaPersona.apellidos}}-{{consultaPersona.nombres}}-{{consultaPersona.categoria}}</p>
+			<p class="alert alert-info col-md-5 mt-3 mx-auto"><strong>Documento:</strong>{{consultaPersona.documento}} <strong>Apellidos:</strong>{{consultaPersona.apellidos}}<strong>Nombres:</strong> {{consultaPersona.nombres}}<strong>Categoria:</strong> {{consultaPersona.categoria}}</p>
     </section>
     <div class="table-responsive" *ngIf='resulBusqueda'>
       <table class="table table-bordered table-condensed table-sm">
@@ -40,6 +44,7 @@
             <th class="text-center">NOMBRES</th>
             <th class="text-center">IDENTIFICACION</th>
             <th class="text-center">GRADO</th>
+            <th class="text-center">ARMA-CUERPO</th>
             <th class="text-center">ESPECIALIDAD</th>
             <th class="text-center">GUARNICION</th>
             <th class="text-center">UNIDAD</th>
@@ -54,11 +59,12 @@
               <td>{{p.NOMBRES}}</td>
               <td>{{p.IDENTIFICACION}}</td>
               <td>{{p.GRADO}}</td>
+							<td>{{p.ARMA_CUERPO}}</td>
               <td>{{p.ESPECIALIDAD}}</td>
               <td>{{p.GUARNICION}}</td>
               <td>{{p.UNIDAD}}</td>
               <td>{{p.SIGLA}}</td>
-							<td><a [routerLink]="['/calificacion/persona/']+p.IDENTIFICACION" class="btn btn-outline-primary">Ver</a></td>
+							<td><a [routerLink]="[url]+p.IDENTIFICACION" class="btn btn-outline-primary">Ver</a></td>
           </tr>
         </tbody>
       </table>

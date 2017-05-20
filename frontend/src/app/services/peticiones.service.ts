@@ -7,9 +7,7 @@ import { Router } from '@angular/router';
 
 @Injectable()
 
-
 export class peticionesService{
-
   private headers = new Headers({
     'Content-Type':'application/x-www-form-urlencoded'
   }) ;
@@ -33,11 +31,27 @@ export class peticionesService{
     console.log(consultaPersona);
    return this._http.post(GLOBAL.url+'calificacion/persona/buscar',params,{headers:this.headers})
    .map(res=>res.json())
-
    ;
  }
- persona(){
-   return this._http.get(GLOBAL.url+'calificacion/persona/9531508')
-   .map(res=>res.json())
+ persona(id){
+   return this._http.get(GLOBAL.url+'calificacion/persona/'+id)
+   .map(res=>res.json());
+ }
+
+ getTiempos(id){
+   return this._http.get(GLOBAL.url+'calificacion/persona/'+id+'/tiempos')
+        .map(res=>res.json());
+ }
+ folios(id){
+   return this._http.get(GLOBAL.url+'calificacion/persona/'+id+'/folios')
+        .map(res=>res.json());
+ }
+ getEstimulos_represiones(id){
+   return this._http.get(GLOBAL.url+'calificacion/persona/'+id+'/estimulos-represiones')
+        .map(res=>res.json());
+ }
+ getPerfil(id){
+   return this._http.get(GLOBAL.url+'calificacion/persona/'+id+'/perfil')
+        .map(res=>res.json());
  }
 }

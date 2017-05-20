@@ -32,11 +32,11 @@
     <hr>
       <div>
       <label for="primero" >Primero</label>
-      <input #turno='ngModel' [(ngModel)]='listado.turno' type="radio" name='turno'  value='1' id="primero" >
+      <input #turno='ngModel' [(ngModel)]='listado.turno' type="radio" name='turno'  value='1' id="primero"  required="required">
       </div>
       <div>
         <label for="segundo" class="">Segundo</label>
-        <input #turno='ngModel' [(ngModel)]='listado.turno' type="radio" name='turno'  id="segundo" value='2'>
+        <input #turno='ngModel' [(ngModel)]='listado.turno' type="radio" name='turno'  id="segundo" value='2' required="required">
       </div>
   </fieldset>
 </div>
@@ -45,14 +45,15 @@
    Ingresa un año
 </div>
 <div class="row my-4">
-  <input type="submit" value="Ver Listado" class="btn btn-primary form-control col-md-5 mx-3 ">
+  <input [disabled]="!listadoForm.valid" type="submit" value="Ver Listado" class="btn btn-primary form-control col-md-5 mx-3 ">
   <a (click)='limpiar()' class="btn btn-secondary form-control col-md-5">Limpiar</a>
 
 </div>
 </form>
-<p class="alert alert-info col-md-3 mx-auto">Año:{{listado.year}} Categoria:{{listado.categoria}} Turno:{{listado.turno}}</p>
+<p class="alert alert-info col-md-3 mx-auto">
+  <strong>Año: </strong> {{listado.year}} <strong>Categoria: </strong> {{listado.categoria}} <strong> Turno: </strong> {{listado.turno}} </p>
 <div class="table-responsive" *ngIf='listadoResultado'>
-  <table class="table">
+  <table class="table table-sm table-condensed">
     <thead>
       <tr>
         <th>N</th>
@@ -70,9 +71,8 @@
     </thead>
     <tbody>
       <tr *ngFor='let postulado of listadoResultado; let i = index'>
-          <td>{{i}}</td>
+          <td>{{i+1}}</td>
           <td>{{postulado.IDENTIFICACION}}</td>
-          <td>{{postulado.CATEGORIA}}</td>
           <td>{{postulado.GRADO}}</td>
           <td>{{postulado.APELLIDOS}} {{postulado.NOMBRES}}</td>
           <td>{{postulado.CARGO_ACTUAL}}</td>
@@ -80,7 +80,7 @@
           <td>{{postulado.SIGLA}}</td>
           <td>{{postulado.ESPECIALIDAD}}</td>
           <td>{{postulado.GUARNICION}}</td>
-          <td><a class="btn btn-outline-primary" [routerLink]="['/calificacion/persona/']+postulado.IDENTIFICACION">Ver</a></td>
+          <td><a class="btn btn-outline-primary btn-sm" [routerLink]="['/calificacion/persona/']+postulado.IDENTIFICACION">Ver</a></td>
       </tr>
     </tbody>
   </table>

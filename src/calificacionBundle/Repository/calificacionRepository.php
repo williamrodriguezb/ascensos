@@ -11,41 +11,15 @@ namespace calificacionBundle\Repository;
 class calificacionRepository extends \Doctrine\ORM\EntityRepository
 {
 
-  public function getFoto($identificacion)
-  {
-     $em = $this->getEntityManager();
-     $db = $em->getConnection();
-     $query = "
-				SELECT
-        RTRIM(LTRIM(RF.SERVIDOR||RF.RUTA_FOTO||FE.NOMBRE_FOTO)) foto
-
-        from   empleados e,
-                fotos_empleados fe,
-               rutas_fotos rf,
-               GRADOS
-        where e.activo = 'SI'
-              and grados.alfabetico = e.grad_alfabetico
-              AND E.UNDE_FUERZA = EMPL_UNDE_FUERZA
-              AND E.UNDE_CONSECUTIVO = EMPL_UNDE_CONSECUTIVO
-              AND E.CONSECUTIVO = EMPL_CONSECUTIVO
-              AND FE.ID_RUTA_FOTO = RF.ID_RUTA_FOTO
-              AND FE.EMPL_UNDE_FUERZA = GRADOS.FUERZA
-              AND FE.GRAD_ALFABETICO = GRADOS.ALFABETICO
-              AND E.IDENTIFICACION = ".$identificacion."
-             ";
-            $smtp = $db->prepare($query);
-             $smtp->execute();
-            return  $smtp->fetch();
-  }
-
+//listado de ascensos  
 	public function getListado($anio,$categoria,$turno)
 	{
 		if($categoria == 'oficiales'){
 			$categoria = 10;
       if ($turno == 1) {
-        $mes = 9;
+        $mes = 6;
       }elseif ($turno == 2) {
-        $mes = 9;
+        $mes = 12;
       }
 		}elseif ($categoria == 'suboficiales') {
 			$categoria = 11;
@@ -53,7 +27,6 @@ class calificacionRepository extends \Doctrine\ORM\EntityRepository
         $mes = 3;
       }elseif ($turno == 2) {
         $mes = 9;
-       
       }
 		}
 
@@ -71,8 +44,6 @@ class calificacionRepository extends \Doctrine\ORM\EntityRepository
        S.SIGLA                            Sigla,
        esp.descripcion especialidad,
        guarniciones_complejos.descripcion guarnicion
-
-       
   from empleados,
        grados,
        categorias,
@@ -140,6 +111,8 @@ ORDER BY
 	}
 
 
+
+//buscador de personas que retorna un listado
   public function buscaPersona($identificacion='',$apellidos='',$nombres='',$categoria=''){
     $em = $this->getEntityManager();
     $db = $em->getConnection();
@@ -159,66 +132,114 @@ ORDER BY
       //parametros de busqueda
     $queryParametros = '';
     foreach ($parametros as $k => $p) {
-      if ($p!='') {
-        array_push($datos,array($k=>$p)) ;
-      }
+        if ($p!='') {
+          array_push($datos,array($k=>$p)) ;
+        }
      }
 
     if (count($datos)>=1 ) {
       foreach ($datos as $key=>  $value) {
           foreach ($value as $clave => $v) {
             if ($key+1 == count($datos)) {
-              $queryParametros .= " ee.".$clave." LIKE '".$v."'";
+              
+              if ($clave=='id_categoria') {
+               $queryParametros .= "grados.".$clave." LIKE '".$v."'";
+              }else{
+                $queryParametros .= " empleados.".$clave." LIKE '".$v."'";
+              }
             }else{
-              $queryParametros .= " ee.".$clave." LIKE '".$v."' AND   ";
+               if ($clave=='id_categoria') {
+               $queryParametros .= "grados.".$clave." LIKE '".$v."' AND ";
+              }else{
+                $queryParametros .= "empleados.".$clave." LIKE '".$v."' AND ";
+              }
             }
-
           }
       }
     }else{
-        $queryParametros = "ee.identificacion =  '".$identificacion."'
-      OR ee.apellidos LIKE '".$apellidos."'
-      OR ee.nombres   LIKE '".$nombres."'
-      OR ee.id_categoria = '".$categoria."'  ";
+        $queryParametros = "empleados.identificacion =  '".$identificacion."'
+      OR empleados.apellidos LIKE '".$apellidos."'
+      OR empleados.nombres   LIKE '".$nombres."'
+      OR grados.id_categoria = '".$categoria."'  ";
     }
 
-    $query="
-  SELECT
-    ee.identificacion,
-    ee.categoria,
-    EE.DESC_GRADO grado_completo,
-    ee.abrev_grado grado,
-    ee.apellidos,
-    ee.nombres,
-    ee.descr_especialidad especialidad,
-    ee.guarnicion,
-    ee.unidad_dependencia unidad,
-    s.sigla,
-    ee.fecha_prox_ascenso
-  FROM
-    escalafones_empleados ee,
-    unidades_dependencia ud,
-    siglas s
-  WHERE
-    ee.fuerza_empleado = 4
-  AND ( ".$queryParametros.")
- AND   ee.unde_consecutivo_laborando = ud.consecutivo
- AND   ee.unde_fuerza_laborando = ud.fuerza
+   
+$query= "
+  SELECT 
+       empleados.identificacion,
+       categorias.descripcion categoria,
+       empleados.grad_alfabetico grado,
+       empleados.nombres,
+       empleados.apellidos,
+       cargos.descripcion cargo_actual,
+       UD.DESCRIPCION_DEPENDENCIA         Unidad,
+       S.SIGLA                            Sigla,
+       esp.descripcion especialidad,
+       guarniciones_complejos.descripcion guarnicion,
+       ac.descripcion arma_cuerpo 
+  from empleados,
+       grados,
+       categorias,
+       cargos,
+       UNIDADES_DEPENDENCIA UD,
+       SIGLAS S,
+       especialidades esp,
+        guarniciones_complejos,
+        armas_cuerpos ac 
 
- AND   ud.id_sigla = s.id_sigla(+)
+           
+where EMPLEADOS.unde_fuerza = 4
+   and EMPLEADOS.activo = 'SI'
+     
+    AND ( ".$queryParametros.")
+
+   AND (SUBSTR(NUEVO_REHU.CF_TOT_TIEMGRADO(EMPLEADOS.UNDE_CONSECUTIVO,
+                                          EMPLEADOS.UNDE_FUERZA,
+                                          EMPLEADOS.CONSECUTIVO,
+                                          '31/12/2017'),1,1) >= GRADOS.TIEMPO_GRADO
+
+OR nuevo_rehu.proc_gral.ret_prox_ascenso(EMPLEADOS.CONSECUTIVO,
+                                                   EMPLEADOS.UNDE_CONSECUTIVO,
+                                                   EMPLEADOS.UNDE_FUERZA) between '01/01/2017' and '31/12/2017'
+
+OR nuevo_rehu.proc_gral.ret_prox_ascenso(EMPLEADOS.CONSECUTIVO,
+                                                   EMPLEADOS.UNDE_CONSECUTIVO,
+                                                   EMPLEADOS.UNDE_FUERZA) IS NULL )
 
 
-   AND ee.id_categoria IN (10, 11)
+   and GRADOS.numerico IN (4, 5, 6, 7, 8, 9, 22, 24, 26, 28, 30, 32)
+    
+   and grados.fuerza = empleados.unde_fuerza
+   and grados.alfabetico = empleados.grad_alfabetico
+   and categorias.id_categoria = grados.id_categoria
+   and categorias.fuerza = grados.fuerza
+   AND EMPLEADOS.CARG_CARGO = CARGOS.CARGO
+   AND EMPLEADOS.CARG_FUERZA = CARGOS.FUERZA
+   AND EMPLEADOS.UNDE_FUERZA_LABORANDO = UD.FUERZA
+   AND EMPLEADOS.UNDE_CONSECUTIVO_LABORANDO = UD.CONSECUTIVO
+   AND UD.ID_SIGLA = S.ID_SIGLA(+)
 
-   AND TO_CHAR(ee.Fecha_Prox_Ascenso,'YYYY') ='2017'
+   AND EMPLEADOS.Espe_Id_Especialidad = esp.id_especialidad(+)
+   AND EMPLEADOS.UNDE_FUERZA = esp.fuerza(+)
 
-   ORDER BY ee.id_categoria ASC,
-            ee.grado_numerico,
-            ee.fecha_ult_ascenso,
-            ee.ubicacion_escalafon,
-            ee.apellidos,
-            ee.nombres
+    AND UD.GUCO_FUERZA = GUARNICIONES_COMPLEJOS.FUERZA(+)
+   AND UD.GUCO_CODIGO = GUARNICIONES_COMPLEJOS.CODIGO(+)
 
+   AND empleados.arcu_id_arma_cuerpo =  ac.id_arma_cuerpo 
+   AND empleados.arcu_fuerza = ac.fuerza
+
+       
+   AND EMPLEADOS.GRAD_ALFABETICO <> 'TO'
+   AND EMPLEADOS.GRAD_ALFABETICO <> 'SJM'
+   AND EMPLEADOS.GRAD_ALFABETICO <> 'E2'
+   AND EMPLEADOS.IDENTIFICACION <> 1
+      
+  
+ORDER BY    
+          grados.id_categoria,
+          GRADOS.Numerico,
+          EMPLEADOS.FECHA_ULT_ASCENSO,
+          empleados.Ubicacion_Escalafon
 ";
 
 
@@ -228,85 +249,92 @@ ORDER BY
 
   }
 
-
+//datos generales x persona
 	public function getPersona($identificacion){
 		$em = $this->getEntityManager();
 		$db = $em->getConnection();
 		$query="
-    SELECT
-       ee.identificacion,
-       ee.categoria,
-       EE.DESC_GRADO grado_completo,
-       ee.abrev_grado grado,
-       ee.apellidos ,
-       ee.nombres,
-       ee.descr_especialidad especialidad,
-       ee.guarnicion,
-       ee.unidad_dependencia unidad,
-       s.sigla,
-       ee.fecha_prox_ascenso,
-       ee.arma_cuerpo,
-       ee.fecha_ult_ascenso uascenso,
-       ee.fecha_nacimiento f_nacimiento,
-       ee.fecha_disp_alta f_alta,
-       ac.descripcion arma_cuerpo,
-       NUEVO_REHU.edad_anio(ee.fecha_nacimiento)edad,
-       rg.edad_limite edad_limite,
-      RTRIM(LTRIM(RF.SERVIDOR||RF.RUTA_FOTO||FE.NOMBRE_FOTO)) RUTA
+   SELECT 
+      empleados.identificacion,
+      categorias.descripcion categoria,
+      empleados.grad_alfabetico grado,
+      grados.descripcion grado_completo,
+      empleados.nombres,
+      empleados.apellidos,
+      cargos.descripcion cargo_actual,
+      UD.DESCRIPCION_DEPENDENCIA         Unidad,
+      S.SIGLA                            Sigla,
+      esp.descripcion especialidad,
+      guarniciones_complejos.descripcion guarnicion,
+      ac.descripcion arma_cuerpo 
+  from 
+      empleados,
+      grados,
+      categorias,
+      cargos,
+      UNIDADES_DEPENDENCIA UD,
+      SIGLAS S,
+      especialidades esp,
+      guarniciones_complejos,
+      armas_cuerpos ac  
+           
+where EMPLEADOS.unde_fuerza = 4
+  AND EMPLEADOS.activo = 'SI'
+       
+  AND (SUBSTR(NUEVO_REHU.CF_TOT_TIEMGRADO(EMPLEADOS.UNDE_CONSECUTIVO,
+                                        EMPLEADOS.UNDE_FUERZA,
+                                        EMPLEADOS.CONSECUTIVO,
+                                        '31/12/2017'),1,1) >= GRADOS.TIEMPO_GRADO
 
-      FROM  escalafones_empleados ee,
-            unidades_dependencia ud,
-            siglas s ,
-            armas_cuerpos ac,
-            fotos_empleados fe,
-            rutas_fotos rf,
-            requisitos_grado rg
+  OR nuevo_rehu.proc_gral.ret_prox_ascenso(EMPLEADOS.CONSECUTIVO,
+                                                     EMPLEADOS.UNDE_CONSECUTIVO,
+                                                     EMPLEADOS.UNDE_FUERZA) between '01/01/2017' and '31/12/2017'
 
-        WHERE ee.fuerza_empleado = 4
-          AND   ee.unde_consecutivo_laborando = ud.consecutivo(+)
-          AND   ee.unde_fuerza_laborando = ud.fuerza(+)
-          AND   ud.id_sigla = s.id_sigla(+)
-          AND   ee.id_categoria IN (10,11)
-          AND   ee.identificacion = ".$identificacion."
+  OR nuevo_rehu.proc_gral.ret_prox_ascenso(EMPLEADOS.CONSECUTIVO,
+                                                     EMPLEADOS.UNDE_CONSECUTIVO,
+                                                     EMPLEADOS.UNDE_FUERZA) IS NULL )
 
-          AND   ( ee.abrev_grado <> 'CA' AND
-                ee.abrev_grado <> 'CR' AND ee.abrev_grado <> 'AL'
-               AND ee.abrev_grado <> 'VA' AND ee.abrev_grado <> 'VA'
-               AND ee.abrev_grado <> 'BG' AND ee.abrev_grado <> 'MG'
-               AND ee.abrev_grado <> 'SJTC' AND ee.abrev_grado <> 'SMC'
-               AND ee.abrev_grado <> 'ST' AND ee.abrev_grado <> 'JT'
-               AND ee.abrev_grado <> 'SM')
-          AND TO_CHAR(ee.Fecha_Prox_Ascenso,'YYYY') = 2017
+   and GRADOS.numerico IN (4, 5, 6, 7, 8, 9, 22, 24, 26, 28, 30, 32)
+    
+   and grados.fuerza = empleados.unde_fuerza
+   and grados.alfabetico = empleados.grad_alfabetico
+   and categorias.id_categoria = grados.id_categoria
+   and categorias.fuerza = grados.fuerza
+   AND EMPLEADOS.CARG_CARGO = CARGOS.CARGO
+   AND EMPLEADOS.CARG_FUERZA = CARGOS.FUERZA
+   AND EMPLEADOS.UNDE_FUERZA_LABORANDO = UD.FUERZA
+   AND EMPLEADOS.UNDE_CONSECUTIVO_LABORANDO = UD.CONSECUTIVO
+   AND UD.ID_SIGLA = S.ID_SIGLA(+)
 
-          AND   ee.id_empleado = fe.empl_consecutivo(+)
-          AND   ee.fuerza_empleado = fe.empl_unde_fuerza(+)
-          AND   ee.unde_consecutivo = fe.empl_unde_consecutivo(+)
+   AND EMPLEADOS.Espe_Id_Especialidad = esp.id_especialidad(+)
+   AND EMPLEADOS.UNDE_FUERZA = esp.fuerza(+)
 
-          AND   FE.ID_RUTA_FOTO = RF.ID_RUTA_FOTO(+)
+    AND UD.GUCO_FUERZA = GUARNICIONES_COMPLEJOS.FUERZA(+)
+   AND UD.GUCO_CODIGO = GUARNICIONES_COMPLEJOS.CODIGO(+)
 
+   AND empleados.arcu_id_arma_cuerpo =  ac.id_arma_cuerpo 
+   AND empleados.arcu_fuerza = ac.fuerza
 
-          AND     ee.id_arma_cuerpo = ac.id_arma_cuerpo(+)
-          AND     ee.fuerza_empleado = ac.fuerza(+)
-
-          AND ee.fuerza_empleado =  rg.fuerza(+)
-          AND ee.id_arma_cuerpo =   rg.id_arma_cuerpo(+)
-          AND ee.abrev_grado   = rg.grad_alfabetico(+)
-
-         ORDER BY ee.id_categoria ASC,
-                  ee.grado_numerico,
-                  ee.fecha_ult_ascenso,
-                  ee.ubicacion_escalafon,
-                  ee.apellidos,
-                  ee.nombres
+   AND EMPLEADOS.GRAD_ALFABETICO <> 'TO'
+   AND EMPLEADOS.GRAD_ALFABETICO <> 'SJM'
+   AND EMPLEADOS.GRAD_ALFABETICO <> 'E2'
+   AND EMPLEADOS.IDENTIFICACION <> 1
+   AND EMPLEADOS.IDENTIFICACION = ".$identificacion."
+ORDER BY    
+          grados.id_categoria,
+          GRADOS.Numerico,
+          EMPLEADOS.FECHA_ULT_ASCENSO,
+          empleados.Ubicacion_Escalafon
     ";
-
    	$smtp = $db->prepare($query);
    	$smtp->execute();
    	return	$smtp->fetch();
 
 	}
 
-  public function getMando($identificacion){
+
+//tiempos requisitos de ascenso
+  public function getTiempos($identificacion){
     $em = $this->getEntityManager();
     $db = $em->getConnection();
     $query="
@@ -338,7 +366,9 @@ ORDER BY
 
   }
 
-  public function getFolio($identificacion){
+
+//lapsos y listas
+  public function getFolios($identificacion){
     $em = $this->getEntityManager();
     $db = $em->getConnection();
 
@@ -402,6 +432,8 @@ ORDER BY
 
 
   }
+
+
   public function countFelicitaciones($identificacion){
     $em = $this->getEntityManager();
     $db = $em->getConnection();
@@ -441,6 +473,53 @@ ORDER BY
     $smtp = $db->prepare($query);
     $smtp->execute();
     return $smtp->fetch();
+  }
+
+  public function getEstimulo($id,$estimulo){
+    $em = $this->getEntityManager();
+    $db = $em->getConnection();
+
+    $query ="
+            select 
+       cn.descripcion tipo_estimulo,
+       ce.descripcion estimulo,
+       d.descripcion disposicion,
+       cde.numero_disposicion,
+       cde.fecha_disposicion,
+       cde.postumo,
+       cg_r.rv_meaning clase_estimulo
+  from empleados                  e,
+       condecora_distintivos_empl cde,
+       clases_novedades           cn,
+       disposiciones              d,
+       clases_estimulos           ce,
+       cg_ref_codes               cg_r
+
+ WHERE e.unde_fuerza = 4
+   AND e.activo = 'SI'
+   AND e.identificacion = ".$id."
+   AND e.consecutivo = cde.empl_consecutivo
+   AND e.unde_fuerza = cde.empl_unde_fuerza
+   AND e.unde_consecutivo = cde.empl_unde_consecutivo
+   AND cde.id_clase_novedad = cn.id_clase_novedad
+   AND cde.disp_id_disposicion = d.id_disposicion
+   AND cde.cles_id_clase_estimulo = ce.id_clase_estimulo
+   AND cde.empl_unde_fuerza = ce.fuerza
+   AND cg_r.rv_low_value = ce.clase_estimulo
+   AND cg_r.rv_domain = 'CLASE ESTIMULO'
+   AND cn.descripcion = '".$estimulo."'
+
+
+ORDER BY 
+      cg_r.rv_meaning
+      ";
+
+
+
+    $smtp = $db->prepare($query);
+    $smtp->execute();
+    return $smtp->fetchAll();
+
   }
   public function countAusencias($identificacion){
     $em = $this->getEntityManager();
@@ -554,45 +633,7 @@ ORDER BY
           $smtp->execute();
           return $smtp->fetchAll();
   }
-  public function getcondecoraciones($id){
 
-   $em = $this->getEntityManager();
-      $conn = $em->getConnection();
-
-      $query="
-        SELECT
-               cn.descripcion,
-               ce.descripcion estimulo,
-               d.descripcion disposicion,
-               cde.numero_disposicion,
-               cde.fecha_disposicion,
-               cde.postumo,
-               cg_r.rv_meaning clase_estimulo
-          from empleados                  e,
-               condecora_distintivos_empl cde,
-               clases_novedades           cn,
-               disposiciones              d,
-               clases_estimulos           ce,
-               cg_ref_codes               cg_r
-
-         WHERE e.unde_fuerza = 4
-           AND e.activo = 'SI'
-           AND e.identificacion = ".$id."
-           AND e.consecutivo = cde.empl_consecutivo
-           AND e.unde_fuerza = cde.empl_unde_fuerza
-           AND e.unde_consecutivo = cde.empl_unde_consecutivo
-           AND cde.id_clase_novedad = cn.id_clase_novedad
-           AND cde.disp_id_disposicion = d.id_disposicion
-           AND cde.cles_id_clase_estimulo = ce.id_clase_estimulo
-           AND cde.empl_unde_fuerza = ce.fuerza
-           AND cg_r.rv_low_value = ce.clase_estimulo
-           AND cg_r.rv_domain = 'CLASE ESTIMULO'
-
-    ";
-      $smtp = $conn->prepare($query);
-      $smtp->execute();
-      return $smtp->fetchAll();
-  }
   public function getMerito($id){
 
    $em = $this->getEntityManager();
@@ -815,7 +856,7 @@ ORDER BY
         $smtp->execute();
         return $smtp->fetchAll();
   }
-  public function getNivelesAcademicos($id){
+  public function getFormacionAcademica($id){
     $em= $this->getEntityManager();
     $conn = $em->getConnection();
     $query=

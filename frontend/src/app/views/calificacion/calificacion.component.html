@@ -1,20 +1,28 @@
 		<section class="container" id="panel-principal" *ngIf='identidad && identidad!= null'>
 			<div class="row">
-				<div class="col-md-12">
-					<p>Bienvenido: {{identidad.sub}} <br> Dependencia: {{identidad.dependencia}}</p>
+
+				<div class="jumbotron row  col-md-12">
+					<div class="col-md-8">
+				    <h2 class="display-5" style="font-size:1.39em">Bienvenido {{identidad.sub}}</h2>
+				    <p class="lead"> <strong>Dependencia:</strong> {{identidad.dependencia}}</p>
+					</div>
+					<div class="col-md-4 text-right">
+						<strong>Perfil:</strong> {{identidad.role}}
+					</div>
 				</div>
 			</div>
+
 			<div class="row">
 				<div class="col-md-4">
-					<div class="card">
-						<a class='text-center' [routerLink]="['matriz']">
+					<div class="card card-panel">
+						<a class='text-center ' [routerLink]="['matriz']">
 					  	 <i class="fa fa-cog  card-img-top" aria-hidden="true" style="font-size:100px; color:#005f8e;"></i>
 						</a>
 				 	 <h3 class="card-header text-center">Matriz de validacion</h3>
 					</div>
 				</div>
 				<div class="col-md-4">
-					<div class="card">
+					<div class="card card-panel">
 						<a class='text-center' [routerLink]="['listado']">
 					  	 <i class="fa fa-list  card-img-top" aria-hidden="true" style="font-size:100px; color:#005f8e;"></i>
 						</a>
@@ -22,7 +30,7 @@
 					</div>
 				</div>
 			<div class="col-md-4">
-			<div class="card">
+			<div class="card card-panel">
 				<a class='text-center' [routerLink]="['persona']">
 			  	<i class="fa fa-user-circle text-center card-img-top" aria-hidden="true" style="font-size:100px; color:#005f8e;"></i>
 			  </a>
@@ -30,7 +38,7 @@
 			</div>
 		</div>
 		<div class="col-md-4">
-			<div class="card">
+			<div class="card card-panel">
 				<a class='text-center' [routerLink]="['reporte']">
 			  	<i class="fa fa-file-text text-center card-img-top" aria-hidden="true" style="font-size:100px; color:#58401e;"></i>
 			  	</a>
@@ -38,15 +46,17 @@
 			</div>
 		</div>
 		<div class="col-md-4">
-			<div class="card">
+			<div class="card card-panel">
+				<a class='text-center' [routerLink]="['reporte']">
 			  	<i class="fa fa-hand-paper-o text-center card-img-top" aria-hidden="true" style="font-size:100px; color:#58401e;"></i>
+				</a>
 		 	 <h3 class="card-header text-center">Acto Administrativo</h3>
 
 			</div>
 		</div>
 		<div class="col-md-4">
-			<div class="card">
-			<a class="text-center" href="">
+			<div class="card card-panel">
+			<a class="text-center " [routerLink]="['estadisticas']">
 			  	<i class="fa fa-line-chart text-center card-img-top" aria-hidden="true" style="font-size:100px; color:#58401e;"></i>
 		 	 </a>
 		 	 <h3 class="card-header text-center">Estadisticas</h3>

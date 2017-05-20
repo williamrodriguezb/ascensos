@@ -2,7 +2,7 @@
   Matriz de Evaluacion Integral
 </h2>
 <hr>
-<section id="panel-matriz" class="col-md-4 mx-auto ">
+<section id="panel-matriz" class="col-md-12 text-center ">
     <article class="mx-auto">
       <button class="btn btn-lg" (click)='panel("indicadores")'>Indicadores</button>
       <button class="btn btn-lg" (click)='panel("factores")'>Factores</button>
@@ -10,7 +10,7 @@
     </article>
 </section>
 <section [ngSwitch]='panelSeleccionado'>
-    <article *ngSwitchCase="'indicadores'" class="col-md-9 mx-auto">
+    <article *ngSwitchCase="'indicadores'" class="col-md-9 mx-auto mt-5">
       <header>
         <h3 >Indicadores</h3><hr>
       </header>

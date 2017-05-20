@@ -4,7 +4,7 @@ calificacion:
 cal_listado:
     path:     /listado
     defaults: { _controller: calificacionBundle:Default:listado }
-    methods: POST
+    methods: [POST,GET]
 busca_persona:
     path:     /persona/buscar
     defaults: { _controller: calificacionBundle:Default:buscaPersona }
@@ -13,7 +13,12 @@ busca_persona:
 persona:
     path:     /persona/{id}
     defaults: { _controller: calificacionBundle:Default:persona }
-    methods:    [ GET ]    
+    methods:    [ GET ]
+
+persona_accion:
+    path:     /persona/{id}/{accion}
+    defaults: { _controller: calificacionBundle:Default:pAccion }
+    methods:    [ GET ]      
     
 calif_reporte:
     path:     /reporte

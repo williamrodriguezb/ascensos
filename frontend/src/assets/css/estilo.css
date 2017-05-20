@@ -1,44 +1,8 @@
-.card{
-	margin-bottom:  50px;
+.card-panel{
+	margin: 1em 0;
 }
-
-#logo{
-	font-size: 1.3rem;
-	animation-name: vuelos;
-	animation-duration: 2s;
-}
-/*** HOJA DE REPORTES-------------------------------------------
-*/
-#myChart{
-	box-sizing: border-box;
-}
-
-dd {
-    padding: 1em;
-    margin: 1em;
-}
-
-/*Notificacion------------------------------------------------------*/
-
-.modal-grande {
-    max-width: 80vw !important;
-}
-.nav-item{
-	    padding: .3em 0;
-			font-size: 1.2em;
-}
-#campanita{
-	padding: .3em 0 0 0;
-}
-
-@keyframes vuelos {
-	from{
-		margin-left: -20em;
-
-	}
-	to{
-		margin-left: 0em;
-	}
+.card-panel a{
+	padding: 2em;
 }
 /*---------------------------------------------------*/
 @media screen and (max-width: 900px) {

@@ -9,13 +9,11 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Ldap\LdapClient;
 
-
 /**
 * Descripcion of JwtAuth
 *
 * @autor Usuario
 */
-
 class jwt_auth{
 
 	public $user;
@@ -25,16 +23,13 @@ class jwt_auth{
 	public $securityContext;
 	public $hash;
 
-
 	public function _constructor($manager){
 		$this->$key = 'Clave';
 		$this->$em=$manager;
-
 	}
 	public function crearToken($username,$password,$em,$securityContext,$hash){
 
 		$ldap = new LdapClient('172.24.10.43', 389, 3, false, false);
-
     	try{
     		$bind= $ldap->bind('uid='.$username.',ou=people,dc=armada,dc=mil,dc=co', $password);
 
@@ -62,7 +57,7 @@ class jwt_auth{
         $token_jwt = array(
                 "sub" 				=> $displayname,
                 "email" 			=> $mail,
-                'role'				=>$roles,
+                'role'				=> 'Administrador',
                 'apellidos'			=>$usuario_s['APELLIDOS'],
                 'nombres' 			=> $usuario_s['NOMBRES'],
                 'identificacion'	=> $usuario_s['IDENTIFICACION'],

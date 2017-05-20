@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,Input } from '@angular/core';
 import { ConsultaPersona} from '../../models/consulta_persona';
 import { peticionesService } from '../../services/peticiones.service'
 
@@ -10,11 +10,14 @@ import { peticionesService } from '../../services/peticiones.service'
 })
 
 export class PersonaComponent{
+
+  @Input() url:string='';
   public consultaPersona = new ConsultaPersona('','','','');
   public resulBusqueda;
   constructor(private _peticiones:peticionesService){}
 
   ngOnInit(){
+    console.log(this.url);
   }
   onSubmit(){
     this._peticiones.listado_consultaPersona(this.consultaPersona)
@@ -33,4 +36,6 @@ export class PersonaComponent{
     this.resulBusqueda = null;
     this.consultaPersona = new ConsultaPersona('','','','');
   }
+
+  
 }
