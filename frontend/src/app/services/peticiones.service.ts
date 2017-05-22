@@ -17,11 +17,11 @@ export class peticionesService{
   ){}
 
 
-  listado(listado){
+  listado(listado,page){
     // let params = 'anio='+listado.year+&categoria=suboficiales&turno=2';
     let params = 'anio='+listado.year+'&categoria='+listado.categoria+'&turno='+listado.turno;
     let headers = this.headers;
-    return  this._http.post(GLOBAL.url+'calificacion/listado',params,{headers:headers})
+    return  this._http.post(GLOBAL.url+'calificacion/listado?page='+page ,params,{headers:headers})
       .map(res => res.json());
   }
   listado_consultaPersona(consultaPersona){

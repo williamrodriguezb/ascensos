@@ -9,3 +9,6 @@ hr{
 tbody{
   font-size: .7em;
 }
+.pagination{
+  justify-content: center;
+}

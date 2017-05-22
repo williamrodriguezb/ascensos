@@ -35,12 +35,20 @@ class DefaultController extends Controller
       $page = $request->query->getInt('page',1);
 
       $paginador = $this->get('knp_paginator');
-      $items = 10;
+      $items = 20;
 
       $paginacion = $paginador->paginate($listado,$page,$items);
       $total_items = $paginacion->getTotalItemCount();
-      // return new JsonResponse($paginacion['data']);
-      return $this->json($paginacion);
+      
+      $datos = array(
+              'pagina' =>$page,
+              'total_items'  =>$total_items,
+              'items_page'=>$items,
+              'total_page' => ceil( $total_items/$items),
+              'data'  => $paginacion
+        );
+
+      return $this->json($datos);
       
 }
   public function buscaPersonaAction(Request $request, $identificacion=null){

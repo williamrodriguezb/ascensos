@@ -114,7 +114,7 @@
         </div>
       </section>
     </article>
-    <a data-toggle="collapse" role="tab" href="#folios" id='tab-folios' (click)='getFolios(persona.IDENTIFICACION)'>
+    <a data-toggle="collapse"  role="tab" href="#folios" id='tab-folios' (click)='getFolios(persona.IDENTIFICACION)'>
       <header class="card-header">Folios</header>
     </a>
     <article id="folios" class="collapse" role="tabpanel" aria-labelledby="tab-folios">
@@ -241,7 +241,7 @@
       </div>
       <div *ngIf='perfil' >
           <h4 class="text-center ">IDIOMAS</h4>
-
+          <hr>
           <div class="table-responsive">
             <p></p>
             <table class="table table-sm table-bordered">
@@ -270,11 +270,33 @@
               </tbody>
             </table>
           </div>
-          <div class="col-md-4">
-            <h3>formacion Academica</h3>
-            <ul *ngFor='let f of formacion'>
-              <li>{{f.NIVEL}}</li>
-            </ul>
+          <div class="col-md-12 row">
+            <h4 class="col-md-12 text-center">FORMACION ACADEMICA</h4>
+            <hr>
+            <div class="table-responsive">
+              <table class="table table-sm">
+                <thead>
+                  <tr>
+                    <th>N</th>
+                    <th>NIVEL</th>
+                    <th>TITULO</th>
+                    <th>INSTITUCION</th>
+                    <th>INICIO</th>
+                    <th>TERMINO</th>
+                  </tr>
+                </thead>
+                <tbody style="font-size:.7em">
+                  <tr *ngFor='let f of formacion;let i = index'>
+                    <td>{{i+1}}</td>
+                    <td>{{f.NIVEL}}</td>
+                    <td>{{f.DESCRIPCION}}</td>
+                    <td>{{f.UNIDAD}}</td>
+                    <td>{{f.FECHA_INICIO}}</td>
+                    <td>{{f.FECHA_TERMINO}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
 
           </div>
       </div>
@@ -282,45 +304,69 @@
   </section>
   <ul class="tab text-center" role="tablist">
     <li>
-      <a href='' class="text-center" role="tab" data-toggle="tab" aria-expanded="false">
-        <i class="fa fa-address-book text-center card-img-top ico-tab" aria-hidden="true"></i>
+      <a href='' class="text-center" role="tab" data-toggle="tab" aria-expanded="false" (click)='getTab("calificacion")'>
+        <i class="fa fa-address-book text-center card-img-top ico-tab" aria-hidden="true" ></i>
         <br>Calificacion
       </a>
     </li>
     <li>
-      <a class="text-center" role="tab" data-toggle="tab" aria-expanded="false">
+      <a class="text-center" role="tab" data-toggle="tab" aria-expanded="false" (click)='getTab("medica")'>
         <i class="fa fa-ambulance text-center card-img-top ico-tab" aria-hidden="true"></i>
-        <br>Juntas Medicas
+        <br>Info Medica
       </a>
     </li>
     <li>
-      <a class="text-center" role="tab" data-toggle="tab" aria-expanded="false">
-        <i class="fa fa-hospital-o text-center card-img-top ico-tab" aria-hidden="true"></i>
-        <br>Estado Salud
-      </a>
-    </li>
-    <li>
-      <a class="text-center" role="tab" data-toggle="tab" aria-expanded="false">
+      <a class="text-center" role="tab" data-toggle="tab" aria-expanded="false" (click)='getTab("juridica")'>
         <i class="fa fa-balance-scale text-center card-img-top ico-tab" aria-hidden="true"></i>
         <br>Disciplinarias
       </a>
     </li>
     <li>
-      <a class="text-center" role="tab" data-toggle="tab" aria-expanded="true">
+      <a class="text-center" role="tab" data-toggle="tab" aria-expanded="true" (click)='getTab("ascensos")'>
         <i class="fa fa-address-card-o ico-tab" aria-hidden="true"></i><br> Ascensos
       </a>
     </li>
     <li>
-      <a class="text-center" role="tab" data-toggle="tab" aria-expanded="false">
+      <a class="text-center" role="tab" data-toggle="tab" aria-expanded="false" (click)='getTab("licencias")'>
         <i class="fa fa-address-card-o ico-tab" aria-hidden="true"></i>
         <br>Licencias no Remuneradas
       </a>
     </li>
   </ul>
   <section id="Contenido" class="card">
-    Contenido
+      <div *ngIf='tab =="calificacion"'>
+          Contenido de calificacion
+      </div>
+      <div *ngIf='tab =="medica"'>
+          Contenido de Medica
+      </div>
+      <div *ngIf='tab =="juridica"'>
+          Contenido de Juridica
+      </div>
+      <div *ngIf='tab =="ascensos"'>
+          Contenido de Ascensos
+      </div>
+      <div *ngIf='tab =="licencias"'>
+          Contenido de Licencias
+      </div>
   </section>
 </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <div class="pop" [class.oculta]="pop=='oculta'" [class.muestra]="pop=='muestra'">
   <!-- {{felicitaciones |json}} -->

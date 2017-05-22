@@ -346,6 +346,7 @@ ORDER BY
            sum(tar.meses) meses,
            sum(dias)dias
 
+
       FROM empleados e, tiempos_acumulados_requisitos tar,cg_ref_codes cg
 
      WHERE e.unde_fuerza = 4

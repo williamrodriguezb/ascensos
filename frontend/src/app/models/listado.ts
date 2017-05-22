@@ -3,7 +3,8 @@ export class ListadoAscenso {
 	constructor(
 		public year:string,
     public categoria:string,
-    public turno:number
+    public turno:number,
+		public page:number
 		// public role:string,
 		// public apellidos:string,
 		// public nombres:string,

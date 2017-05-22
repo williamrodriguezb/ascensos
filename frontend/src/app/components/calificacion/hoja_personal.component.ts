@@ -36,6 +36,7 @@ export class HojaPersonaComponent  {
   public pop;
   public seccion;
   public idiomas;
+  public tab;
 
   constructor(
     private _peticiones:peticionesService,
@@ -106,7 +107,6 @@ export class HojaPersonaComponent  {
       error=>{}
     );
   }
-
   p_perfil(id){
     this._peticiones.getPerfil(id).subscribe(
       response=>{
@@ -116,7 +116,9 @@ export class HojaPersonaComponent  {
       },
       error=>{}
     );
-
+  }
+  getTab(seccion){
+    this.tab = seccion;
   }
 
 

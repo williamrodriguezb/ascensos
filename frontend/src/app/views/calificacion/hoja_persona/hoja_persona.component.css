@@ -20,15 +20,18 @@ table th {
 }
 #hoja_personal a{
   color: #31708f;
+
 }
 #hoja_personal a:hover{
   text-decoration: none;
 }
-.card-header{
+#hoja_personal a .card-header{
   text-align: center;
+	background: #eee;
 }
-#hoja_personal .card-header:hover{
-  background: #eceeef;
+
+#hoja_personal a .card-header:hover{
+  background: #fff;
 }
 #estimulos-represiones td button{
 	font-size:.7em
@@ -52,6 +55,7 @@ table th {
 	display: block;
 	background: white;
 }
+
 .oculta{
 		transition-property: all;
 		display:none;
@@ -100,4 +104,8 @@ table th {
 	color: white !important;
 	display: block;
 	border-radius: 1em 1em 0 0;
+}
+
+.tab-colapse{
+	background-color: red;
 }
