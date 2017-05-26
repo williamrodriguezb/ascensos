@@ -1,4 +1,4 @@
-<section id='consulta-persona' class="container">
+<section id='consulta-persona' class="container" *ngIf='ver_form=="ver"'>
 			<div class="row text-center">
 				<div class="col-sm-12 py-3">
 						<i class="fa fa-user-circle text-center" aria-hidden="true"></i>
@@ -33,13 +33,20 @@
 								</a>
 						</div>
 			</form>
-			<p class="alert alert-info col-md-5 mt-3 mx-auto"><strong>Documento:</strong>{{consultaPersona.documento}} <strong>Apellidos:</strong>{{consultaPersona.apellidos}}<strong>Nombres:</strong> {{consultaPersona.nombres}}<strong>Categoria:</strong> {{consultaPersona.categoria}}</p>
     </section>
-    <div class="table-responsive" *ngIf='resulBusqueda'>
-      <table class="table table-bordered table-condensed table-sm">
-        <thead>
-          <tr>
-            <th class="text-center">N°</th>
+		<div class="text-center my-3">
+			<p class="alert alert-warning col-md-8 mt-3 mx-auto text-center"><strong>Documento:</strong>{{consultaPersona.documento}} <strong>Apellidos:</strong>{{consultaPersona.apellidos}}<strong>Nombres:</strong> {{consultaPersona.nombres}}<strong>Categoria:</strong> {{consultaPersona.categoria}}</p>
+			<hr>
+			<i *ngIf='ver_form=="ver"' style='font-size: 3em ;color:#1a6990' class="fa fa-chevron-circle-up" aria-hidden="true" (click)='displayForm("hide")'></i>
+			<i *ngIf='ver_form=="hide"' style='font-size: 3em ;color:#1a6990' class="fa fa-chevron-circle-down" aria-hidden="true" (click)='displayForm("ver")'></i>
+		</div>
+		<p class='col-md-4 mx-auto' *ngIf='loading=="show"'><ngb-progressbar type="primary" [value]="100" [striped]="true" [animated]="true"><i><b>Buscando en SIATH</b></i></ngb-progressbar></p>
+    <div class="" *ngIf='resulBusqueda'>
+			<ngb-pagination [collectionSize]="resulBusqueda.length" [pageSize]='16' [(page)]="page" [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"></ngb-pagination>
+      <table class="table table-sm table-bordered">
+        <thead class="thead-default">
+          <tr class=""	>
+            <!-- <th class="text-center">N°</th> -->
             <th class="text-center">APELLIDOS</th>
             <th class="text-center">NOMBRES</th>
             <th class="text-center">IDENTIFICACION</th>
@@ -53,8 +60,8 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor='let p of resulBusqueda; let i = index'>
-              <td>{{i+1}}</td>
+          <tr class="" *ngFor='let p of resulBusqueda|paginator:page:16; let i = index'>
+
               <td>{{p.APELLIDOS}}</td>
               <td>{{p.NOMBRES}}</td>
               <td>{{p.IDENTIFICACION}}</td>
@@ -64,7 +71,7 @@
               <td>{{p.GUARNICION}}</td>
               <td>{{p.UNIDAD}}</td>
               <td>{{p.SIGLA}}</td>
-							<td><a [routerLink]="[url]+p.IDENTIFICACION" class="btn btn-outline-primary">Ver</a></td>
+							<td><a [routerLink]="[url]+p.IDENTIFICACION" class="btn btn-sm btn-outline-primary" >Ver</a></td>
           </tr>
         </tbody>
       </table>

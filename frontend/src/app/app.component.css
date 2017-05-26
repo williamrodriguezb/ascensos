@@ -23,6 +23,9 @@ header#encabezado{
 	animation-name: vuelos;
 	animation-duration: 2s;
 }
+#escudo_arc{
+	height:  5em;
+}
 /*navbar-----------------------------------------------------------------*/
 .fixed-top {
   position: fixed;
@@ -30,16 +33,21 @@ header#encabezado{
   right: 0;
   left: 0;
   z-index: 1030;
-  background-color: #017db5 !important;
+  background-color: #2686d8 !important;
 }
 .navbar{
 	padding: 0;
 }
 .nav-item:hover{
-	background-color: #0a83b9;
+
+
+}
+.nav-link:hover{
+	color: black !important;
+	background-color: white;
 }
 .active{
-	background-color: #015e88;
+	background-color: rgba(183, 145, 11, 0);;
 	border-top: 3px solid white;
 }
 #navbarDropdownMenuLink{

@@ -1,10 +1,15 @@
 .fa-user-circle{
     font-size:100px; color:#005f8e;
 }
-
 input[type='text'],select{
   margin: .5em 0;
 }
+ngb-pagination{
+    display: flex;
+    margin: auto;
+    justify-content: center;
+}
+
 tbody{
-  font-size: .8rem;
+  font-size: .8em;
 }

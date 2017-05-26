@@ -7,8 +7,13 @@ hr{
   margin: 0.5em;
 }
 tbody{
-  font-size: .7em;
+  font-size: .69em;
 }
 .pagination{
   justify-content: center;
+}
+ngb-pagination{
+    display: flex;
+    margin: auto;
+    justify-content: center;
 }

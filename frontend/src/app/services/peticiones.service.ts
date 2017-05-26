@@ -54,4 +54,16 @@ export class peticionesService{
    return this._http.get(GLOBAL.url+'calificacion/persona/'+id+'/perfil')
         .map(res=>res.json());
  }
+ getDatos(id){
+   return this._http.get(GLOBAL.url+'calificacion/persona/'+id+'/datos')
+        .map(res=>res.json());
+ }
+ getJuridica(id){
+   return this._http.get(GLOBAL.url+'calificacion/persona/'+id+'/juridica')
+        .map(res=>res.json());
+ }
+ getAscensos(id){
+   return this._http.get(GLOBAL.url+'calificacion/persona/'+id+'/ascensos')
+        .map(res=>res.json());
+ }
 }

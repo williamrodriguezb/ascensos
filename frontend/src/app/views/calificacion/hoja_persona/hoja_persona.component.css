@@ -4,9 +4,24 @@
 	text-align: center;
 	list-style: none;
 }
+ngb-pagination{
+		display: flex;
+    justify-content: center;
+}
+.card-group{
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-between;
 
+}
+.pagination .nav-item{
+
+}
 .img-especialidad{
 	width: 150px;
+}
+#Contenido-tab{
+	padding: 3em;
 }
 table th {
 	text-align: center;

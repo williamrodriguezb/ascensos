@@ -2,15 +2,9 @@ matrices_homepage:
     path:     /
     defaults: { _controller: matricesBundle:Default:index }
 matriz:
-    path:     /junta_clasificadora/ver
-    defaults: { _controller: matricesBundle:Default:getMatriz }
-matriz_jucla:
-    path:     /junta_clasificadora/ver
+    path:     /matriz/ver
     defaults: { _controller: matricesBundle:Default:getMatriz }
 
-matriz_ver:
-    path:     /junta_clasificadora/edita
-    defaults: { _controller: matricesBundle:Default:editMatriz }
-matriz_actualiza:
-    path:     /junta_clasificadora/actualiza
-    defaults: { _controller: matricesBundle:Default:actualizaMatriz }
+matriz_inserta:
+    path:     /matriz/inserta
+    defaults: { _controller: matricesBundle:Default:insertMatriz }

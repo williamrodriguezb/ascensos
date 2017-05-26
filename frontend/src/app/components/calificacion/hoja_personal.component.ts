@@ -1,22 +1,29 @@
-import { Component } from '@angular/core';
+  import { Component } from '@angular/core';
 import { Router, ActivatedRoute, Params} from '@angular/router';
 import { peticionesService } from '../../services/peticiones.service';
+
+import {NgbPagination,NgbPaginationConfig } from '@ng-bootstrap/ng-bootstrap';
+import { GraficosComponent} from '../graficos/grafico.component'
 
 @Component({
   selector: 'hojaPersona',
   templateUrl: '../../views/calificacion/hoja_persona/hoja_persona.component.html',
   styleUrls: ['../../views/calificacion/hoja_persona/hoja_persona.component.css'],
-  providers:[ peticionesService]
-})
+  providers:[ peticionesService,NgbPagination,NgbPaginationConfig],
+  })
 
 export class HojaPersonaComponent  {
   public persona;
   public parametro;
   public tiempos;
+  public info_juridica;
   public folios;
+  public page:number;
   public sanciones;
   public formacion;
   public perfil;
+  public datos;
+  public cambiosEsp;
   public condecoraciones;
   public distintivos;
   public estimulos_represiones;
@@ -37,14 +44,41 @@ export class HojaPersonaComponent  {
   public seccion;
   public idiomas;
   public tab;
+  public tiemposRequisito;
+  public tiemposBasicos;
+  public n_investigaciones;
+  public n_suspenciones;
+  public n_separaciones;
+  public historial_ascensos;
+  public escalafones_x_persona;
+  public data_radar;
+  public labels_radar:string[];
+
 
   constructor(
     private _peticiones:peticionesService,
     private _router:Router,
     private _route: ActivatedRoute,
   ){
-    this.pop = 'oculta'
+    this.pop = 'oculta';
+    this.page = 1;
+    this.tab = 'calificacion';
+    this.data_radar= [
+     {data: [0, 0, 0, 0, 0], label: 'Series A'},
+     {data: [5, 5, 5, 5, 5], label: 'Series b'},
+     {data: [10, 10, 10, 10, 10], label: 'Series b'},
+     {data: [15, 15, 15, 15, 15], label: 'Series b'},
+   ];
+    this.labels_radar = [
+      'Desempeño Profesional',
+      'Compromiso',
+      'Condiciones Personales',
+      'Profesionalizacion',
+      'Acreditacion de Conducta'
+    ];
+
   }
+
   ngOnInit(){
     this._route.params.forEach( (params:Params)=>{
       this.parametro = params['id'];
@@ -68,10 +102,14 @@ export class HojaPersonaComponent  {
   tiempos_requisito(id){
     this._peticiones.getTiempos(id).subscribe(
       response=>{
+        this.tiemposRequisito = response['tiempos_requisitos'];
+        this.tiemposBasicos = response['tiempos_basicos'];
         this.tiempos = response;
-        console.log(Object.keys(this.tiempos).length);
+        // console.log(Object.keys(this.tiempos).length);
       },
-      error=>{}
+      error=>{
+        console.log(error)
+      }
     );
   }
   getFolios(id){
@@ -107,6 +145,14 @@ export class HojaPersonaComponent  {
       error=>{}
     );
   }
+  datos_personales(id){
+    this._peticiones.getDatos(id).subscribe(
+      response=>{
+        this.datos = response['datos'];
+        this.cambiosEsp = response['cambiosEsp'];
+      }
+    );
+  }
   p_perfil(id){
     this._peticiones.getPerfil(id).subscribe(
       response=>{
@@ -120,7 +166,32 @@ export class HojaPersonaComponent  {
   getTab(seccion){
     this.tab = seccion;
   }
+  juridica(id){
+    this._peticiones.getJuridica(id).subscribe(
+      response=>{
+        this.info_juridica=response;
+        this.n_investigaciones=Object.keys(response['investigaciones']).length;
+        this.n_sanciones=Object.keys(response['sanciones']).length;
+        this.n_suspenciones=Object.keys(response['suspenciones']).length;
+        this.n_separaciones=Object.keys(response['separaciones']).length;
+      },error=>{}
+    )
+  }
+  ascensos(id){
+    this._peticiones.getAscensos(id).subscribe(
+      response=>{
+        this.historial_ascensos = response;
+        // console.log(response );
+      },
+      error=>{
+        console.log(error)
+      }
+    )
 
 
 
+    // for (let i = 0; i < Object.keys(this.historial_ascensos).length; i++) {
+    // }
+
+  }
 }

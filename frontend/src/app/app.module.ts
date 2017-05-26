@@ -3,6 +3,11 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { routing, appRoutingProviders } from './app.routing';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { ChartsModule  } from 'ng2-charts/ng2-charts';
+//pipes
+import {PaginatorPipe} from './pipes/pagination.pipe';
+
 
 //aplicacion
 import { AppComponent } from './app.component';
@@ -28,6 +33,10 @@ import { EstadoComponent } from './components/medica/estado.component';
 import { DisciplinarioComponent } from './components/disciplinario/disciplinario.component';
 import { ComandanteComponent } from './components/comandante/comandante.component';
 
+//graficos
+
+import { GraficosComponent } from './components/graficos/grafico.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,13 +54,20 @@ import { ComandanteComponent } from './components/comandante/comandante.componen
     HojaPersonaComponent,
     MatrizComponent,
     EstadisticasComponent,
-    JuntasMedicasComponent
+    JuntasMedicasComponent,
+    GraficosComponent,
+    //pipes
+
+    PaginatorPipe
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     routing,
+    NgbModule,
+    ChartsModule
+
   ],
   providers: [appRoutingProviders],
   bootstrap: [AppComponent]

@@ -9,7 +9,7 @@ admin:
 
 matrices:
     resource: "@matricesBundle/Resources/config/routing.yml"
-    prefix:   /matrices
+    prefix:   /matriz
 
 comandante:
     resource: "@comandanteBundle/Resources/config/routing.yml"

@@ -333,6 +333,109 @@ ORDER BY
 	}
 
 
+
+public function getDatos($id){
+   $em = $this->getEntityManager();
+    $db = $em->getConnection();
+    $query="SELECT sl.descripcion         situacion,
+       e.email_institucional,
+       e.fecha_alta_propiedad f_ingreso,
+       e.fecha_ult_ascenso,
+       nuevo_rehu.rh_trae_fecha_ult_ascenso(e.CONSECUTIVO,
+                                            e.UNDE_FUERZA,
+                                            e.UNDE_CONSECUTIVO) fch_ult_Tascenso,
+       (SELECT TE.FECHA_INICIO
+      
+          FROM empleados,TIEMPOS_EMPLEADOS TE, TIEMPOS T
+         WHERE TE.EMPL_UNDE_FUERZA = empleados.UNDE_FUERZA
+           AND TE.EMPL_UNDE_CONSECUTIVO = empleados.UNDE_CONSECUTIVO
+           AND TE.EMPL_CONSECUTIVO = empleados.CONSECUTIVO
+           AND TE.CONDICION_REGISTRO = 'NA'
+           AND TE.TIPO = 'IE'
+           AND nvl(TE.TIEP_ID_TIEMPO_EMPL, 0) = 0
+           AND TE.TIEM_ID_TIEMPO = T.ID_TIEMPO
+           AND TE.TIEM_FUERZA = T.FUERZA
+           AND TE.TIPO <> 'NR'
+           AND TE.PAGO <> 'SI'
+           and rownum = 1 ----------tiempos repetidos-----------------
+        --AND Empleados.IDENTIFICACION = 79872587
+        /*ORDER BY TE.FECHA_INICIO*/
+        ) fch_ingr_escuela
+  FROM empleados e, situaciones_laborales sl
+
+ WHERE e.unde_fuerza = 4
+   AND e.identificacion = ".$id."
+   AND e.sila_id_situac_labor = sl.id_situac_laboral";
+    $stmp= $db->prepare($query);
+    $stmp->execute();
+    return $stmp->fetch();
+
+}
+
+public function getCambiosEsp($id){
+  $em = $this->getEntityManager();
+  $db = $em->getConnection();
+  $query="
+SELECT 
+       cn.descripcion      clase_novedad,
+       ac.descripcion      armaCuerpo,
+       esp.descripcion     especialidad,
+       ee.numero_disposicion,
+       ee.fecha_disposicion,
+       ee.fecha_fiscal
+
+  FROM EMPLEADOS                e,
+       especialidades_empleados ee,
+       especialidades           esp,
+       armas_cuerpos            ac,
+       clases_novedades         cn
+
+ WHERE e.unde_fuerza = 4
+      
+   AND e.identificacion = ".$id."
+      
+   AND e.consecutivo = ee.empl_consecutivo
+   AND e.unde_fuerza = ee.empl_unde_fuerza
+   AND e.unde_consecutivo = ee.empl_unde_consecutivo
+      
+   AND ee.espe_id_especialidad = esp.id_especialidad
+   AND ee.empl_unde_fuerza = esp.fuerza
+      
+   AND ee.id_clase_novedad = cn.id_clase_novedad
+      /*   AND cn.id_clase_novedad = 1616*/
+      
+   AND e.arcu_fuerza = ac.fuerza
+   AND e.arcu_id_arma_cuerpo = ac.id_arma_cuerpo
+      ORDER BY ee.fecha_fiscal desc
+";
+  $stmp= $db->prepare($query);
+  $stmp->execute();
+  return $stmp->fetchAll();
+
+}
+
+public function getTiemposBasicos($id){
+  $em = $this->getEntityManager();
+  $db = $em->getConnection();
+  $query="SELECT e.identificacion,
+       proc_gral.tiempoServicio(e.unde_consecutivo,
+                                e.unde_fuerza,
+                                e.consecutivo) t_servicio,
+       NUEVO_REHU.CF_TOT_TIEMGRADO(e.unde_consecutivo,
+                                   e.unde_fuerza,
+                                   e.consecutivo,
+                                   sysdate) t_grado
+
+  FROM empleados e
+ WHERE e.unde_fuerza = 4
+   AND e.identificacion = ".$id."";
+
+  $stmp= $db->prepare($query);
+  $stmp->execute();
+  return $stmp->fetch();
+
+}
+
 //tiempos requisitos de ascenso
   public function getTiempos($identificacion){
     $em = $this->getEntityManager();
@@ -369,62 +472,75 @@ ORDER BY
 
 
 //lapsos y listas
-  public function getFolios($identificacion){
+  public function getFolios($id){
     $em = $this->getEntityManager();
     $db = $em->getConnection();
 
     $query = "
-       SELECT
-             esv.ano_lista,
-             esv.lista,
-             eve.fecha_inicio,
-             eve.fecha_termino,
-             eve.fecha_evaluacion,
-             eve.fecha_notificacion,
-             cle.fecha_clasificacion,
-             cle.lapso_inicial,
-             cle.lapso_final,
-             ud.descripcion_dependencia unidad,
-             s.sigla,
-             c.descripcion cargo
-      FROM
-           empleados e,
-           evaluaciones_empleados eve,
-           escalas_evaluacion esv,
-           clasificacion_empleados cle,
-           unidades_dependencia ud,
-           siglas s,
-           cargos c
+       SELECT 
+       esv.ano_lista,
+       esv.lista,
+       eve.fecha_inicio,
+       eve.fecha_termino,
+       eve.fecha_evaluacion,
+       eve.fecha_notificacion,
+       ud_evd.descripcion_dependencia Unidad_evaluado,
+       s_evd.sigla  sigla_evaluado,
+       c.descripcion cargo,
+       e2.activo,
+       e2.identificacion id_evaluador,
+       e2.apellidos apellidos_evaluador,
+       e2.nombres nombres_evaluador,
+       ud_eva.descripcion_dependencia Unidad_Actual_evaluador,
+       s_eva.sigla sigla_evaluador
+ FROM 
+     empleados e, 
+     empleados e2,
+     evaluaciones_empleados eve,
+     escalas_evaluacion esv,
+     unidades_dependencia ud_evd,
+     unidades_dependencia ud_eva,
+     siglas s_eva,
+     siglas s_evd,
+     cargos c
+  
+WHERE 
+ 
+  e.unde_consecutivo  = eve.empl_unde_consecutivo
+  AND   e.consecutivo       = eve.empl_consecutivo
+  AND   e.unde_fuerza       = eve.empl_unde_fuerza
+  
+  
+  
+ AND  eve.esev_fuerza  = esv.fuerza
+ AND  eve.id_escala   = esv.id_escala
+  
+ -- AND   eve.id_escala       = esv.id_escala
+  --AND   eve.esev_fuerza     = esv.fuerza
+  
+  AND   e2.unde_consecutivo_laborando  = ud_eva.consecutivo
+  AND   e2.unde_fuerza_laborando      = ud_eva.fuerza
+  
+  AND   eve.unde_fuerza       = ud_evd.fuerza
+  AND   eve.unde_evaluadora = ud_evd.consecutivo
+  
+  
+  AND   ud_eva.id_sigla           = s_eva.id_sigla(+)
+  AND   ud_evd.id_sigla           = s_evd.id_sigla(+)
+  
+  AND   eve.cargo             = c.cargo
+  AND   eve.esev_fuerza       = c.fuerza
+  
+  AND   e2.consecutivo         = eve.empl_evaluador
+  AND   e2.unde_fuerza         = eve.fuerza_evaluador
+  AND   e2.unde_consecutivo    = eve.unde_evaluador
+  
+  AND     e.unde_fuerza       = 4 
+  AND   e.activo            = 'SI'
+   AND   e.identificacion = ".$id."
+  
+  ORDER BY esv.ano_lista desc
 
-      WHERE e.unde_fuerza       = 4
-        AND   e.activo            = 'SI'
-
-        AND e.identificacion = ".$identificacion."
-
-        AND   e.unde_consecutivo  = eve.empl_unde_consecutivo
-        AND   e.consecutivo       = eve.empl_consecutivo
-        AND   e.unde_fuerza       = eve.empl_unde_fuerza
-
-        AND   e.consecutivo       = cle.empl_consecutivo
-        AND   e.unde_consecutivo  = cle.empl_unde_consecutivo
-        AND   e.unde_fuerza       = cle.empl_unde_fuerza
-
-        AND  cle.esev_fuerza      = esv.fuerza
-        AND  cle.esev_id_escala   = esv.id_escala
-
-        AND   eve.id_escala       = esv.id_escala
-        AND   eve.esev_fuerza     = esv.fuerza
-
-        AND   cle.unde_consecutivo  = ud.consecutivo
-        AND   cle.unde_fuerza       = ud.unde_fuerza
-
-        AND   ud.id_sigla           = s.id_sigla(+)
-
-        AND   eve.cargo             = c.cargo
-        AND   eve.esev_fuerza       = c.fuerza
-
-
-        ORDER BY esv.ano_lista
     ";
 
     $smtp = $db->prepare($query);

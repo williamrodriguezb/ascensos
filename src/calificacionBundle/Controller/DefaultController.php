@@ -32,23 +32,7 @@ class DefaultController extends Controller
       $calif_repo = $em->getRepository("calificacionBundle:calificacion");
       $listado= $calif_repo->getListado($anio,$categoria,$turno);
 
-      $page = $request->query->getInt('page',1);
-
-      $paginador = $this->get('knp_paginator');
-      $items = 20;
-
-      $paginacion = $paginador->paginate($listado,$page,$items);
-      $total_items = $paginacion->getTotalItemCount();
-      
-      $datos = array(
-              'pagina' =>$page,
-              'total_items'  =>$total_items,
-              'items_page'=>$items,
-              'total_page' => ceil( $total_items/$items),
-              'data'  => $paginacion
-        );
-
-      return $this->json($datos);
+      return $this->json($listado);
       
 }
   public function buscaPersonaAction(Request $request, $identificacion=null){
@@ -66,24 +50,13 @@ class DefaultController extends Controller
       $calif_repo   =   $em->getRepository("calificacionBundle:calificacion");
       $listado      =   $calif_repo->buscaPersona($documento,$apellidos,$nombres,$categoria);
 
-
-       // return new JsonResponse($listado)
-       $page = $request->query->getInt('page',1);
-
-      $paginador = $this->get('knp_paginator');
-      $items = 10;
-
-      $paginacion = $paginador->paginate($listado,$page,$items);
-      $total_items = $paginacion->getTotalItemCount();
-      // return new JsonResponse($paginacion['data']);
-      return $this->json($paginacion); ;
+    
+      return $this->json($listado); ;
     }
   }
   public function personaAction($id=''){
       $em           =   $this ->getDoctrine()->getEntityManager();
       $calif_repo   =   $em->getRepository("calificacionBundle:calificacion");
-      $disan_siath  =   $em->getRepository("disanBundle:disan");
-      $jpm_repo     =   $em->getRepository("jpmBundle:jpm");
       $persona      =   $calif_repo->getPersona($id);
         return new JsonResponse($persona);
   }
@@ -97,8 +70,9 @@ class DefaultController extends Controller
     // 
 
     if ($accion == 'tiempos') {
-      $tiempos        =   $calif_repo->getTiempos($id);
-      return new JsonResponse($tiempos);
+      $tiemposRequisito        =   $calif_repo->getTiempos($id);
+      $tiemposBasico  =   $calif_repo->getTiemposBasicos($id);
+      return new JsonResponse(array('tiempos_requisitos'=> $tiemposRequisito,'tiempos_basicos'=>$tiemposBasico));
     }
 
     //-------------------folios de vida
@@ -162,30 +136,35 @@ class DefaultController extends Controller
        return new JsonResponse($result);
 
     }
+
+    if($accion == 'datos'){
+      $datos = $calif_repo->getDatos($id);
+      $cambiosEspecialidad = $calif_repo->getCambiosEsp($id);
+      $respuesta = array('datos'=>$datos,'cambiosEsp'=>$cambiosEspecialidad);
+      return new JsonResponse($respuesta);
+    }
+
+    if($accion== 'juridica'){
+      $sanciones        = $jpm_repo->getSanciones($id);
+      $investigaciones  = $jpm_repo->getInvestigaciones($id);
+      $suspenciones     = $jpm_repo->getSuspenciones($id);
+      $separaciones     = $jpm_repo->getSeparaciones($id);
+
+      $juridica= array(
+            'sanciones'=>$sanciones,
+            'investigaciones'=>$investigaciones,
+            'suspenciones'=>$suspenciones,
+            'separaciones'=>$separaciones);
+      return new JsonResponse($juridica);
+    }
+    if($accion =='ascensos'){
+      $historial_ascensos = $calif_repo->getHistorialAscensos($id);
+      return new JsonResponse($historial_ascensos);
+    }
     
   }
 
-  public function conteosAction($identificacion){
-    $em               = $this->getDoctrine()->getManager();
-    $calif_repo       = $em->getRepository('calificacionBundle:calificacion');
-    $felicitaciones   = $calif_repo->countFelicitaciones($identificacion);
-    $medallas   = $calif_repo->countMedallas($identificacion);
-    $ausencias   = $calif_repo->countAusencias($identificacion);
-    return $this->render('calificacionBundle:default:conteos.html.twig',array(
-        'felicitaciones'=>$felicitaciones,
-        'medallas'=>$medallas,
-        'ausencias'=>$ausencias
 
-      ));
-  }
-  public function folioAction($identificacion){
-    $em               = $this->getDoctrine()->getManager();
-    $calif_repo       = $em->getRepository('calificacionBundle:calificacion');
-    $folio            = $calif_repo->getFolio($identificacion);
-    return $this->render('calificacionBundle:default:folio.html.twig' ,array(
-        'folio'=>$folio
-      ) );
-  }
   public function estadisticasAction(){
 
     return $this->render('calificacionBundle:default:estadisticas.html.twig');
@@ -194,7 +173,6 @@ class DefaultController extends Controller
 
     $em = $this->getDoctrine()->getManager();
     $calif_repo = $em->getRepository('calificacionBundle:calificacion');
-    $historial_ascensos = $calif_repo->getHistorialAscensos($id);
     return $this->render('calificacionBundle:default:historial_ascensos.html.twig',array(
       'historial_ascensos' => $historial_ascensos,
     ));

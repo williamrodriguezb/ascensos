@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { ListadoAscenso } from '../../models/listado';
 import { peticionesService} from '../../services/peticiones.service'
+import {NgbPagination,NgbPaginationConfig,NgbProgressbar, NgbProgressbarConfig } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'listado',
   templateUrl: '../../views/calificacion/listado/listado.component.html',
   styleUrls: ['../../views/calificacion/listado/listado.component.css'],
-  providers:[peticionesService]
+  providers:[peticionesService,NgbPagination,NgbPaginationConfig,NgbProgressbar, NgbProgressbarConfig]
 })
 
 export class ListadoComponent {
@@ -18,9 +19,11 @@ export class ListadoComponent {
   public listadoTotalPage;
   public loading ;
   public ver_form;
+  public page:number;
   constructor(private _peticiones:peticionesService){
     this.loading = 'hide';
     this.ver_form = 'ver';
+    this.page = 1;
   }
     ngOnInit(){
       this.listado = new ListadoAscenso('','',null,1)
@@ -31,10 +34,10 @@ export class ListadoComponent {
         this._peticiones.listado(this.listado, this.listado.page).subscribe(
           response=>{
             // this.listadoResultado = JSON.stringify(response);
-            this.listadoResultado = response['data'];
-            this.listadoPage = response['pagina'];
-            this.listadoItemsPage = response['items_page'];
-            this.listadoTotalPage = response['total_page'];
+            this.listadoResultado = response;
+            // this.listadoPage = response['pagina'];
+            // this.listadoItemsPage = response['items_page'];
+            // this.listadoTotalPage = response['total_page'];
             this.loading = 'hide';
 
             console.log(this.listadoResultado);
