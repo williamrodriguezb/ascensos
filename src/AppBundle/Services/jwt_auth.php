@@ -3,9 +3,6 @@
 namespace AppBundle\Services;
 
 use \Firebase\JWT\JWT;
-use Symfony\Component\Security\Core\User\User;
-use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Ldap\LdapClient;
 
@@ -45,20 +42,15 @@ class jwt_auth{
 	    $usuario_s = $login_repo->getSessionUser($mail);
         $key = 'Clave';
         if($usuario_s['DEPENDENCIA'] == 'DIVISION HOJAS DE VIDA' && $usuario_s['IDENTIFICACION'] == '1032451583'){
-
-        	$user_symf = new User($displayname, null,  $roles = array('ROLE_ADMIN'), $enabled = true, 
-            $userNonExpired = true, $credentialsNonExpired = true, $userNonLocked = true);
-        	$token =  new UsernamePasswordToken($user_symf, null, 'main',array('ROLE_ADMIN'));
-        	$securityContext->setToken($token);
-        	$securityContext->getToken()->getUser();
-			$securityContext->getToken()->setUser($user_symf);
-			$securityContext->setToken($token);
+			$role = 'administrador';
+        }elseif($usuario_s['IDENTIFICACION'] == '80159513'){
+			$role = 'jucla';
         }
         $token_jwt = array(
                 "sub" 				=> $displayname,
                 "email" 			=> $mail,
-                'role'				=> 'Administrador',
-                'apellidos'			=>$usuario_s['APELLIDOS'],
+                'role'				=> $role,
+                'apellidos'			=>	$usuario_s['APELLIDOS'],
                 'nombres' 			=> $usuario_s['NOMBRES'],
                 'identificacion'	=> $usuario_s['IDENTIFICACION'],
                 'tipo_id' 			=> $usuario_s['TIPO_IDENTIFICACION'],
@@ -74,9 +66,9 @@ class jwt_auth{
         		return new JsonResponse($jwt) ;
         	}
 
-            		if($hash=='false'){
-            			return new JsonResponse($decode);
-            		}
+    		if($hash=='false'){
+    			return new JsonResponse($decode);
+    		}
             	
 	}
 

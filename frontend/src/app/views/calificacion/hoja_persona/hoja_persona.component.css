@@ -17,9 +17,7 @@ ngb-pagination{
 .pagination .nav-item{
 
 }
-.img-especialidad{
-	width: 150px;
-}
+
 #Contenido-tab{
 	padding: 3em;
 }
@@ -94,8 +92,76 @@ table th {
       padding: 1em;
 }
 .img-grado{
-	width: 4.2rem;
+	width: 3rem;
 }
+
+.img-especialidad{
+	width: 130px;
+}
+.h_foto{
+	font-size: 5em;
+}
+.caja-circular{
+	box-sizing: border-box;
+	/*box-shadow: .0em .0em .3em #1EC6EF;*/
+	border: 3px solid rgba(128, 128, 128, 0.25);
+	border-radius: 50%;
+	padding:.5em;
+	width:  150px;
+	height: 150px;
+	background: rgb(229, 230, 230);
+	text-align:center;
+}
+.marco-foto{
+	padding: .5em;
+	/*border: 1px solid gray;*/
+	margin: 1em;
+	text-align: center;
+}
+.navSeleccionado{
+	border-bottom: 3px solid #2686d8;
+}
+#botonera{
+	margin: 3em 0;
+}
+#prof_botonera{
+	display: flex;
+  flex-flow: row wrap;
+}
+#prof_botonera > *{
+	flex:1;
+}
+.enc_seccion{
+	/*height: 0em;*/
+	background: #f7f7f9;
+	padding: .5em 0em;
+	margin: .5em 0em;
+	border-top: 1px solid gray;
+	border-bottom:  1px solid gray;
+
+}
+.enc_seccion hr{
+	margin: 0;
+	padding: 0;
+}
+.caja-especialidad{
+	/*border: 1px solid rgba(128, 128, 128, 0.25);
+	text-align: center;
+	background: rgba(26, 29, 31, .1);
+	width:  200px;
+	height: 150px;*/
+	box-sizing: border-box;
+	/*box-shadow: .0em .0em .3em #1EC6EF;*/
+	border: 2px solid rgba(128, 128, 128, 0.25);
+	border-radius: 50%;
+	padding:2em .7em ;
+	width:  150px;
+	height: 150px;
+	background: rgba(26, 29, 31, 0);
+	text-align:center;
+	margin: 0 1em;
+}
+
 /*Interactividad----------------------------------*/
 .tab{
   display: flex;
@@ -123,4 +189,12 @@ table th {
 
 .tab-colapse{
 	background-color: red;
+}
+
+@media (max-width: 700px) {
+	.tab{
+
+		flex-flow: row wrap;
+	}
+
 }

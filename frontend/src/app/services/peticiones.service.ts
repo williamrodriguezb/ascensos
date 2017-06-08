@@ -66,4 +66,8 @@ export class peticionesService{
    return this._http.get(GLOBAL.url+'calificacion/persona/'+id+'/ascensos')
         .map(res=>res.json());
  }
+ getLicencias(id){
+   return this._http.get(GLOBAL.url+'calificacion/persona/'+id+'/licencias')
+        .map(res=>res.json());
+ }
 }

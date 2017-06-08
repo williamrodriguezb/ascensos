@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { routing, appRoutingProviders } from './app.routing';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ChartsModule  } from 'ng2-charts/ng2-charts';
 //pipes
 import {PaginatorPipe} from './pipes/pagination.pipe';
@@ -29,6 +29,8 @@ import { EstadisticasComponent } from './components/calificacion/estadisticas.co
 import { MedicaComponent } from './components/medica/medica.component';
 import { JuntasMedicasComponent } from './components/medica/juntas_medicas.component';
 import { EstadoComponent } from './components/medica/estado.component';
+import { TribunalMedicoComponent } from './components/medica/tribunal_medico.component';
+import { FormDisanComponent } from './components/medica/form_disan.component';
 
 import { DisciplinarioComponent } from './components/disciplinario/disciplinario.component';
 import { ComandanteComponent } from './components/comandante/comandante.component';
@@ -54,7 +56,10 @@ import { GraficosComponent } from './components/graficos/grafico.component';
     HojaPersonaComponent,
     MatrizComponent,
     EstadisticasComponent,
+    FormDisanComponent,
     JuntasMedicasComponent,
+    TribunalMedicoComponent,
+    EstadoComponent,
     GraficosComponent,
     //pipes
 

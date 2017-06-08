@@ -21,6 +21,7 @@ import { EstadisticasComponent } from './components/calificacion/estadisticas.co
 import { MedicaComponent } from './components/medica/medica.component' ;
 import { JuntasMedicasComponent } from './components/medica/juntas_medicas.component' ;
 import { EstadoComponent } from './components/medica/estado.component' ;
+import { TribunalMedicoComponent } from './components/medica/tribunal_medico.component' ;
 
 //juridica
 import { DisciplinarioComponent } from './components/disciplinario/disciplinario.component' ;
@@ -44,6 +45,8 @@ const appRoutes: Routes = [
 	{path:'calificacion/matriz', component: MatrizComponent},
 	{path:'medica/juntas_medicas', component: JuntasMedicasComponent},
 	{path:'medica/juntas_medicas/:id', component: JuntasMedicasComponent},
+	{path:'medica/estado_salud', component: EstadoComponent},
+	{path:'medica/tribunal_medico', component: TribunalMedicoComponent},
 	{path:'**', component: ErrorComponent},
 
 ];

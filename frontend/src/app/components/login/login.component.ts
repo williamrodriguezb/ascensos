@@ -33,8 +33,6 @@ ngOnInit(){
   if(this.identity != null && this.identity.sub){
     this._router.navigate(['calificacion']);
   }
-
-
 }
 
 onSubmit(){
@@ -46,7 +44,6 @@ onSubmit(){
             console.log(response.status);
             this.identity = response;
         }else{
-              console.log(response.sub);
               this.identity = response;
               localStorage.setItem('identity',JSON.stringify(this.identity));
               this.user.hash = "true"
@@ -59,11 +56,11 @@ onSubmit(){
                     if(!response.status){
                       localStorage.setItem('token',this.token);
                       window.location.href="/";
-
                     }
                   }
-
-
+                },
+                error=>{
+                  console.log(error);
                 }
               );
               // window.location.href="/";

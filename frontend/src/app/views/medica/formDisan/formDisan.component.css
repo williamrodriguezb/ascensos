@@ -1,17 +1,14 @@
 h2{
   text-align: center;
 }
-
 input[type='range']{
   width: 20vw;
   margin: 1.5em auto;
   /*display: block;*/
-
 }
 input[type='date']{
   height: 35px;
   display:inline-flex;
-
 }
 .flex_bet{
   display: flex;
@@ -21,7 +18,6 @@ input[type='date']{
 }
 .flex_bet>*{
   flex:1;
-
 }
 .flex-col{
   display: flex;

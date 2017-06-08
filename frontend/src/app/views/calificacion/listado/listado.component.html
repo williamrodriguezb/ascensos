@@ -2,7 +2,7 @@
 <hr>
 <h2 class="text-center my-4">Personal Propuesto</h2>
 <hr>
-<form #listadoForm='ngForm' (ngSubmit)="onSubmit()" class="container col-lg-3 card" >
+<form #listadoForm='ngForm' (ngSubmit)="onSubmit()" class="container col-md-5 col-lg-3 card" >
   <fieldset>
     <hr>
     <legend>Año</legend>
@@ -63,7 +63,7 @@
 </div>
 
 <div class="col-md-6 mx-auto" *ngIf='loading =="show"'>
-<p><ngb-progressbar type="warning" [value]="100" [striped]="true" [animated]="true">Cargando</ngb-progressbar></p>
+<p><ngb-progressbar type="primary" [value]="100" [striped]="true" [animated]="true">Cargando</ngb-progressbar></p>
 </div>
 
 
@@ -96,7 +96,7 @@
         <td>{{postulado.SIGLA}}</td>
         <td>{{postulado.ESPECIALIDAD}}</td>
         <td>{{postulado.GUARNICION}}</td>
-        <td ><a [routerLink]="['/calificacion/persona/']+postulado.IDENTIFICACION"><button type="button" class='btn btn-sm btn-outline-info' name="button">Calificacion</button></a></td>
+        <td ><a [routerLink]="direccion"><button type="button" class='btn btn-sm btn-outline-info' name="button">Calificacion</button></a></td>
       </tr>
     </tbody>
   </table>

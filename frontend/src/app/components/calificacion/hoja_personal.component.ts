@@ -18,7 +18,9 @@ export class HojaPersonaComponent  {
   public tiempos;
   public info_juridica;
   public folios;
-  public page:number;
+  public regimen;
+  public page_folios:number;
+  public page_formacion:number;
   public sanciones;
   public formacion;
   public perfil;
@@ -49,26 +51,83 @@ export class HojaPersonaComponent  {
   public n_investigaciones;
   public n_suspenciones;
   public n_separaciones;
+  public licencias;
   public historial_ascensos;
   public escalafones_x_persona;
   public data_radar;
+  public data_line;
+  public seccion_p;
+  public seccion_dato;
+  public  count_formacion;
+  public  dona_labels:string[];
+  public  dona_data;
+  public ver_evaluador:boolean;
   public labels_radar:string[];
-
-
+  public labels_line:string[];
+  public color_radar:Array<any>;
+  public color_line:Array<any>;
   constructor(
     private _peticiones:peticionesService,
     private _router:Router,
     private _route: ActivatedRoute,
   ){
     this.pop = 'oculta';
-    this.page = 1;
+    this.page_folios = 1;
+    this.page_formacion = 1;
     this.tab = 'calificacion';
+    this.ver_evaluador = false;
+    this.dona_data=[];
+    this.dona_labels=[];
     this.data_radar= [
-     {data: [0, 0, 0, 0, 0], label: 'Series A'},
-     {data: [5, 5, 5, 5, 5], label: 'Series b'},
-     {data: [10, 10, 10, 10, 10], label: 'Series b'},
-     {data: [15, 15, 15, 15, 15], label: 'Series b'},
+
+     {data: [0, 0, 0, 0, 0] },
+     {data: [4, 4, 4, 4, 4], label: 'Malo'},
+     {data: [8, 8, 8, 8, 8], label: 'Regular'},
+     {data: [12, 12, 12, 12, 12], label: 'Bueno'},
+    //  {data: [15, 15, 15, 15, 15], label: 'Series b'},
+
    ];
+   this.color_line= [
+     {backgroundColor: 'rgba(38, 134, 216,0)'},
+     {
+       backgroundColor: 'rgba(38, 134, 216,0.5)',
+       borderColor:  'rgba(38, 134, 216,1)',
+     }
+   ]
+   this.color_radar =  [
+     { // verde
+       backgroundColor: 'rgba(139, 195, 74, 0)',
+       borderColor: 'rgba(148,159,177,0)',
+       pointBackgroundColor: 'rgba(148,159,177,0)',
+       pointBorderColor: 'rgba(148,159,177,0)',
+       pointHoverBackgroundColor: 'rgba(148,159,177,0)',
+       pointHoverBorderColor: 'rgba(148,159,177,0)'
+     },
+     { // rojo
+       backgroundColor: 'rgba(201, 48, 44, 0.2)',
+       borderColor: 'rgba(201, 48, 44, 0.3)',
+       pointBackgroundColor: 'rgba(148,159,177,0)',
+       pointBorderColor: 'rgba(148,159,177,0)',
+       pointHoverBackgroundColor:'rgba(148,159,177,0)',
+       pointHoverBorderColor: 'rgba(148,159,177,0)'
+     },
+     { // Amarillo
+       backgroundColor: 'rgba(255, 230, 8, 0.4)',
+       borderColor: 'rgba(255, 235, 59, 0.3)',
+       pointBackgroundColor: 'rgba(148,159,177,0)',
+       pointBorderColor: 'rgba(148,159,177,0)',
+       pointHoverBackgroundColor: 'rgba(148,159,177,0)',
+       pointHoverBorderColor: 'rgba(148,159,177,0)'
+     },{ // verde
+       backgroundColor: 'rgba(68, 157, 68,0.2)',
+       borderColor: 'rgba(68, 157, 68,0.3)',
+       pointBackgroundColor: 'rgba(148,159,177,0)',
+       pointBorderColor: 'rgba(148,159,177,0)',
+       pointHoverBackgroundColor: 'rgba(148,159,177,0)',
+       pointHoverBorderColor: 'rgba(148,159,177,0)'
+     }
+]
+    // this.data_line= [{data: [0, 0,0,0]},{data: [20, 10,10,8]}];
     this.labels_radar = [
       'Desempeño Profesional',
       'Compromiso',
@@ -83,19 +142,29 @@ export class HojaPersonaComponent  {
     this._route.params.forEach( (params:Params)=>{
       this.parametro = params['id'];
     });
-      console.log(this.parametro);
     this._peticiones.persona(this.parametro).subscribe(
       response=>{
         this.persona = response;
-        console.log(response);
       },
       error=>{}
     );
+
+    this.datos_personales(this.parametro);
+    this.tiempos_requisito(this.parametro);
+    this.getFolios(this.parametro);
+    this.est_represiones(this.parametro);
+    this.p_perfil(this.parametro);
+    this.juridica(this.parametro);
+    this.ascensos(this.parametro)
   }
 
   estado_pop(estado, seccion){
     this.pop = estado;
     this.seccion= seccion
+    // alert(estado);
+  }
+  seccion_nav(p){
+    this.seccion_p= p
     // alert(estado);
   }
 
@@ -116,7 +185,6 @@ export class HojaPersonaComponent  {
     this._peticiones.folios(id).subscribe(
       response=>{
         this.folios = response;
-        console.log(response);
       },
       error=>{}
     );
@@ -150,6 +218,7 @@ export class HojaPersonaComponent  {
       response=>{
         this.datos = response['datos'];
         this.cambiosEsp = response['cambiosEsp'];
+        this.regimen = response['regimen'];
       }
     );
   }
@@ -158,7 +227,22 @@ export class HojaPersonaComponent  {
       response=>{
         this.idiomas      = response['idiomas'];
         this.formacion    = response['formacion'];
+        this.count_formacion    = response['count_formacion'];
         this.perfil       = response;
+        let array_porcentaje=[]
+
+        for (let c in this.count_formacion) {
+          let n_formacion;
+          let porcentaje;
+            n_formacion = Object.keys(response['formacion']).length
+            porcentaje = ((this.count_formacion[c]['CONTEO'] * 100)/n_formacion )
+            this.dona_labels.push(this.count_formacion[c]['DESCRIPCION']);
+            array_porcentaje.push(porcentaje);
+
+        }
+        this.dona_data = [{data: array_porcentaje}]
+        console.log(this.dona_data);
+
       },
       error=>{}
     );
@@ -181,6 +265,26 @@ export class HojaPersonaComponent  {
     this._peticiones.getAscensos(id).subscribe(
       response=>{
         this.historial_ascensos = response;
+        let escalafon =[]
+        let grado =[]
+        for (let v in this.historial_ascensos) {
+
+            escalafon.push(parseInt(this.historial_ascensos[v]['UBICACION_ESCALAFON'])  )
+            grado.push(this.historial_ascensos[v]['GRADO'])
+
+        }
+        this.labels_line = grado;
+        this.data_line= [
+
+         {data: [0, 0, 0, 0, 0], label: 'Series A'},
+         {data: escalafon, label: 'Series b'},
+        //  {data: [8, 8, 8, 8, 8], label: 'Series b'},
+        //  {data: [12, 12, 12, 12, 12], label: 'Series b'},
+        //  {data: [15, 15, 15, 15, 15], label: 'Series b'},
+
+       ];
+        console.log(this.labels_line)
+        console.log(this.data_line)
         // console.log(response );
       },
       error=>{
@@ -188,10 +292,16 @@ export class HojaPersonaComponent  {
       }
     )
 
-
-
-    // for (let i = 0; i < Object.keys(this.historial_ascensos).length; i++) {
-    // }
-
   }
+  pet_licencias(id){
+    this._peticiones.getLicencias(id).subscribe(
+      response=>{
+        console.log(response);
+      },
+      error=>{
+        console.log(error);
+      }
+    );
+  }
+
 }

@@ -129,9 +129,11 @@ class DefaultController extends Controller
     if($accion == 'perfil'){
       $idiomas = $calif_repo->getIdiomas($id);
       $formacion = $calif_repo->getFormacionAcademica($id);
+      $count_formacion = $calif_repo->countFormacion($id);
 
       $result = array('idiomas'=>$idiomas,
-                      'formacion'=>$formacion
+                      'formacion'=>$formacion,
+                      'count_formacion'=>$count_formacion
           );
        return new JsonResponse($result);
 
@@ -140,7 +142,8 @@ class DefaultController extends Controller
     if($accion == 'datos'){
       $datos = $calif_repo->getDatos($id);
       $cambiosEspecialidad = $calif_repo->getCambiosEsp($id);
-      $respuesta = array('datos'=>$datos,'cambiosEsp'=>$cambiosEspecialidad);
+      $regimen= $calif_repo->getRegimen($id);
+      $respuesta = array('datos'=>$datos,'cambiosEsp'=>$cambiosEspecialidad,'regimen'=>$regimen);
       return new JsonResponse($respuesta);
     }
 
@@ -160,6 +163,11 @@ class DefaultController extends Controller
     if($accion =='ascensos'){
       $historial_ascensos = $calif_repo->getHistorialAscensos($id);
       return new JsonResponse($historial_ascensos);
+    }
+    if($accion =='licencias'){
+      $licencias = $calif_repo->getLicenciasNoRemuneradas($id);
+      return new JsonResponse($licencias);
+
     }
     
   }

@@ -16,8 +16,6 @@ class DefaultController extends Controller
 {
   
     public function loginAction(){
-
-;
        
           if (is_object($this->getUser())) {
               return  $this->redirectToRoute('inicio');

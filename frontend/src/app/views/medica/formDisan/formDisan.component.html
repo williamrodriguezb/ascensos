@@ -1,0 +1,52 @@
+<persona *ngIf='parametro'></persona>
+
+<section id='formulario_disan' >
+<form action="" class="container row col-md-6 mx-auto">
+  <div class="col-md-10 mx-auto">
+    <div class="col-md-12 flex-col mx-auto" >
+      <label for="fecha">Fecha</label>
+      <input type="date" id='fecha' class="form-control">
+    </div>
+      <hr>
+    <div class="flex_bet">
+      <label for="realizada">Realizada</label>
+      <select name="" id="realizada" class="form-control">
+        <option value="">Si</option>
+        <option value="">No</option>
+        <option value="">Pendiente</option>
+      </select>
+      <label for="numero">N°</label>
+      <input type="number" id='numero' class="form-control">
+      <label for="decision">Decision</label>
+      <select name="" id="decision" class="form-control">
+        <option value="">Apto</option>
+        <option value="">No Apto</option>
+        <option value="">No Apto con Reubicacion</option>
+        <option value="">No Apto sin Reubicacion</option>
+      </select>
+    </div>
+    <label for="literal">Literal</label>
+    <div ngbRadioGroup name="radioBasic" class="flex_bet">
+      <label for="" class="btn btn-outline-primary">
+        <input type="radio" name='literal' [value]='a'>A
+      </label>
+      <label for="" class="btn btn-outline-primary">
+        <input type="radio" name='literal' [value]='b'>B
+      </label>
+      <label for="" class="btn btn-outline-primary">
+        <input type="radio" name='literal' [value]='c'>C
+      </label>
+    </div>
+    <label for="dcl" class='block text-center' title="Disminucion de la Capacidad Laboral">
+      D.  Capacidad Laboral
+    </label>
+
+  <input type="range" min='0' max='100'>
+    <input type="submit" class='btn btn-primary' value='Ingresa'>
+    <a class="btn btn-secondary">Limpiar</a>
+  </div>
+
+
+</form>
+
+</section>

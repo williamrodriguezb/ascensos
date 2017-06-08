@@ -360,7 +360,8 @@ public function getDatos($id){
            and rownum = 1 ----------tiempos repetidos-----------------
         --AND Empleados.IDENTIFICACION = 79872587
         /*ORDER BY TE.FECHA_INICIO*/
-        ) fch_ingr_escuela
+        ) fch_ingr_escuela,
+        round(months_between(sysdate,'15/08/1992')/12) edad
   FROM empleados e, situaciones_laborales sl
 
  WHERE e.unde_fuerza = 4
@@ -372,6 +373,33 @@ public function getDatos($id){
 
 }
 
+
+public function getRegimen($id){
+   $em = $this->getEntityManager();
+  $db = $em->getConnection();
+  $query="SELECT cg.rv_meaning clase_regimen, rp.descripcion regimen
+  FROM 
+    empleados                e,
+    regimenes_empleados      re,
+    regimenes_prestacionales rp,
+    cg_ref_codes             cg
+
+ WHERE e.unde_fuerza = 4
+   AND e.identificacion = ".$id."
+   AND e.activo = 'SI'
+   AND e.consecutivo = re.empl_consecutivo
+   AND e.unde_fuerza = re.empl_unde_fuerza
+   AND e.unde_consecutivo = re.empl_unde_consecutivo
+      
+   AND cg.rv_domain = 'CLASE REGIMEN'
+   AND re.clase_regimen = cg.rv_low_value
+      
+   AND re.regp_id_regimen_prestac = rp.id_regimen_prestac";
+  $smtp = $db->prepare($query);
+  $smtp->execute();
+  return $smtp->fetchAll();
+
+}
 public function getCambiosEsp($id){
   $em = $this->getEntityManager();
   $db = $em->getConnection();
@@ -492,7 +520,8 @@ public function getTiemposBasicos($id){
        e2.apellidos apellidos_evaluador,
        e2.nombres nombres_evaluador,
        ud_eva.descripcion_dependencia Unidad_Actual_evaluador,
-       s_eva.sigla sigla_evaluador
+       s_eva.sigla sigla_evaluador,
+       e2.email_institucional email_evaluador
  FROM 
      empleados e, 
      empleados e2,
@@ -664,27 +693,28 @@ ORDER BY
     $em = $this->getEntityManager();
     $conn = $em->getConnection();
     $query= "
-    SELECT d.descripcion,
-       ae.numero_disposicion,
-       ae.fecha_disposicion,
+    SELECT ae.numero_disposicion,
        ae.id_fechfisc_ascenso,
-       cg_ref.rv_meaning,
-			 ae.grad_alfabetico grado,
-       ae.ubicacion_escalafon
-    FROM escalafones_empleados ee, ascensos_empleados ae, disposiciones d, cg_ref_codes cg_ref
+       ae.grad_alfabetico grado,
+       ae.ubicacion_escalafon,
+       crc.rv_meaning condicion_ascenso,
+       g.numerico,
+       g.alfabetico
+       
+ FROM empleados e, ascensos_empleados ae, 
+      cg_ref_codes crc, grados g
+WHERE e.unde_fuerza = 4
+AND   e.activo= 'SI'
+AND   e.identificacion = ".$id."
+AND   e.consecutivo = ae.empl_consecutivo
+AND   e.unde_consecutivo = ae.empl_unde_consecutivo
+AND   e.unde_fuerza = ae.empl_unde_fuerza
+AND   ae.condicion_ascenso = crc.rv_low_value
+AND   crc.rv_domain = 'CONDICION ASCENSO'
+AND   ae.grad_alfabetico =  g.alfabetico
+AND   ae.empl_unde_fuerza = g.fuerza
 
-   WHERE ee.fuerza_empleado = 4
-
-     AND ee.id_empleado = ae.empl_consecutivo
-     AND ee.fuerza_empleado = ae.empl_unde_fuerza
-     AND ee.unde_consecutivo = ae.empl_unde_consecutivo
-
-
-     AND ae.disp_id_disposicion = d.id_disposicion
-     AND cg_ref.rv_domain = 'TIPO ASCENSO'
-     AND cg_ref.rv_low_value = ae.tipo_ascenso
-     AND ee.identificacion = ".$id."
-
+ORDER BY g.numerico DESC
 
     ";
     $smtp = $conn->prepare($query);
@@ -1053,6 +1083,34 @@ ORDER BY
     $smtp = $conn->prepare($query);
     $smtp->execute();
     return $smtp->fetchAll();
+  }
+
+
+  public function countFormacion($id){
+    $em = $this->getEntityManager();
+    $conn = $em->getConnection();
+    $query="
+    SELECT 
+       na.descripcion, COUNT(*) AS conteo
+      from empleados                   e,
+             niveles_academicos_empleado nae,
+             carreras                    ca,
+             niveles_academicos          na
+       
+       WHERE e.unde_fuerza = 4
+         AND e.identificacion = ".$id."
+         AND e.consecutivo = nae.empl_consecutivo
+         AND e.unde_fuerza = nae.empl_unde_fuerza
+         AND e.unde_consecutivo = nae.empl_unde_consecutivo
+         AND nae.carr_id_carrera = ca.id_carrera(+)
+         AND nae.empl_unde_fuerza = ca.fuerza(+)
+         AND ca.id_nivel_academico = na.id_nivel_academico(+)
+        
+         
+      GROUP BY na.descripcion";
+      $smtp= $conn->prepare($query);
+      $smtp->execute();
+      return $smtp->fetchAll();
   }
 
   public function getExperiencia($id){
