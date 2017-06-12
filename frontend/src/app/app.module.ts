@@ -19,6 +19,7 @@ import { LogoutComponent } from './components/login/logout.component';
 // calificacion componentes
 import { CalificacionComponent } from './components/calificacion/calificacion.component';
 import { ListadoComponent } from './components/calificacion/listado.component';
+import { PropuestosComponent } from './components/calificacion/propuestos.component';
 import { PersonaComponent } from './components/calificacion/persona.component';
 import { ReporteComponent } from './components/calificacion/reporte.component';
 import { HojaPersonaComponent } from './components/calificacion/hoja_personal.component';
@@ -31,6 +32,7 @@ import { JuntasMedicasComponent } from './components/medica/juntas_medicas.compo
 import { EstadoComponent } from './components/medica/estado.component';
 import { TribunalMedicoComponent } from './components/medica/tribunal_medico.component';
 import { FormDisanComponent } from './components/medica/form_disan.component';
+import { ClysoComponent } from './components/medica/clyso.component';
 
 import { DisciplinarioComponent } from './components/disciplinario/disciplinario.component';
 import { ComandanteComponent } from './components/comandante/comandante.component';
@@ -50,6 +52,7 @@ import { GraficosComponent } from './components/graficos/grafico.component';
     ComandanteComponent,
     LoginComponent,
     LogoutComponent,
+    PropuestosComponent,
     ListadoComponent,
     PersonaComponent,
     ReporteComponent,
@@ -58,6 +61,7 @@ import { GraficosComponent } from './components/graficos/grafico.component';
     EstadisticasComponent,
     FormDisanComponent,
     JuntasMedicasComponent,
+    ClysoComponent,
     TribunalMedicoComponent,
     EstadoComponent,
     GraficosComponent,

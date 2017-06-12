@@ -22,6 +22,7 @@ import { MedicaComponent } from './components/medica/medica.component' ;
 import { JuntasMedicasComponent } from './components/medica/juntas_medicas.component' ;
 import { EstadoComponent } from './components/medica/estado.component' ;
 import { TribunalMedicoComponent } from './components/medica/tribunal_medico.component' ;
+import { ClysoComponent } from './components/medica/clyso.component' ;
 
 //juridica
 import { DisciplinarioComponent } from './components/disciplinario/disciplinario.component' ;
@@ -46,7 +47,11 @@ const appRoutes: Routes = [
 	{path:'medica/juntas_medicas', component: JuntasMedicasComponent},
 	{path:'medica/juntas_medicas/:id', component: JuntasMedicasComponent},
 	{path:'medica/estado_salud', component: EstadoComponent},
+	{path:'medica/estado_salud/:id', component: EstadoComponent},
 	{path:'medica/tribunal_medico', component: TribunalMedicoComponent},
+	{path:'medica/tribunal_medico/:id', component: TribunalMedicoComponent},
+	{path:'medica/clyso', component: ClysoComponent},
+	{path:'medica/clyso/:id', component: ClysoComponent},
 	{path:'**', component: ErrorComponent},
 
 ];

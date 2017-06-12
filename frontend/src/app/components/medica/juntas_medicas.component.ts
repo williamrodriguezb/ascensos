@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Router, ActivatedRoute, Params} from '@angular/router';
 
 @Component({
   selector: 'juntasMedicas',
@@ -6,13 +7,20 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['../../views/medica/juntas_medicas/juntas_medicas.component.css']
 })
 export class JuntasMedicasComponent {
-  @Input() titulo  ;
+
+  public parametro;
+  constructor(
+    private _router:Router,
+    private _route:ActivatedRoute
+  ){}
 
   ngOnInit(){
-    if(!this.titulo){
-        this.titulo = 'Juntas Medicas';
-        console.log(this.titulo)
-    }
+
+    this._route.params.forEach( (params:Params)=>{
+      this.parametro = params['id'];
+    } );
+
+
     console.log('medica cargado correctamente');
   }
 

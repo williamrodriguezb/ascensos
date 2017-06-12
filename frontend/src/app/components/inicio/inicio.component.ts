@@ -18,7 +18,6 @@ export class InicioComponent {
     if(localStorage.getItem('token')){
       this._router.navigate(['/calificacion']);
     }
-    console.log(localStorage.getItem('token'));
   }
 
 }

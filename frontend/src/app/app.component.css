@@ -17,6 +17,9 @@ header#encabezado{
 	justify-content: space-between;
 	overflow: hidden;
 }
+
+
+
 #logo{
 	font-size: 1.3rem;
 	margin: 0 1em;

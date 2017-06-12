@@ -8,7 +8,7 @@ import { GLOBAL } from './global';
 @Injectable()
 
 export class loginService{
-  public url = GLOBAL.url;
+  public url = 'http://localhost:3977/api/';
   public identity;
   public token;
   constructor(
@@ -17,11 +17,11 @@ export class loginService{
   ){
   }
   signUp(user){
-    let params= "username="+user.username+"&password="+user.password+"&hash="+user.hash;
+    let params= "email="+user.username+"&password="+user.password+"&gethash="+user.hash;
     let headers = new Headers({
         'Content-Type': 'application/x-www-form-urlencoded',
       });
-       return this._http.post(this.url+'login/ldap',params, {headers: headers})
+       return this._http.post(this.url+'auth',params, {headers: headers})
       .map(res => res.json());
       //  return this._http.post(url, "apellidos=RODRIGUEZ%&categoria=OFIC"  ,{headers: headers})
             //  .map(res => res.json());

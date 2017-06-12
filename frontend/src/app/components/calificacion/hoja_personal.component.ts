@@ -135,9 +135,7 @@ export class HojaPersonaComponent  {
       'Profesionalizacion',
       'Acreditacion de Conducta'
     ];
-
   }
-
   ngOnInit(){
     this._route.params.forEach( (params:Params)=>{
       this.parametro = params['id'];
@@ -185,6 +183,7 @@ export class HojaPersonaComponent  {
     this._peticiones.folios(id).subscribe(
       response=>{
         this.folios = response;
+        console.log(response);
       },
       error=>{}
     );

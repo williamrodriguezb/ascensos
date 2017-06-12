@@ -10,7 +10,6 @@ namespace calificacionBundle\Repository;
  */
 class calificacionRepository extends \Doctrine\ORM\EntityRepository
 {
-
 //listado de ascensos  
 	public function getListado($anio,$categoria,$turno)
 	{

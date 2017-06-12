@@ -5,3 +5,18 @@ input{
 div{
   margin: 1em;
 }
+#formLogin{
+  box-shadow: 0 0em 1em rgb(214, 217, 219);
+  border-radius: .6em;
+  padding: 4em;
+  margin-top: 6em;
+}
+
+@media (max-width: 600px) {
+  #formLogin{
+    box-shadow: none;
+    border-radius: 0em;
+    padding: 2em;
+    margin-top: 3em;
+  }
+}

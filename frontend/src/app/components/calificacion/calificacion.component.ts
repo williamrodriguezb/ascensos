@@ -17,6 +17,5 @@ export class CalificacionComponent {
   ngOnInit(){
     this.identidad =  this._loginService.getIdentity();
     this.token =      this._loginService.getToken();
-    console.log(this.identidad);
   }
 }

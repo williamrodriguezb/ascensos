@@ -1,36 +1,32 @@
 <section id="login" class="container_fluid">
-	<hr>
-	<h2 class="text-center" *ngIf='!identity'>{{titulo}}</h2>
-	<h2 class="text-center" *ngIf='identity'>Bienvenido a Ascensos en Linea</h2>
-	<hr>
-<div *ngIf='identity'>
-<div class="alert alert-success text-center" *ngIf="identity.email">
-		<strong>Autenticacion Correcta</strong>
-		<p>{{identity.apellidos}} {{identity.nombres}}</p>
-
-</div>
-<div class="alert alert-danger text-center" *ngIf="identity.status">
-		<strong>Autenticacion Incorrecta</strong>
-		<p>Valide Usuario y contraseña </p>
-
-</div>
-</div>
-	<form #formLogin="ngForm" (ngSubmit)="onSubmit()" *ngIf="!identity || identity.status"  action="" class="text-center container col-md-8 col-lg-4" >
+	<form #formLogin="ngForm" (ngSubmit)="onSubmit()" *ngIf="!identity || identity.status" id='formLogin'   class="text-center container col-md-8 col-lg-4" >
+		<h2 class="text-center" *ngIf='!identity'>{{titulo}}</h2>
+		<h2 class="text-center" *ngIf='identity'>Bienvenido a Ascensos en Linea</h2>
+		<hr>
 		<i class="fa fa-paper-plane fa-5x" style="color: #31b0d5" aria-hidden="true"></i>
 		<h2>Ascensos en Linea</h2>
-			<div class=" row col-md-12">
-		      <input type="text" #email="ngModel"  [(ngModel)]="user.username"  ngControl='email' class="form-control col-md-6" pattern='[a-z.]+'  name="usuario" placeholder="Usuario" aria-describedby="basic-addon1"  required="required">
-		      <span  class="input-group-addon col-md-6" id="basic-addon1">@armada.mil.co</span>
+			<div class=" row col-md-10 mx-auto">
+		      <input type="text" #email="ngModel"  [(ngModel)]="user.username"  ngControl='email' class="form-control col-md-7 " pattern='[a-z.]+'  name="usuario" placeholder="Usuario" aria-describedby="basic-addon1"  required="required">
+		      <span  class="input-group-addon col-md-5" id="basic-addon1">@armada.mil.co</span>
     		</div>
 			<div class="alert alert-danger my-1 col-md-12" role="alert" *ngIf='!email.valid && email.touched'>
 					<strong>Usuario Incorrecto</strong>
 			</div>
-		<div class=" row col-md-12">
-			<input #password="ngModel"  [(ngModel)]="user.password" name="password" type="password" class="form-control col-md-12" required="" placeholder="Contraseña">
+			<input #password="ngModel"  [(ngModel)]="user.password" name="password" type="password" class="form-control col-md-9 mx-auto" required="" placeholder="Contraseña">
 			<div class="alert alert-danger my-1 col-md-12" role="alert" *ngIf="!password.valid && password.touched">
 					<strong>Contraseña Incorrecto</strong>
 			</div>
-			<input type="submit" value="Inicia" class="btn btn-primary form-control col-md-5 mr-auto mt-3">
-		</div>
+			<hr>
+			<input type="submit" value="Inicia" class="btn btn-primary form-control col-md-4 mx-2 mt-3">
+			<a  class="btn btn-secondary form-control col-md-4 mx-2  mt-3">Limpiar</a>
 	</form>
+	<div class="alert alert-danger col-md-4 mx-auto text-center" *ngIf="mensajeError">
+		<strong>Autenticacion Incorrecta</strong>
+		<p>Valide Usuario y contraseña </p>
+	</div>
+	<div class="alert alert-success col-md-4 mx-auto text-center" *ngIf="identity">
+		<strong>Bienvenido {{identity.nombre}} </strong>
+		<p>Autenticacion Correcta</p>
+	</div>
+
 </section>

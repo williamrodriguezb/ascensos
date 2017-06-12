@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import { Router, ActivatedRoute, Params} from '@angular/router';
 
 @Component({
     selector: 'tribunalMedico',
@@ -7,5 +8,18 @@ import {Component} from '@angular/core';
 })
 
 export class TribunalMedicoComponent{
+  public parametro
+  constructor(
+    private _router:Router,
+    private _route: ActivatedRoute
+  ){}
+
+  ngOnInit(){
+    this._route.params.forEach( (params:Params)=>{
+      this.parametro = params['id'];
+      console.log(this.parametro);
+
+    });
+  }
 
 }

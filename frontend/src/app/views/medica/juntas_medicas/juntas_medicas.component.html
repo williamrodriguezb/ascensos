@@ -1,7 +1,4 @@
-<persona *ngIf='parametro'></persona>
+<propuestos *ngIf='!parametro' [direccion]="['/medica/juntas_medicas/']" destino='Juntas'></propuestos>
 
-<section id='juntas_medicas' >
-  <header><h2>Juntas Medicas</h2><hr></header>
-<formDisan></formDisan>
 
-</section>
+<formDisan *ngIf='parametro'></formDisan>

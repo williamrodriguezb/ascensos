@@ -4,13 +4,14 @@
     <p>Cargando...</p>
   </div>
 </div>
+
 <!-- hoja_personal++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-<section id="hoja_personal" class="container" *ngIf='persona'>
-  <nav class="navbar navbar-toggleable-md navbar-light ">
+  <section id="hoja_personal" class="container" *ngIf='persona'>
+  <nav class="navbar navbar-toggleable-md navbar-light">
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-    <a class="navbar-brand" href="#"><h2>Evaluacion</h2></a>
+    <a class="navbar-brand"><h2>Evaluacion</h2></a>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav ml-auto">
         <a class="nav-item nav-link"  (click)='seccion_nav("calificacion")' [class.navSeleccionado]="seccion_p=='calificacion'">Calificacion</a>
@@ -23,7 +24,7 @@
   </nav>
   <hr>
   <section id='calificacion' class="row" *ngIf='seccion_p=="calificacion"'>
-    <graficos tipo="radar" [datos]="data_radar" [etiquetas]='labels_radar' [color]='color_radar' class="col-md-8"></graficos>
+    <graficos tipo="radar" [datos]="data_radar" [etiquetas]='labels_radar' [color]='color_radar' class="col-md-8 mx-auto"></graficos>
   </section>
   <section *ngIf="seccion_p=='datos_personales'" id='informacion-personal' class="container" style="margin:0; padding:0">
     <div *ngIf="datos" class="row">

@@ -1,2 +1,4 @@
-<listado></listado>
-<formDisan></formDisan>
+<propuestos *ngIf='!parametro' [direccion]="['/medica/tribunal_medico/']" destino='Tribunal'></propuestos>
+
+
+<formDisan *ngIf='parametro' ></formDisan>

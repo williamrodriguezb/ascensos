@@ -1,0 +1,119 @@
+<div *ngIf='ver_form =="ver"'>
+<hr>
+<h2 class="text-center my-4">Personal Propuesto</h2>
+<hr>
+<form #listadoForm='ngForm' (ngSubmit)="onSubmit()" class="container col-md-5 col-lg-3 card" >
+  <fieldset>
+    <hr>
+    <legend>Año</legend>
+    <select #year="ngModel" [(ngModel)]="listado.year" ngControl='year' class="" name="year" class="form-control col-md-4 mx-auto" required="required">
+      <option value=""></option>
+      <option value="2017">2017</option>
+      <option value="2018">2018</option>
+  </select>
+    <div *ngIf='!year.valid && year.touched' class="alert alert-danger">
+      Ingresa un año
+    </div>
+  </fieldset>
+  <hr>
+  <div class="row my-3">
+    <fieldset class="col-md-6 text-center">
+      <legend>Categoria</legend>
+      <hr>
+      <div class="">
+        <label for="oficial" class="">Oficiales</label>
+        <input #categoria='ngModel' [(ngModel)]='listado.categoria' type="radio" name='categoria' id="oficial" value='oficiales' class="" required="required">
+      </div>
+      <div class="">
+        <label for="suboficial" class="">Suboficiales</label>
+        <input #categoria='ngModel' [(ngModel)]='listado.categoria' type="radio" name='categoria' id="suboficial" value='suboficiales' class="">
+      </div>
+
+    </fieldset>
+    <fieldset class="col-md-6 text-center">
+      <legend>Turno</legend>
+      <hr>
+      <div>
+        <label for="primero">Primero</label>
+        <input #turno='ngModel' [(ngModel)]='listado.turno' type="radio" name='turno' value='1' id="primero" required="required">
+      </div>
+      <div>
+        <label for="segundo" class="">Segundo</label>
+        <input #turno='ngModel' [(ngModel)]='listado.turno' type="radio" name='turno' id="segundo" value='2' required="required">
+      </div>
+    </fieldset>
+  </div>
+  <hr>
+  <div *ngIf='!categoria.valid && categoria.touched' class="alert alert-danger">
+    Ingresa un año
+  </div>
+  <div class="row my-4">
+    <input [disabled]="!listadoForm.valid" type="submit" value="Ver Listado" class="btn btn-primary form-control col-md-5 mx-3 ">
+    <a (click)='limpiar()' class="btn btn-secondary form-control col-md-5">Limpiar</a>
+
+  </div>
+</form>
+</div>
+<p class="alert alert-info col-md-3 mx-auto text-center">
+  <strong>Año: </strong> {{listado.year}} <strong>Categoria: </strong> {{listado.categoria}} <strong> Turno: </strong> {{listado.turno}} </p>
+<div class="text-center my-3">
+  <hr>
+  <i *ngIf='ver_form=="ver"' style='font-size: 3em ;color:#1a6990' class="fa fa-chevron-circle-up" aria-hidden="true" (click)='displayForm("hide")'></i>
+  <i *ngIf='ver_form=="hide"' style='font-size: 3em ;color:#1a6990' class="fa fa-chevron-circle-down" aria-hidden="true" (click)='displayForm("ver")'></i>
+</div>
+
+<div class="col-md-6 mx-auto" *ngIf='loading =="show"'>
+<p><ngb-progressbar type="primary" [value]="100" [striped]="true" [animated]="true">Cargando</ngb-progressbar></p>
+</div>
+
+
+<div class="table-responsive" *ngIf='listadoResultado && loading != "show"'>
+
+  <table class="table table-sm table-condensed table-bordered table-hover">
+    <thead>
+      <tr>
+        <th>N</th>
+        <th class="text-center">ID</th>
+        <th class="text-center">GR.</th>
+        <th class="text-center">NOMBRE</th>
+        <th class="text-center">CARGO</th>
+        <th class="text-center">UNIDAD</th>
+        <th class="text-center">SIGLA</th>
+        <th class="text-center">ESPECIALIDAD</th>
+        <th class="text-center">GUARNICION</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor='let postulado of listadoResultado| paginator:page:20; let i = index' >
+        <td *ngIf='page=="1"'>{{(i+1)}}</td>
+        <td *ngIf='page!="1"'>{{(i+(20*(page-1))+1)}}</td>
+        <td>{{postulado.IDENTIFICACION}}</td>
+        <td>{{postulado.GRADO}}</td>
+        <td>{{postulado.APELLIDOS}} {{postulado.NOMBRES}}</td>
+        <td>{{postulado.CARGO_ACTUAL}}</td>
+        <td>{{postulado.UNIDAD}}</td>
+        <td>{{postulado.SIGLA}}</td>
+        <td>{{postulado.ESPECIALIDAD}}</td>
+        <td>{{postulado.GUARNICION}}</td>
+        <td ><a [routerLink]="direccion+ postulado.IDENTIFICACION"><button type="button" class='btn btn-sm btn-outline-info' name="button">{{destino}}</button></a></td>
+      </tr>
+    </tbody>
+  </table>
+<ngb-pagination [collectionSize]="listadoResultado.length" [pageSize]=20 [(page)]="page" [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"></ngb-pagination>
+</div>
+<!-- <nav aria-label="..." class="mx-auto">
+<ul class="pagination">
+  <li class="page-item disabled">
+    <a class="page-link" href="#" tabindex="-1">&lt;&lt;</a>
+  </li>
+  <li class="page-item"><a class="page-link" href="#">1</a></li>
+  <li class="page-item active">
+    <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+  </li>
+  <li class="page-item"><a class="page-link" href="#">3</a></li>
+  <li class="page-item">
+    <a class="page-link" href="#">&gt;&gt;</a>
+  </li>
+</ul>
+</nav> -->

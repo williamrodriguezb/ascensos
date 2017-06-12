@@ -38,35 +38,31 @@ ngOnInit(){
 onSubmit(){
   this._loginService.signUp(this.user)
   .subscribe(
-      response=>{
-
-        if (response.status) {
-            console.log(response.status);
-            this.identity = response;
-        }else{
-              this.identity = response;
-              localStorage.setItem('identity',JSON.stringify(this.identity));
-              this.user.hash = "true"
-              this._loginService.signUp(this.user).subscribe(
-                resultado=>{
-                  this.token = resultado;
-                  if(this.token.lenght <= 0){
-                    alert('Error en el servidor');
-                  }else{
-                    if(!response.status){
-                      localStorage.setItem('token',this.token);
-                      window.location.href="/";
+      response=>
+        {
+            if(response.status ==404){
+              this.mensajeError = response.mensaje;
+              console.log(this.mensajeError)
+            }else{
+                this.identity = response;
+                localStorage.setItem('identity',JSON.stringify(this.identity));
+                this.user.hash = "true";
+                this._loginService.signUp(this.user).subscribe(
+                  resultado=>{
+                    this.token = resultado;
+                    if(this.token.lenght <=0){
+                      console.log('error al carga autenticacion');
+                    }else{
+                      localStorage.setItem('token',this.token)
+                      window.location.href='/'
                     }
                   }
-                },
-                error=>{
-                  console.log(error);
-                }
-              );
-              // window.location.href="/";
-        }
-      },
-      error=>{}
+                )
+            }
+        },
+      error=>{
+        console.log(error);
+      }
   );
 
 }

@@ -18,6 +18,10 @@ ngb-pagination{
 
 }
 
+.fondo{
+	background-image: url('../../../../assets/img/desenfocado-1.png');
+}
+
 #Contenido-tab{
 	padding: 3em;
 }
@@ -31,10 +35,10 @@ table th {
 #hoja_personal,#colapsa, .tab ,.card {
     padding: 0;
 }
-#hoja_personal a{
+/*#hoja_personal a{
   color: #31708f;
 
-}
+}*/
 #hoja_personal a:hover{
   text-decoration: none;
 }

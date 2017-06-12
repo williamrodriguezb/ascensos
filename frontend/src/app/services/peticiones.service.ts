@@ -21,7 +21,7 @@ export class peticionesService{
     // let params = 'anio='+listado.year+&categoria=suboficiales&turno=2';
     let params = 'anio='+listado.year+'&categoria='+listado.categoria+'&turno='+listado.turno;
     let headers = this.headers;
-    return  this._http.post(GLOBAL.url+'calificacion/listado?page='+page ,params,{headers:headers})
+    return  this._http.post('http://localhost:3977/api/ascensos/listadoPropuestos' ,params,{headers:headers})
       .map(res => res.json());
   }
   listado_consultaPersona(consultaPersona){
@@ -33,6 +33,8 @@ export class peticionesService{
    .map(res=>res.json())
    ;
  }
+
+
  persona(id){
    return this._http.get(GLOBAL.url+'calificacion/persona/'+id)
    .map(res=>res.json());
@@ -43,7 +45,7 @@ export class peticionesService{
         .map(res=>res.json());
  }
  folios(id){
-   return this._http.get(GLOBAL.url+'calificacion/persona/'+id+'/folios')
+   return this._http.get('http://localhost:3977/api/folios/id/'+id)
         .map(res=>res.json());
  }
  getEstimulos_represiones(id){
@@ -70,4 +72,11 @@ export class peticionesService{
    return this._http.get(GLOBAL.url+'calificacion/persona/'+id+'/licencias')
         .map(res=>res.json());
  }
+
+ getEstadoSalud(id){
+   return this._http.get('http://localhost:3977/api/ascensos/estadoSalud/'+id)
+    .map(res=>res.json())
+
+ }
+
 }
